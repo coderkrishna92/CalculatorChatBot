@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Policy;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -41,7 +42,7 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length != 4)
+            if (InputInts.Length != 3)
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
@@ -68,9 +69,29 @@
             }
             else
             {
-                // TODO: Have the success condition properly flushed out here
-                // Also the code to be implemented here - is the correct area
-                // calculation
+                var trapezoidArea = 0.5 * (InputInts[0] + InputInts[1]) * InputInts[2];
+                var trapAreaResultType = ResultTypes.TrapezoidArea;
+                var successResult = new OperationResults()
+                {
+                    Input = InputString,
+                    NumericalResult = trapezoidArea.ToString(),
+                    OutputMsg = $"Given the inputs: {InputString}, the area = {trapezoidArea}",
+                    OperationType = operationType.GetDescription(),
+                    ResultType = trapAreaResultType.GetDescription()
+                };
+
+                IMessageActivity successReply = context.MakeMessage();
+                var successAdaptiveCard = OperationResultsAdaptiveCard.GetCard(successResult);
+                successReply.Attachments = new List<Attachment>()
+                {
+                    new Attachment()
+                    {
+                        ContentType = "application/vnd.microsoft.card.adaptive",
+                        Content = JsonConvert.DeserializeObject(successAdaptiveCard)
+                    }
+                };
+
+                await context.PostAsync(successReply);
             }
         }
     }

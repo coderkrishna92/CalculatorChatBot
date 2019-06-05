@@ -1,4 +1,6 @@
-﻿namespace CalculatorChatBot.Dialogs
+﻿using System.Security.Policy;
+
+namespace CalculatorChatBot.Dialogs
 {
     public static class DialogMatches
     {
@@ -59,6 +61,7 @@
         public const string RectangleAreaDialogMatch = "rectangle-area";
         public const string CircleAreaDialogMatch = "circle-area";
         public const string CicleCircumferenceDialogMatch = "circumference";
+        public const string TrapezoidAreaDialogMatch = "trapezoid-area";
         #endregion
     }
 }

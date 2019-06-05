@@ -260,6 +260,14 @@
             var circumferenceResult = activity as Activity;
             context.Call(new CircumferenceDialog(circumferenceResult), EndDialog);
         }
+
+        [RegexPattern(DialogMatches.TrapezoidAreaDialogMatch)]
+        [ScorableGroup(1)]
+        public async Task RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
+        {
+            var trapezoidAreaResult = activity as Activity;
+            context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), EndDialog);
+        }
         #endregion
 
         #region Generic help
