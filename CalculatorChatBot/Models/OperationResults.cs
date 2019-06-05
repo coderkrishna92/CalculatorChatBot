@@ -97,7 +97,9 @@
         [Description("Square Perimeter")]
         SquarePerimeter,
         [Description("Circumference")]
-        Circumference
+        Circumference,
+        [Description("Area of a Trapezoid")]
+        TrapezoidArea
     }
 
     public class OperationResults
