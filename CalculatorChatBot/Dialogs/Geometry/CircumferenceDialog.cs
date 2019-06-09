@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="CircumferenceDialog.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
     using System.Collections.Generic;
@@ -11,26 +15,25 @@
 
     public class CircumferenceDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-        public string InputString { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public CircumferenceDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to 
-            // be performed
+            // Which properties are being set for the operations to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -40,14 +43,14 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length != 1)
+            if (this.InputInts.Length != 1)
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} may not be valid. Please try again",
+                    OutputMsg = $"The input list: {this.InputString} may not be valid. Please try again",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
@@ -65,14 +68,14 @@
 
                 await context.PostAsync(errorReply);
             }
-            else if (InputInts.Length == 1 && InputInts[0] == 0)
+            else if (this.InputInts.Length == 1 && this.InputInts[0] == 0)
             {
                 var noCircumError = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} may not be valid. Please try again",
+                    OutputMsg = $"The input list: {this.InputString} may not be valid. Please try again",
                     OperationType = operationType.GetDescription(),
                     ResultType = noCircumError.GetDescription()
                 };
@@ -92,14 +95,14 @@
             }
             else
             {
-                var circumferenceResult = Convert.ToDecimal(2 * Math.PI * InputInts[0]);
+                var circumferenceResult = Convert.ToDecimal(2 * Math.PI * this.InputInts[0]);
                 var successResultType = ResultTypes.Circumference;
                 var successResult = new OperationResults()
                 {
-                    Input = InputString, 
+                    Input = this.InputString,
                     NumericalResult = decimal.Round(circumferenceResult, 2).ToString(), 
-                    OutputMsg = $"Given the input: {InputString}, the circumference = {decimal.Round(circumferenceResult, 2).ToString()}", 
-                    OperationType = operationType.GetDescription(), 
+                    OutputMsg = $"Given the input: {this.InputString}, the circumference = {decimal.Round(circumferenceResult, 2).ToString()}", 
+                    OperationType = operationType.GetDescription(),
                     ResultType = successResultType.GetDescription()
                 };
 
