@@ -32,6 +32,15 @@ namespace CalculatorChatBot.BotMiddleware
             await NotifyTeam(connectorClient, welcomeTeamMessageCard, teamId);
         }
 
+        /// <summary>
+        /// Method that welcomes the user
+        /// </summary>
+        /// <param name="connectorClient">The connector client</param>
+        /// <param name="memberAddedId">The ID of the newly added member</param>
+        /// <param name="tenantId">The tenantID</param>
+        /// <param name="teamId">The teamID</param>
+        /// <param name="botDisplayName">The bot display name</param>
+        /// <returns>A unit of execution</returns>
         public static async Task WelcomeUser(ConnectorClient connectorClient, string memberAddedId, string tenantId, string teamId, string botDisplayName)
         {
             var teamName = await GetTeamNameAsync(connectorClient, teamId);
@@ -54,6 +63,12 @@ namespace CalculatorChatBot.BotMiddleware
             }
         }
 
+        /// <summary>
+        /// Method that returns the name of a team
+        /// </summary>
+        /// <param name="connectorClient">The connector client</param>
+        /// <param name="teamId">The teamID</param>
+        /// <returns>Name of the team</returns>
         private static async Task<string> GetTeamNameAsync(ConnectorClient connectorClient, string teamId)
         {
             var teamsConnectorClient = connectorClient.GetTeamsConnectorClient();
@@ -61,6 +76,13 @@ namespace CalculatorChatBot.BotMiddleware
             return teamDetailsResult.Name;
         }
 
+        /// <summary>
+        /// Method that will send out the message to the team
+        /// </summary>
+        /// <param name="connectorClient">The connector client</param>
+        /// <param name="cardToSend">The JSON string of the card</param>
+        /// <param name="teamId">The teamID</param>
+        /// <returns>A unit of execution</returns>
         private static async Task NotifyTeam(ConnectorClient connectorClient, string cardToSend, string teamId)
         {
             try
@@ -90,6 +112,14 @@ namespace CalculatorChatBot.BotMiddleware
             }
         }
 
+        /// <summary>
+        /// Method that will notify the user
+        /// </summary>
+        /// <param name="connectorClient">The connectorClient</param>
+        /// <param name="cardToSend">The JSON string of the adaptive card to send</param>
+        /// <param name="user">The user object</param>
+        /// <param name="tenantId">The tenantID</param>
+        /// <returns>A unit of execution</returns>
         private static async Task NotifyUser(ConnectorClient connectorClient, string cardToSend, ChannelAccount user, string tenantId)
         {
             try

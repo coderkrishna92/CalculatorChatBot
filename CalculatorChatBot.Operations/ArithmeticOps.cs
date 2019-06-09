@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Operations
+﻿// <copyright file="ArithmeticOps.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Operations
 {
     using System;
 

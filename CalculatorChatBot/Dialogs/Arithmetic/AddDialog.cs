@@ -1,13 +1,17 @@
-﻿namespace CalculatorChatBot.Dialogs.Arithmetic
+﻿// <copyright file="AddDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Arithmetic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// This class will produce the overall sum of a list of numbers. If the list is too short, the 
@@ -16,28 +20,23 @@
     [Serializable]
     public class AddDialog : IDialog<object>
     {
-        #region Dialog properties
+        public AddDialog(Activity result)
+        {
+            string[] incomingInfo = result.Text.Split(' ');
+
+            if (!string.IsNullOrEmpty(incomingInfo[1]))
+            {
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
+            }
+        }
+
         public string[] InputStringArray { get; set; }
 
         public string InputString { get; set; }
 
-        public int[] InputInts { get; set; } 
-        #endregion
-
-        public AddDialog(Activity result)
-        {
-            // Extract the incoming text/message
-            string[] incomingInfo = result.Text.Split(' ');
-
-            // What is the properties to be set for the necessary 
-            // operation to be performed
-            if (!string.IsNullOrEmpty(incomingInfo[1]))
-            {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse); 
-            }
-        }
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -48,27 +47,24 @@
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (InputInts.Length > 1)
+            if (this.InputInts.Length > 1)
             {
-                #region Before using adaptive cards
-                int sum = InputInts[0];
-                for (int i = 1; i < InputInts.Length; i++)
+                int sum = this.InputInts[0];
+                for (int i = 1; i < this.InputInts.Length; i++)
                 {
-                    sum += InputInts[i];
+                    sum += this.InputInts[i];
                 }
-                #endregion
 
                 var resType = ResultTypes.Sum;
                 var results = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = sum.ToString(),
-                    OutputMsg = $"Given the list of {InputString}; the sum = {sum}",
+                    OutputMsg = $"Given the list of {this.InputString}; the sum = {sum}",
                     OperationType = calculationType.GetDescription(),
                     ResultType = resType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 IMessageActivity reply = context.MakeMessage();
                 var resultsAdaptiveCard = OperationResultsAdaptiveCard.GetCard(results);
                 reply.Attachments = new List<Attachment>()
@@ -79,24 +75,20 @@
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(reply);
             }
             else
             {
                 var errorResType = ResultTypes.Error;
-                // Building the error results object for the creation of the error card
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} is too short - please provide more numbers",
+                    OutputMsg = $"The input list: {this.InputString} is too short - please provide more numbers",
                     OperationType = calculationType.GetDescription(),
                     ResultType = errorResType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 IMessageActivity errorReply = context.MakeMessage();
                 var errorAdaptiveCard = OperationErrorAdaptiveCard.GetCard(errorResults);
                 errorReply.Attachments = new List<Attachment>()
@@ -107,14 +99,12 @@
                         Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
                     }
                 };
-                #endregion
 
-                // Send the message that you need more elements to calculate the sum
                 await context.PostAsync(errorReply);
             }
 
             // Return back to the RootDialog - popping this child dialog off the stack
-            context.Done<object>(null); 
+            context.Done<object>(null);
         }
     }
 }
