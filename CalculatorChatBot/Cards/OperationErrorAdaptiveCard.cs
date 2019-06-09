@@ -1,11 +1,12 @@
-﻿namespace CalculatorChatBot.Cards
+﻿// <copyright file="OperationErrorAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Cards
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Hosting;
     using System.IO;
+    using System.Web.Hosting;
     using CalculatorChatBot.Models;
     using CalculatorChatBot.Properties;
 

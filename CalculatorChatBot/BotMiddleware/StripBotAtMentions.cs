@@ -1,10 +1,19 @@
-﻿namespace CalculatorChatBot.BotMiddleware
+﻿// <copyright file="StripBotAtMentions.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.BotMiddleware
 {
     using System;
-    using Microsoft.Bot.Connector; 
+    using Microsoft.Bot.Connector;
 
     public class StripBotAtMentions
     {
+        /// <summary>
+        /// Removes the @mention of the bot to be able to correctly parse the incoming message
+        /// </summary>
+        /// <param name="activity">Incoming activity</param>
+        /// <returns>The activity which includes the actual message</returns>
         public static IMessageActivity StripAtMentionText(IMessageActivity activity)
         {
             if (activity == null)

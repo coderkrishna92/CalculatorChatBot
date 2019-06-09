@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot
+﻿// <copyright file="MessagesController.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot
 {
     using System;
     using System.Diagnostics;
@@ -20,6 +24,8 @@
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
         /// </summary>
+        /// <returns> A unit of execution </returns>
+        /// <param name="activity">The incoming activity</param>
         [HttpPost]
         [Route("api/messages")]
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
@@ -28,17 +34,23 @@
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    await HandleTextMessageAsync(connectorClient, activity);
+                    await this.HandleTextMessageAsync(connectorClient, activity);
                 }
                 else
                 {
-                    await HandleSystemMessageAsync(connectorClient, activity);
+                    await this.HandleSystemMessageAsync(connectorClient, activity);
                 }
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return this.Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// This is called each time there is a text message being sent to the bot
+        /// </summary>
+        /// <param name="client">The connectorClient</param>
+        /// <param name="activity">The incoming activity</param>
+        /// <returns>A unit of execution</returns>
         private async Task HandleTextMessageAsync(ConnectorClient client, Activity activity)
         {
             // This is used for removing the '@botName' from the incoming message so it
@@ -56,6 +68,12 @@
             }
         }
 
+        /// <summary>
+        /// This method handles system activity
+        /// </summary>
+        /// <param name="connectorClient">The connectorClient</param>
+        /// <param name="message">The message that is coming in</param>
+        /// <returns>A unit of execution</returns>
         private async Task HandleSystemMessageAsync(ConnectorClient connectorClient, Activity message)
         {
             try

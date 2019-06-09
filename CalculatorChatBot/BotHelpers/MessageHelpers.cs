@@ -1,16 +1,20 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Bot.Connector;
-using Microsoft.Bot.Connector.Teams.Models;
+﻿// <copyright file="MessageHelpers.cs" company="XYZ Company LLC">
+// Copyright (c) XYZ Company LLC. All rights reserved.
+// </copyright>
 
 namespace CalculatorChatBot.BotHelpers
 {
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Connector;
+    using Microsoft.Bot.Connector.Teams.Models;
+
     public static class MessageHelpers
     {
         public static async Task SendMessage(IDialogContext context, string message)
         {
-            await context.PostAsync(message); 
+            await context.PostAsync(message);
         }
 
         public static string CreateHelpMessage(string firstLine)
@@ -22,11 +26,12 @@ namespace CalculatorChatBot.BotHelpers
             return sb.ToString();
         }
 
-        public static async Task SendOneToOneWelcomeMessage(ConnectorClient connector, 
-                                                            TeamsChannelData channelData,
-                                                            ChannelAccount botAccount, 
-                                                            ChannelAccount userAccount, 
-                                                            string tenantId)
+        public static async Task SendOneToOneWelcomeMessage(
+            ConnectorClient connector,
+            TeamsChannelData channelData,
+            ChannelAccount botAccount,
+            ChannelAccount userAccount,
+            string tenantId)
         {
             // Construct the message here
             string welcomeMessage = CreateHelpMessage($"The team {channelData.Team.Name} has added the Calculator Chat Bot - helping with some basic math stuff.");
@@ -37,8 +42,8 @@ namespace CalculatorChatBot.BotHelpers
             // Construct the message to post to the conversation
             Activity newActivity = new Activity
             {
-                Text = welcomeMessage, 
-                Type = ActivityTypes.Message, 
+                Text = welcomeMessage,
+                Type = ActivityTypes.Message,
                 Conversation = new ConversationAccount
                 {
                     Id = response.Id

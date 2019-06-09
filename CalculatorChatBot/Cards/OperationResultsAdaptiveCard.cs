@@ -1,10 +1,14 @@
-﻿namespace CalculatorChatBot.Cards
+﻿// <copyright file="OperationResultsAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Cards
 {
-    using CalculatorChatBot.Models;
-    using CalculatorChatBot.Properties;
     using System.Collections.Generic;
     using System.IO;
     using System.Web.Hosting;
+    using CalculatorChatBot.Models;
+    using CalculatorChatBot.Properties;
 
     public class OperationResultsAdaptiveCard
     {
