@@ -1,14 +1,13 @@
 ﻿namespace CalculatorChatBot.Dialogs.Geometry
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Security.Policy;
-    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class TrapezoidAreaDialog : IDialog<object>
     {
