@@ -1,27 +1,30 @@
-﻿namespace CalculatorChatBot.Dialogs
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs
 {
+    using System;
+    using System.Threading.Tasks;
     using CalculatorChatBot.BotHelpers;
-    using Microsoft.Bot.Builder.Dialogs;
     using CalculatorChatBot.Dialogs.Arithmetic;
+    using CalculatorChatBot.Dialogs.Geometry;
     using CalculatorChatBot.Dialogs.Statistics;
+    using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Builder.Scorables;
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams.Models;
-    using System;
-    using System.Threading.Tasks;
-    using CalculatorChatBot.Dialogs.Geometry;
 
     [Serializable]
     public class RootDialog : DispatchDialog
     {
-        #region Hello World like functionality
         [RegexPattern(DialogMatches.HelloDialogMatch)]
         [RegexPattern(DialogMatches.HiDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunHelloDialog(IDialogContext context, IActivity activity)
         {
             var helloResult = activity as Activity;
-            context.Call(new HelloDialog(helloResult), EndDialog);
+            context.Call(new HelloDialog(helloResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.GreetEveryoneDialogMatch)]
@@ -31,7 +34,7 @@
             var channelData = context.Activity.GetChannelData<TeamsChannelData>();
             if (channelData.Team != null)
             {
-                context.Call(new GreetDialog(), EndDialog);
+                context.Call(new GreetDialog(), this.EndDialog);
             }
             else
             {
@@ -39,9 +42,7 @@
                 context.Done<object>(null);
             }
         }
-        #endregion
 
-        #region Arithmetic Operations
         [RegexPattern(DialogMatches.AddDialogMatch)]
         [RegexPattern(DialogMatches.AdditionDialogMatch)]
         [RegexPattern(DialogMatches.SumDialogMatch)]
@@ -49,7 +50,7 @@
         public async Task RunAddDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
-            context.Call(new AddDialog(result), EndDialog);
+            context.Call(new AddDialog(result), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.SubtractDialogMatch)]
@@ -59,7 +60,7 @@
         public async Task RunSubtractDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
-            context.Call(new SubtractDialog(result), EndDialog);
+            context.Call(new SubtractDialog(result), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.ProductDialogMatch)]
@@ -69,7 +70,7 @@
         public async Task RunMultiplyDialog(IDialogContext context, IActivity activity)
         {
             var multiResult = activity as Activity;
-            context.Call(new MultiplyDialog(multiResult), EndDialog);
+            context.Call(new MultiplyDialog(multiResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.DivideDialogMatch)]
@@ -79,7 +80,7 @@
         public async Task RunDivideDialog(IDialogContext context, IActivity activity)
         {
             var divideResult = activity as Activity;
-            context.Call(new DivideDialog(divideResult), EndDialog);
+            context.Call(new DivideDialog(divideResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RemainderDialogMatch)]
@@ -89,11 +90,9 @@
         public async Task RunModuloDialog(IDialogContext context, IActivity activity)
         {
             var modResult = activity as Activity;
-            context.Call(new ModuloDialog(modResult), EndDialog);
+            context.Call(new ModuloDialog(modResult), this.EndDialog);
         }
-        #endregion
 
-        #region Statistical Operations
         /// <summary>
         /// This function calls the dialog to calculate the mean/average
         /// </summary>
@@ -103,7 +102,7 @@
         public async Task RunAverageDialog(IDialogContext context, IActivity activity)
         {
             var averageActivity = activity as Activity;
-            context.Call(new AverageDialog(averageActivity), EndDialog);
+            context.Call(new AverageDialog(averageActivity), this.EndDialog);
         }
 
         /// <summary>
@@ -114,7 +113,7 @@
         public async Task RunMedianDialog(IDialogContext context, IActivity activity)
         {
             var medianActivity = activity as Activity;
-            context.Call(new MedianDialog(medianActivity), EndDialog);
+            context.Call(new MedianDialog(medianActivity), this.EndDialog);
         }
 
         /// <summary>
@@ -125,7 +124,7 @@
         public async Task RunModeDialog(IDialogContext context, IActivity activity)
         {
             var modeActivity = activity as Activity;
-            context.Call(new ModeDialog(modeActivity), EndDialog); 
+            context.Call(new ModeDialog(modeActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RangeDialogMatch1)]
@@ -133,7 +132,7 @@
         public async Task RunRangeDialog(IDialogContext context, IActivity activity)
         {
             var rangeActivity = activity as Activity;
-            context.Call(new RangeDialog(rangeActivity), EndDialog);
+            context.Call(new RangeDialog(rangeActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.VarianceDialogMatch)]
@@ -141,7 +140,7 @@
         public async Task RunVarianceDialog(IDialogContext context, IActivity activity)
         {
             var varianceActivity = activity as Activity;
-            context.Call(new VarianceDialog(varianceActivity), EndDialog);
+            context.Call(new VarianceDialog(varianceActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.StandardDeviationDialogMatch1)]
@@ -149,7 +148,7 @@
         public async Task RunStandardDeviationDialog(IDialogContext context, IActivity activity)
         {
             var standardDevActivity = activity as Activity;
-            context.Call(new StandardDeviationDialog(standardDevActivity), EndDialog); 
+            context.Call(new StandardDeviationDialog(standardDevActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.GeometricMeanDialogMatch)]
@@ -157,7 +156,7 @@
         public async Task RunGeometricMeanDialog(IDialogContext context, IActivity activity)
         {
             var geometricMeanActivity = activity as Activity;
-            context.Call(new GeometricMeanDialog(geometricMeanActivity), EndDialog); 
+            context.Call(new GeometricMeanDialog(geometricMeanActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RmsDialogMatch)]
@@ -165,18 +164,16 @@
         public async Task RunRmsDialog(IDialogContext context, IActivity activity)
         {
             var rmsActivity = activity as Activity;
-            context.Call(new RmsDialog(rmsActivity), EndDialog);
+            context.Call(new RmsDialog(rmsActivity), this.EndDialog);
         }
-        #endregion
 
-        #region Geometric Operations
         [RegexPattern(DialogMatches.PythagorasDialogMatch)]
         [RegexPattern(DialogMatches.PythagoreanDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunPythagoreanDialog(IDialogContext context, IActivity activity)
         {
             var pythagResult = activity as Activity;
-            context.Call(new PythagoreanDialog(pythagResult), EndDialog);
+            context.Call(new PythagoreanDialog(pythagResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.NumberOfRootsDialogMatch)]
@@ -185,7 +182,7 @@
         public async Task RunDiscriminantDialog(IDialogContext context, IActivity activity)
         {
             var discrimResult = activity as Activity;
-            context.Call(new DiscriminantDialog(discrimResult), EndDialog);
+            context.Call(new DiscriminantDialog(discrimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.EquationRootsDialogMatch)]
@@ -194,7 +191,7 @@
         public async Task RunQuadraticSolverDialog(IDialogContext context, IActivity activity)
         {
             var quadSolverResult = activity as Activity;
-            context.Call(new QuadraticSolverDialog(quadSolverResult), EndDialog);
+            context.Call(new QuadraticSolverDialog(quadSolverResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.MidPointDialogMatch)]
@@ -202,7 +199,7 @@
         public async Task RunMidpointDialog(IDialogContext context, IActivity activity)
         {
             var midPointResult = activity as Activity;
-            context.Call(new MidpointDialog(midPointResult), EndDialog); 
+            context.Call(new MidpointDialog(midPointResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.DistanceDialogMatch)]
@@ -218,7 +215,7 @@
         public async Task RunTriangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var triangleAreaResult = activity as Activity;
-            context.Call(new TriangleAreaDialog(triangleAreaResult), EndDialog);
+            context.Call(new TriangleAreaDialog(triangleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.TrianglePerimDialogMatch)]
@@ -226,7 +223,7 @@
         public async Task RunTrianglePerimDialog(IDialogContext context, IActivity activity)
         {
             var trianglePerimResult = activity as Activity;
-            context.Call(new TrianglePerimDialog(trianglePerimResult), EndDialog);
+            context.Call(new TrianglePerimDialog(trianglePerimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.QuadrilateralPerimDialogMatch)]
@@ -234,7 +231,7 @@
         public async Task RunQuadPerimDialog(IDialogContext context, IActivity activity)
         {
             var quadPerimResult = activity as Activity;
-            context.Call(new QuadrilateralPerimDialog(quadPerimResult), EndDialog);
+            context.Call(new QuadrilateralPerimDialog(quadPerimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RectangleAreaDialogMatch)]
@@ -242,7 +239,7 @@
         public async Task RunRectangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var rectangleAreaResult = activity as Activity;
-            context.Call(new RectangleAreaDialog(rectangleAreaResult), EndDialog);
+            context.Call(new RectangleAreaDialog(rectangleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.CircleAreaDialogMatch)]
@@ -250,7 +247,7 @@
         public async Task RunCircleAreaDialog(IDialogContext context, IActivity activity)
         {
             var circleAreaResult = activity as Activity;
-            context.Call(new CircleAreaDialog(circleAreaResult), EndDialog);
+            context.Call(new CircleAreaDialog(circleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.CicleCircumferenceDialogMatch)]
@@ -258,7 +255,7 @@
         public async Task RunCircumferenceDialog(IDialogContext context, IActivity activity)
         {
             var circumferenceResult = activity as Activity;
-            context.Call(new CircumferenceDialog(circumferenceResult), EndDialog);
+            context.Call(new CircumferenceDialog(circumferenceResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.TrapezoidAreaDialogMatch)]
@@ -266,20 +263,17 @@
         public async Task RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
         {
             var trapezoidAreaResult = activity as Activity;
-            context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), EndDialog);
+            context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), this.EndDialog);
         }
-        #endregion
 
-        #region Generic help
         [RegexPattern(DialogMatches.HelpDialogMatch)]
         [ScorableGroup(1)]
         public async Task GetHelp(IDialogContext context, IActivity activity)
         {
             // Send the generic help message
-            await context.PostAsync(MessageHelpers.CreateHelpMessage(""));
+            await context.PostAsync(MessageHelpers.CreateHelpMessage(string.Empty));
             context.Done<object>(null);
-        } 
-        #endregion
+        }
 
         [MethodBind]
         [ScorableGroup(2)]
@@ -287,7 +281,7 @@
         {
             // Send message
             await context.PostAsync("I'm sorry, but I didn't understand.");
-            context.Done<object>(null); 
+            context.Done<object>(null);
         }
 
         /// <summary>

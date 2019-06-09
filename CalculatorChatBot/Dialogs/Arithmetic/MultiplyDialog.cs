@@ -1,25 +1,21 @@
-﻿namespace CalculatorChatBot.Dialogs.Arithmetic
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Arithmetic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class MultiplyDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public MultiplyDialog(Activity incomingActivity)
         {
             // Extract the incoming text/message
@@ -29,11 +25,17 @@
             // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -43,25 +45,24 @@
             }
 
             var operationType = CalculationTypes.Arithmetic;
-            if (InputInts.Length > 1)
+            if (this.InputInts.Length > 1)
             {
                 var resultType = ResultTypes.Product;
-                int product = InputInts[0];
-                for (int i = 1; i < InputInts.Length; i++)
+                int product = this.InputInts[0];
+                for (int i = 1; i < this.InputInts.Length; i++)
                 {
-                    product *= InputInts[i];
+                    product *= this.InputInts[i];
                 }
 
                 var results = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = product.ToString(),
-                    OutputMsg = $"Given the list of {InputString}; the product = {product}",
+                    OutputMsg = $"Given the list of {this.InputString}; the product = {product}",
                     OperationType = operationType.GetDescription(),
                     ResultType = resultType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 IMessageActivity reply = context.MakeMessage();
                 var resultsAdaptiveCard = OperationResultsAdaptiveCard.GetCard(results);
                 reply.Attachments = new List<Attachment>()
@@ -72,8 +73,6 @@
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(reply);
             }
             else
@@ -81,14 +80,13 @@
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} is too short - please provide more numbers",
+                    OutputMsg = $"The input list: {this.InputString} is too short - please provide more numbers",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 var errorAdaptiveCard = OperationErrorAdaptiveCard.GetCard(errorResults);
                 IMessageActivity errorReply = context.MakeMessage();
                 errorReply.Attachments = new List<Attachment>()
@@ -99,9 +97,7 @@
                         Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
                     }
                 };
-                #endregion
 
-                // Send the message that you need more elements to calculate the sum
                 await context.PostAsync(errorReply);
             }
 

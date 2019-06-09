@@ -1,25 +1,21 @@
-﻿namespace CalculatorChatBot.Dialogs.Arithmetic
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Arithmetic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using CalculatorChatBot.Cards;
+    using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
-    using System.Threading.Tasks;
-    using System;
-    using CalculatorChatBot.Models;
-    using System.Collections.Generic;
-    using CalculatorChatBot.Cards;
     using Newtonsoft.Json;
 
     [Serializable]
     public class DivideDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public DivideDialog(Activity incomingActivity)
         {
             // Parsing through the necessary incoming text
@@ -29,11 +25,17 @@
             // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -44,33 +46,30 @@
 
             var operationType = CalculationTypes.Arithmetic;
             decimal quotient = 0;
-            if (InputInts.Length == 2 && InputInts[1] != 0)
+            if (this.InputInts.Length == 2 && this.InputInts[1] != 0)
             {
-                quotient = Convert.ToDecimal(InputInts[0]) / InputInts[1];
+                quotient = Convert.ToDecimal(this.InputInts[0]) / this.InputInts[1];
                 var resultsType = ResultTypes.Quotient;
 
                 var results = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = decimal.Round(quotient, 2).ToString(),
-                    OutputMsg = $"Given the list of {InputString}; the quotient = {decimal.Round(quotient, 2)}",
+                    OutputMsg = $"Given the list of {this.InputString}; the quotient = {decimal.Round(quotient, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = resultsType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 IMessageActivity reply = context.MakeMessage();
                 var resultsCard = OperationResultsAdaptiveCard.GetCard(results);
                 reply.Attachments = new List<Attachment>()
                 {
                     new Attachment()
                     {
-                        ContentType = "application/vnd.microsoft.card.adaptive", 
+                        ContentType = "application/vnd.microsoft.card.adaptive",
                         Content = JsonConvert.DeserializeObject(resultsCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(reply);
             }
             else
@@ -78,14 +77,13 @@
                 var errorType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
                     OutputMsg = "The list may be too long, or one of the elements could be 0 - please try again later.",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorType.GetDescription()
                 };
 
-                #region Creating the adaptive card
                 IMessageActivity errorReply = context.MakeMessage();
                 var errorResultsCard = OperationErrorAdaptiveCard.GetCard(errorResults);
                 errorReply.Attachments = new List<Attachment>()
@@ -96,9 +94,7 @@
                         Content = JsonConvert.DeserializeObject(errorResultsCard)
                     }
                 };
-                #endregion
 
-                // Send the message that you need more elements to calculate the sum
                 await context.PostAsync(errorReply);
             }
 
