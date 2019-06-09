@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Cards
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Cards
 {
     using System;
     using System.Collections.Generic;
