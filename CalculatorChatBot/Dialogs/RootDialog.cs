@@ -1,29 +1,40 @@
 ﻿namespace CalculatorChatBot.Dialogs
 {
+    using System;
+    using System.Threading.Tasks;
     using CalculatorChatBot.BotHelpers;
-    using Microsoft.Bot.Builder.Dialogs;
     using CalculatorChatBot.Dialogs.Arithmetic;
+    using CalculatorChatBot.Dialogs.Geometry;
     using CalculatorChatBot.Dialogs.Statistics;
+    using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Builder.Scorables;
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams.Models;
-    using System;
-    using System.Threading.Tasks;
-    using CalculatorChatBot.Dialogs.Geometry;
 
     [Serializable]
     public class RootDialog : DispatchDialog
     {
-        #region Hello World like functionality
+        /// <summary>
+        /// The method that will run the hello dialog
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.HelloDialogMatch)]
         [RegexPattern(DialogMatches.HiDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunHelloDialog(IDialogContext context, IActivity activity)
         {
             var helloResult = activity as Activity;
-            context.Call(new HelloDialog(helloResult), EndDialog);
+            context.Call(new HelloDialog(helloResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// A method that would run the greeting dialog
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.GreetEveryoneDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunGreetDialog(IDialogContext context, IActivity activity)
@@ -31,7 +42,7 @@
             var channelData = context.Activity.GetChannelData<TeamsChannelData>();
             if (channelData.Team != null)
             {
-                context.Call(new GreetDialog(), EndDialog);
+                context.Call(new GreetDialog(), this.EndDialog);
             }
             else
             {
@@ -39,9 +50,13 @@
                 context.Done<object>(null);
             }
         }
-        #endregion
 
-        #region Arithmetic Operations
+        /// <summary>
+        /// Method that would run the add dialog
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.AddDialogMatch)]
         [RegexPattern(DialogMatches.AdditionDialogMatch)]
         [RegexPattern(DialogMatches.SumDialogMatch)]
@@ -49,9 +64,15 @@
         public async Task RunAddDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
-            context.Call(new AddDialog(result), EndDialog);
+            context.Call(new AddDialog(result), this.EndDialog);
         }
 
+        /// <summary>
+        /// The method that runs the subtract dialog
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.SubtractDialogMatch)]
         [RegexPattern(DialogMatches.SubtractionDialogMatch)]
         [RegexPattern(DialogMatches.DifferenceDialogMatch)]
@@ -59,9 +80,15 @@
         public async Task RunSubtractDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
-            context.Call(new SubtractDialog(result), EndDialog);
+            context.Call(new SubtractDialog(result), this.EndDialog);
         }
 
+        /// <summary>
+        /// The method that will run the product dialog
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.ProductDialogMatch)]
         [RegexPattern(DialogMatches.MultiplicationDialogMatch)]
         [RegexPattern(DialogMatches.MultiplyDialogMatch)]
@@ -69,9 +96,15 @@
         public async Task RunMultiplyDialog(IDialogContext context, IActivity activity)
         {
             var multiResult = activity as Activity;
-            context.Call(new MultiplyDialog(multiResult), EndDialog);
+            context.Call(new MultiplyDialog(multiResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will calculate the division
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.DivideDialogMatch)]
         [RegexPattern(DialogMatches.DivisionDialogMatch)]
         [RegexPattern(DialogMatches.QuotientDialogMatch)]
@@ -79,9 +112,15 @@
         public async Task RunDivideDialog(IDialogContext context, IActivity activity)
         {
             var divideResult = activity as Activity;
-            context.Call(new DivideDialog(divideResult), EndDialog);
+            context.Call(new DivideDialog(divideResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that fires off the logic to calculator the remainder among a list of numbers
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RemainderDialogMatch)]
         [RegexPattern(DialogMatches.ModuloDialogMatch)]
         [RegexPattern(DialogMatches.ModulusDialogMatch)]
@@ -89,59 +128,78 @@
         public async Task RunModuloDialog(IDialogContext context, IActivity activity)
         {
             var modResult = activity as Activity;
-            context.Call(new ModuloDialog(modResult), EndDialog);
+            context.Call(new ModuloDialog(modResult), this.EndDialog);
         }
-        #endregion
 
-        #region Statistical Operations
         /// <summary>
         /// This function calls the dialog to calculate the mean/average
         /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.AverageDialogMatch)]
         [RegexPattern(DialogMatches.MeanDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunAverageDialog(IDialogContext context, IActivity activity)
         {
             var averageActivity = activity as Activity;
-            context.Call(new AverageDialog(averageActivity), EndDialog);
+            context.Call(new AverageDialog(averageActivity), this.EndDialog);
         }
 
         /// <summary>
         /// This will call the dialog to calculate the median
         /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.MedianDialogMatch1)]
         [ScorableGroup(1)]
         public async Task RunMedianDialog(IDialogContext context, IActivity activity)
         {
             var medianActivity = activity as Activity;
-            context.Call(new MedianDialog(medianActivity), EndDialog);
+            context.Call(new MedianDialog(medianActivity), this.EndDialog);
         }
 
         /// <summary>
         /// This function will call the dialog to calculate the mode
         /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.ModeDialogMatch1)]
         [ScorableGroup(1)]
         public async Task RunModeDialog(IDialogContext context, IActivity activity)
         {
             var modeActivity = activity as Activity;
-            context.Call(new ModeDialog(modeActivity), EndDialog); 
+            context.Call(new ModeDialog(modeActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// The method that will fire off the range calculation
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RangeDialogMatch1)]
         [ScorableGroup(1)]
         public async Task RunRangeDialog(IDialogContext context, IActivity activity)
         {
             var rangeActivity = activity as Activity;
-            context.Call(new RangeDialog(rangeActivity), EndDialog);
+            context.Call(new RangeDialog(rangeActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the dialog to calculate the variance among a list of numbers
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.VarianceDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunVarianceDialog(IDialogContext context, IActivity activity)
         {
             var varianceActivity = activity as Activity;
-            context.Call(new VarianceDialog(varianceActivity), EndDialog);
+            context.Call(new VarianceDialog(varianceActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.StandardDeviationDialogMatch1)]
@@ -149,7 +207,7 @@
         public async Task RunStandardDeviationDialog(IDialogContext context, IActivity activity)
         {
             var standardDevActivity = activity as Activity;
-            context.Call(new StandardDeviationDialog(standardDevActivity), EndDialog); 
+            context.Call(new StandardDeviationDialog(standardDevActivity), EndDialog);
         }
 
         [RegexPattern(DialogMatches.GeometricMeanDialogMatch)]
@@ -157,7 +215,7 @@
         public async Task RunGeometricMeanDialog(IDialogContext context, IActivity activity)
         {
             var geometricMeanActivity = activity as Activity;
-            context.Call(new GeometricMeanDialog(geometricMeanActivity), EndDialog); 
+            context.Call(new GeometricMeanDialog(geometricMeanActivity), EndDialog);
         }
 
         [RegexPattern(DialogMatches.RmsDialogMatch)]
@@ -167,9 +225,7 @@
             var rmsActivity = activity as Activity;
             context.Call(new RmsDialog(rmsActivity), EndDialog);
         }
-        #endregion
 
-        #region Geometric Operations
         [RegexPattern(DialogMatches.PythagorasDialogMatch)]
         [RegexPattern(DialogMatches.PythagoreanDialogMatch)]
         [ScorableGroup(1)]
@@ -268,32 +324,37 @@
             var trapezoidAreaResult = activity as Activity;
             context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), EndDialog);
         }
-        #endregion
 
-        #region Generic help
         [RegexPattern(DialogMatches.HelpDialogMatch)]
         [ScorableGroup(1)]
         public async Task GetHelp(IDialogContext context, IActivity activity)
         {
-            // Send the generic help message
-            await context.PostAsync(MessageHelpers.CreateHelpMessage(""));
+            await context.PostAsync(MessageHelpers.CreateHelpMessage(string.Empty));
             context.Done<object>(null);
-        } 
-        #endregion
+        }
 
+        /// <summary>
+        /// A default method that will be sent out as part of the I don't know
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [MethodBind]
         [ScorableGroup(2)]
         public async Task Default(IDialogContext context, IActivity activity)
         {
             // Send message
             await context.PostAsync("I'm sorry, but I didn't understand.");
-            context.Done<object>(null); 
+            context.Done<object>(null);
         }
 
         /// <summary>
         /// This method would always ensure that the RootDialog would be popped off
         /// the DialogStack whenever the bot is shutting down
         /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="result">The awaitable object</param>
+        /// <returns>A unit of execution</returns>
         public async Task EndDialog(IDialogContext context, IAwaitable<object> result)
         {
             context.Done<object>(null);

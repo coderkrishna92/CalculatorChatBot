@@ -1,11 +1,15 @@
-﻿namespace CalculatorChatBot.Dialogs
+﻿// <copyright file="GreetDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs
 {
-    using Microsoft.Bot.Builder.Dialogs;
-    using Microsoft.Bot.Connector;
-    using Microsoft.Bot.Connector.Teams.Models;
     using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Connector;
+    using Microsoft.Bot.Connector.Teams.Models;
 
     [Serializable]
     public class GreetDialog : IDialog<object>
@@ -18,7 +22,7 @@
             }
 
             // Creating the connector client which will be used to make requests
-            // for roster and conversation data. 
+            // for roster and conversation data.
             var connectorClient = new ConnectorClient(new Uri(context.Activity.ServiceUrl));
 
             // Fetching the members of the conversation and data from the current conversation
