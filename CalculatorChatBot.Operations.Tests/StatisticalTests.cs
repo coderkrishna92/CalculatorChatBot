@@ -58,6 +58,7 @@
                 {
                     Assert.AreEqual(testModes[i], expectedModes[i]);
                 }
+
                 Console.Write("The ModeTest calculations pass");
             }
         }
