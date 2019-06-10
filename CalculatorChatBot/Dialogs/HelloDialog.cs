@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Dialogs
+﻿// <copyright file="HelloDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs
 {
     using System;
     using System.Threading.Tasks;
@@ -42,11 +46,9 @@
             }
             else
             {
-                // Send the message 'Hello!' once
                 await context.PostAsync("Hello!");
             }
 
-            // Return back to the RootDialog - popping this child dialog off the stack
             context.Done<object>(null);
         }
     }

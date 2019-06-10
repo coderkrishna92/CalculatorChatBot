@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Dialogs
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs
 {
     using System;
     using System.Threading.Tasks;
@@ -207,7 +211,7 @@
         public async Task RunStandardDeviationDialog(IDialogContext context, IActivity activity)
         {
             var standardDevActivity = activity as Activity;
-            context.Call(new StandardDeviationDialog(standardDevActivity), EndDialog);
+            context.Call(new StandardDeviationDialog(standardDevActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.GeometricMeanDialogMatch)]
@@ -215,7 +219,7 @@
         public async Task RunGeometricMeanDialog(IDialogContext context, IActivity activity)
         {
             var geometricMeanActivity = activity as Activity;
-            context.Call(new GeometricMeanDialog(geometricMeanActivity), EndDialog);
+            context.Call(new GeometricMeanDialog(geometricMeanActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RmsDialogMatch)]
@@ -223,7 +227,7 @@
         public async Task RunRmsDialog(IDialogContext context, IActivity activity)
         {
             var rmsActivity = activity as Activity;
-            context.Call(new RmsDialog(rmsActivity), EndDialog);
+            context.Call(new RmsDialog(rmsActivity), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.PythagorasDialogMatch)]
@@ -232,7 +236,7 @@
         public async Task RunPythagoreanDialog(IDialogContext context, IActivity activity)
         {
             var pythagResult = activity as Activity;
-            context.Call(new PythagoreanDialog(pythagResult), EndDialog);
+            context.Call(new PythagoreanDialog(pythagResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.NumberOfRootsDialogMatch)]
@@ -241,7 +245,7 @@
         public async Task RunDiscriminantDialog(IDialogContext context, IActivity activity)
         {
             var discrimResult = activity as Activity;
-            context.Call(new DiscriminantDialog(discrimResult), EndDialog);
+            context.Call(new DiscriminantDialog(discrimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.EquationRootsDialogMatch)]
@@ -250,7 +254,7 @@
         public async Task RunQuadraticSolverDialog(IDialogContext context, IActivity activity)
         {
             var quadSolverResult = activity as Activity;
-            context.Call(new QuadraticSolverDialog(quadSolverResult), EndDialog);
+            context.Call(new QuadraticSolverDialog(quadSolverResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.MidPointDialogMatch)]
@@ -258,7 +262,7 @@
         public async Task RunMidpointDialog(IDialogContext context, IActivity activity)
         {
             var midPointResult = activity as Activity;
-            context.Call(new MidpointDialog(midPointResult), EndDialog); 
+            context.Call(new MidpointDialog(midPointResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.DistanceDialogMatch)]
@@ -274,7 +278,7 @@
         public async Task RunTriangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var triangleAreaResult = activity as Activity;
-            context.Call(new TriangleAreaDialog(triangleAreaResult), EndDialog);
+            context.Call(new TriangleAreaDialog(triangleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.TrianglePerimDialogMatch)]
@@ -282,7 +286,7 @@
         public async Task RunTrianglePerimDialog(IDialogContext context, IActivity activity)
         {
             var trianglePerimResult = activity as Activity;
-            context.Call(new TrianglePerimDialog(trianglePerimResult), EndDialog);
+            context.Call(new TrianglePerimDialog(trianglePerimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.QuadrilateralPerimDialogMatch)]
@@ -290,7 +294,7 @@
         public async Task RunQuadPerimDialog(IDialogContext context, IActivity activity)
         {
             var quadPerimResult = activity as Activity;
-            context.Call(new QuadrilateralPerimDialog(quadPerimResult), EndDialog);
+            context.Call(new QuadrilateralPerimDialog(quadPerimResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.RectangleAreaDialogMatch)]
@@ -298,7 +302,7 @@
         public async Task RunRectangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var rectangleAreaResult = activity as Activity;
-            context.Call(new RectangleAreaDialog(rectangleAreaResult), EndDialog);
+            context.Call(new RectangleAreaDialog(rectangleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.CircleAreaDialogMatch)]
@@ -306,7 +310,7 @@
         public async Task RunCircleAreaDialog(IDialogContext context, IActivity activity)
         {
             var circleAreaResult = activity as Activity;
-            context.Call(new CircleAreaDialog(circleAreaResult), EndDialog);
+            context.Call(new CircleAreaDialog(circleAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.CicleCircumferenceDialogMatch)]
@@ -314,7 +318,7 @@
         public async Task RunCircumferenceDialog(IDialogContext context, IActivity activity)
         {
             var circumferenceResult = activity as Activity;
-            context.Call(new CircumferenceDialog(circumferenceResult), EndDialog);
+            context.Call(new CircumferenceDialog(circumferenceResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.TrapezoidAreaDialogMatch)]
@@ -322,7 +326,7 @@
         public async Task RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
         {
             var trapezoidAreaResult = activity as Activity;
-            context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), EndDialog);
+            context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), this.EndDialog);
         }
 
         [RegexPattern(DialogMatches.HelpDialogMatch)]

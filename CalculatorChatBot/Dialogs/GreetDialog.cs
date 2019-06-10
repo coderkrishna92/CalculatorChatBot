@@ -46,6 +46,7 @@ namespace CalculatorChatBot.Dialogs
                 {
                     timesGreeted = 0;
                 }
+
                 timesGreeted++;
                 context.ConversationData.SetValue(member.Id, timesGreeted);
 
@@ -65,16 +66,15 @@ namespace CalculatorChatBot.Dialogs
                 // conversation may get created
                 var conversationResource = await connectorClient.Conversations.CreateConversationAsync(parameters);
 
-                // Create and now send the response message. 
+                // Create and now send the response message.
                 var message = Activity.CreateMessageActivity();
                 message.From = bot;
                 message.Conversation = new ConversationAccount(id: conversationResource.Id);
-                message.Text = "Greetings! (I have greeted you " + timesGreeted + " time" + (timesGreeted != 1 ? "s" : "") + ")";
+                message.Text = "Greetings! (I have greeted you " + timesGreeted + " time" + (timesGreeted != 1 ? "s" : string.Empty) + ")";
 
                 await connectorClient.Conversations.SendToConversationAsync((Activity)message);
             }
 
-            // This will pop the child dialog off the dialog stack
             context.Done<object>(null);
         }
     }

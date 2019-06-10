@@ -13,19 +13,15 @@ namespace CalculatorChatBot.Dialogs
         public const string AdditionDialogMatch = "addition";
         public const string AddDialogMatch = "add";
         public const string SumDialogMatch = "sum";
-
         public const string SubtractDialogMatch = "subtract";
         public const string SubtractionDialogMatch = "subtraction";
         public const string DifferenceDialogMatch = "difference";
-
         public const string MultiplyDialogMatch = "multiply";
         public const string MultiplicationDialogMatch = "multiplication";
         public const string ProductDialogMatch = "product";
-
         public const string QuotientDialogMatch = "quotient";
         public const string DivisionDialogMatch = "division";
         public const string DivideDialogMatch = "divide";
-
         public const string RemainderDialogMatch = "remainder";
         public const string ModuloDialogMatch = "modulo";
         public const string ModulusDialogMatch = "modulus";
