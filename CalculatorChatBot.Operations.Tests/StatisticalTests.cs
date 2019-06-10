@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Operations.Tests
+﻿// <copyright file="StatisticalTests.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Operations.Tests
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
