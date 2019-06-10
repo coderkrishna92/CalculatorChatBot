@@ -1,8 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿// <copyright file="ArithmeticTests.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
 
 namespace CalculatorChatBot.Operations.Tests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     /// <summary>
     /// This class contains the unit tests of the ArithmeticOps.cs class
     /// </summary>
@@ -50,12 +54,12 @@ namespace CalculatorChatBot.Operations.Tests
         {
             var arith = new ArithmeticOps();
             var inputString = "1,0,4";
-            
+
             var expOverallProd1 = arith.OverallProduct(inputString);
             int testOverallProd1 = 0;
-            
+
             Assert.AreEqual(expOverallProd1, testOverallProd1);
-            
+
             var scenario = testOverallProd1 == expOverallProd1;
             if (scenario)
             {
