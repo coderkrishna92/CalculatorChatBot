@@ -1,39 +1,39 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="PythagoreanDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class PythagoreanDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public PythagoreanDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to 
-            // be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -43,15 +43,15 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length > 2)
+            if (this.InputInts.Length > 2)
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} is too long. I need only 2 numbers to find the length of the hypotenuse",
-                    OperationType = operationType.GetDescription(), 
+                    OutputMsg = $"The input list: {this.InputString} is too long. I need only 2 numbers to find the length of the hypotenuse",
+                    OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
 
@@ -70,20 +70,20 @@
             else
             {
                 // Having the necessary calculations done
-                double a = Convert.ToDouble(InputInts[0]);
-                double b = Convert.ToDouble(InputInts[1]);
+                double a = Convert.ToDouble(this.InputInts[0]);
+                double b = Convert.ToDouble(this.InputInts[1]);
 
                 var hypotenuseSqr = Math.Pow(a, 2) + Math.Pow(b, 2);
 
                 double c = Math.Sqrt(hypotenuseSqr);
 
-                var output = $"Given the legs of ${InputInts[0]} and ${InputInts[1]}, the hypotenuse of the right triangle is ${decimal.Round(decimal.Parse(c.ToString()), 2)}";
+                var output = $"Given the legs of ${this.InputInts[0]} and ${this.InputInts[1]}, the hypotenuse of the right triangle is ${decimal.Round(decimal.Parse(c.ToString()), 2)}";
 
                 var resultType = ResultTypes.Hypotenuse;
                 var successResults = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = decimal.Round(decimal.Parse(c.ToString()), 2).ToString(), 
+                    Input = this.InputString,
+                    NumericalResult = decimal.Round(decimal.Parse(c.ToString()), 2).ToString(),
                     OutputMsg = output,
                     OperationType = operationType.GetDescription(),
                     ResultType = resultType.GetDescription()
@@ -102,7 +102,6 @@
                 await context.PostAsync(successReply);
             }
 
-            // Returning back to the root dialog
             context.Done<object>(null);
         }
     }
