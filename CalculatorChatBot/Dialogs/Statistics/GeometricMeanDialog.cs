@@ -24,14 +24,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
             // Setting all of the dialog properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
 
         public string InputString { get; set; }
+
         public string[] InputStringArray { get; set; }
+
         public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
@@ -42,14 +44,14 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
 
             var operationType = CalculationTypes.Statistical;
-            if (InputInts.Length > 1)
+            if (this.InputInts.Length > 1)
             {
-                int product = InputInts[0];
-                for (int i = 1; i < InputInts.Length; i++)
+                int product = this.InputInts[0];
+                for (int i = 1; i < this.InputInts.Length; i++)
                 {
-                    if (InputInts[i] != 0)
+                    if (this.InputInts[i] != 0)
                     {
-                        product *= InputInts[i];
+                        product *= this.InputInts[i];
                     }
                     else
                     {
@@ -58,14 +60,14 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 }
 
                 // Calculating the Geometric mean here
-                decimal geometricMean = Convert.ToDecimal(Math.Pow(product, 1 / InputInts.Length));
+                decimal geometricMean = Convert.ToDecimal(Math.Pow(product, 1 / this.InputInts.Length));
                 var resultType = ResultTypes.GeometricMean;
 
                 var results = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = decimal.Round(geometricMean, 2).ToString(),
-                    OutputMsg = $"Given the list: {InputString}; the geometric mean = ${geometricMean.ToString()}",
+                    OutputMsg = $"Given the list: {this.InputString}; the geometric mean = ${geometricMean.ToString()}",
                     OperationType = operationType.GetDescription(),
                     ResultType = resultType.GetDescription()
                 };
@@ -80,17 +82,18 @@ namespace CalculatorChatBot.Dialogs.Statistics
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
                 };
-                await context.PostAsync(opsReply); 
+
+                await context.PostAsync(opsReply);
             }
             else
             {
                 var errorResType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = "0", 
+                    Input = this.InputString,
+                    NumericalResult = "0",
                     OutputMsg = "Your list may be too small to calculate the geometric mean. Please try again later",
-                    OperationType = operationType.GetDescription(), 
+                    OperationType = operationType.GetDescription(),
                     ResultType = errorResType.GetDescription()
                 };
 
@@ -104,11 +107,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
                         Content = JsonConvert.DeserializeObject(errorOpsAdaptiveCard)
                     }
                 };
-                await context.PostAsync(errorReply); 
+                await context.PostAsync(errorReply);
             }
 
             // Returning back to the RootDialog
-            context.Done<object>(null); 
+            context.Done<object>(null);
         }
     }
 }

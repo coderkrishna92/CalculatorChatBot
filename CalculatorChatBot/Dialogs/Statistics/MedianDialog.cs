@@ -1,37 +1,39 @@
-﻿namespace CalculatorChatBot.Dialogs.Statistics
+﻿// <copyright file="MedianDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Statistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class MedianDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string InputString { get; set; }
-        public string[] InputStringArray { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public MedianDialog(Activity incomingActivity)
         {
             // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary 
-            // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string InputString { get; set; }
+
+        public string[] InputStringArray { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -42,32 +44,30 @@
 
             var operationType = CalculationTypes.Statistical;
 
-            // Performing some type of validation on the incoming data
-            if (InputInts.Length > 2)
+            if (this.InputInts.Length > 2)
             {
                 decimal median;
-                int size = InputInts.Length;
-                int[] copyArr = InputInts;
+                int size = this.InputInts.Length;
+                int[] copyArr = this.InputInts;
 
                 // Sorting the array
                 Array.Sort(copyArr);
 
                 if (size % 2 == 0)
                 {
-                    median = Convert.ToDecimal(copyArr[size / 2 - 1] + copyArr[size / 2]) / 2;
+                    median = Convert.ToDecimal(copyArr[(size / 2) - 1] + copyArr[size / 2]) / 2;
                 }
                 else
                 {
                     median = Convert.ToDecimal(copyArr[(size - 1) / 2]);
                 }
 
-                #region Building out the results object and the card
                 var opsResultType = ResultTypes.Median;
                 var opsResult = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = decimal.Round(median, 2).ToString(), 
-                    OutputMsg = $"Given the list: {InputString}; the median = {decimal.Round(median, 2)}",
+                    Input = this.InputString,
+                    NumericalResult = decimal.Round(median, 2).ToString(),
+                    OutputMsg = $"Given the list: {this.InputString}; the median = {decimal.Round(median, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = opsResultType.GetDescription()
                 };
@@ -82,8 +82,6 @@
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(opsReply);
             }
             else
@@ -91,9 +89,9 @@
                 var errorResType = ResultTypes.Error;
                 var errorResult = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = "0", 
-                    OutputMsg = $"Please double check the input: {InputString} and try again",
+                    Input = this.InputString,
+                    NumericalResult = "0",
+                    OutputMsg = $"Please double check the input: {this.InputString} and try again",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorResType.GetDescription()
                 };
@@ -112,7 +110,6 @@
                 await context.PostAsync(errorReply);
             }
 
-            // Making sure to return back to the RootDialog
             context.Done<object>(null);
         }
     }
