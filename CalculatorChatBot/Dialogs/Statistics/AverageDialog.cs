@@ -21,8 +21,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
             // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary 
-            // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
@@ -59,7 +57,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 var results = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = decimal.Round(mean, 2).ToString(), 
+                    NumericalResult = decimal.Round(mean, 2).ToString(),
                     OutputMsg = $"Given the list: {this.InputString}; the average = {decimal.Round(mean, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = successResType.GetDescription()

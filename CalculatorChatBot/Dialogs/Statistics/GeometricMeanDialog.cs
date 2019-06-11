@@ -1,23 +1,21 @@
-﻿namespace CalculatorChatBot.Dialogs.Statistics
+﻿// <copyright file="GeometricMeanDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Statistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class GeometricMeanDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string InputString { get; set; }
-        public string[] InputStringArray { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public GeometricMeanDialog(Activity incomingActivity)
         {
             // Extract the incoming text/message
@@ -31,6 +29,10 @@
                 InputInts = Array.ConvertAll(InputStringArray, int.Parse);
             }
         }
+
+        public string InputString { get; set; }
+        public string[] InputStringArray { get; set; }
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
