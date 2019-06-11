@@ -1,12 +1,16 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="MidpointDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
-    using System;
-    using System.Threading.Tasks;
-    using System.Collections.Generic;
     using Newtonsoft.Json;
 
     [Serializable]

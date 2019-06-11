@@ -100,8 +100,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
                 var successResult = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = decimal.Round(circumferenceResult, 2).ToString(), 
-                    OutputMsg = $"Given the input: {this.InputString}, the circumference = {decimal.Round(circumferenceResult, 2).ToString()}", 
+                    NumericalResult = decimal.Round(circumferenceResult, 2).ToString(),
+                    OutputMsg = $"Given the input: {this.InputString}, the circumference = {decimal.Round(circumferenceResult, 2).ToString()}",
                     OperationType = operationType.GetDescription(),
                     ResultType = successResultType.GetDescription()
                 };

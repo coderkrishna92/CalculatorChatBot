@@ -113,14 +113,14 @@
         private decimal CalculateVariance(double mean, int[] inputInts)
         {
             double squareDiffs = 0;
-            int N = inputInts.Length;
+            int n = inputInts.Length;
 
             for (int i = 0; i < inputInts.Length; i++)
             {
                 squareDiffs += Math.Pow(Math.Abs(Convert.ToDouble(inputInts[i]) - mean), 2);
             }
 
-            return Convert.ToDecimal(squareDiffs / N);
+            return Convert.ToDecimal(squareDiffs / n);
         }
     }
 }

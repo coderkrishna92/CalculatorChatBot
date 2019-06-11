@@ -55,7 +55,7 @@ namespace CalculatorChatBot
         {
             // This is used for removing the '@botName' from the incoming message so it
             // can be parsed correctly
-            var messageActivity = activity.Conversation.ConversationType == "personal" ? activity : 
+            var messageActivity = activity.Conversation.ConversationType == "personal" ? activity :
                                   StripBotAtMentions.StripAtMentionText(activity);
             try
             {

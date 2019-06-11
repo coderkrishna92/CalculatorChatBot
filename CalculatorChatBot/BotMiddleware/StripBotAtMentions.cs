@@ -27,8 +27,8 @@ namespace CalculatorChatBot.BotMiddleware
                 if (m[i].Mentioned.Id == activity.Recipient.Id)
                 {
                     // Bot is in the @mention list
-                    // The below example will strip the bot name out of the message, 
-                    // so it can be parsed as if the bot name was not included in the message. 
+                    // The below example will strip the bot name out of the message,
+                    // so it can be parsed as if the bot name was not included in the message.
                     // Note that the Text object will contain the full bot name, if it is
                     // applicable
                     if (m[i].Text != null)

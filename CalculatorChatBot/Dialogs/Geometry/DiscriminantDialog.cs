@@ -1,25 +1,21 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="DiscriminantDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class DiscriminantDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public DiscriminantDialog(Activity incomingActivity)
         {
             // Parsing through the incoming information
@@ -28,11 +24,17 @@
             // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -42,16 +44,15 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length > 3)
+            if (this.InputInts.Length > 3)
             {
                 var errorListTooLongResType = ResultTypes.Error;
-                // Error condition here
                 var errorListTooLongResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "DNE",
-                    OutputMsg = $"The input list: {InputString} could be too long - there needs to be 3 numbers exactly",
-                    OperationType = operationType.GetDescription(), 
+                    OutputMsg = $"The input list: {this.InputString} could be too long - there needs to be 3 numbers exactly",
+                    OperationType = operationType.GetDescription(),
                     ResultType = errorListTooLongResType.GetDescription()
                 };
 
@@ -61,20 +62,20 @@
                 {
                     new Attachment()
                     {
-                        ContentType = "application/vnd.microsoft.card.adaptive", 
+                        ContentType = "application/vnd.microsoft.card.adaptive",
                         Content = JsonConvert.DeserializeObject(errorListTooLongAdaptiveCard)
                     }
                 };
                 await context.PostAsync(errorListTooLongReply);
             }
-            else if (InputInts.Length < 3)
+            else if (this.InputInts.Length < 3)
             {
                 var errorListTooShortResType = ResultTypes.Error;
                 var errorListTooShortResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "DNE",
-                    OutputMsg = $"The input list: {InputString} could be too short - there needs to be 3 numbers exactly",
+                    OutputMsg = $"The input list: {this.InputString} could be too short - there needs to be 3 numbers exactly",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorListTooShortResType.GetDescription()
                 };
@@ -93,12 +94,12 @@
             }
             else
             {
-                int a = InputInts[0];
-                int b = InputInts[1];
-                int c = InputInts[2];
+                int a = this.InputInts[0];
+                int b = this.InputInts[1];
+                int c = this.InputInts[2];
 
                 int discriminantValue = FindDiscriminant(a, b, c);
-                var resultMsg = "";
+                var resultMsg = string.Empty;
                 var resultsType = ResultTypes.Discriminant;
 
                 if (discriminantValue > 0)
@@ -114,10 +115,9 @@
                     resultMsg = $"Given your values: a = {a}, b = {b}, c = {c} - the discriminant = {discriminantValue} which means there are no real roots";
                 }
 
-                #region Generate the reply, operation results, card, and send out the message
                 var discrimResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     OperationType = operationType.GetDescription(),
                     OutputMsg = resultMsg,
                     NumericalResult = discriminantValue.ToString(),
@@ -136,7 +136,6 @@
                 };
 
                 await context.PostAsync(discrimReply);
-                #endregion
             }
 
             context.Done<object>(null);

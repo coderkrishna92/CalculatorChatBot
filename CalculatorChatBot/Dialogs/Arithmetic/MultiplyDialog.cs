@@ -1,4 +1,4 @@
-﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+﻿// <copyright file="MultiplyDialog.cs" company="XYZ Software LLC">
 // Copyright (c) XYZ Software LLC. All rights reserved.
 // </copyright>
 
@@ -21,8 +21,7 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
             // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary 
-            // operation to be performed
+            // What is the properties to be set for the necessary operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

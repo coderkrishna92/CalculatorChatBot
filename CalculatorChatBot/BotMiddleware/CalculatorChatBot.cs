@@ -1,5 +1,5 @@
-﻿// <copyright file="CalculatorChatBot.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="CalculatorChatBot.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.BotMiddleware
@@ -134,7 +134,7 @@ namespace CalculatorChatBot.BotMiddleware
                     Conversation = new ConversationAccount()
                     {
                         Id = response.Id
-                    }, 
+                    },
                     Attachments = new List<Attachment>()
                     {
                         new Attachment()

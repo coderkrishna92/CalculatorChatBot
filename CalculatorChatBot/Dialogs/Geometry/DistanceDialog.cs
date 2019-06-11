@@ -1,25 +1,21 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="DistanceDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class DistanceDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public DistanceDialog(Activity incomingActivity)
         {
             // Parsing through the incoming information
@@ -28,11 +24,17 @@
             // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -42,15 +44,15 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length > 1 && InputInts.Length == 4)
+            if (this.InputInts.Length > 1 && this.InputInts.Length == 4)
             {
-                int x1 = InputInts[0];
-                int y1 = InputInts[1];
+                int x1 = this.InputInts[0];
+                int y1 = this.InputInts[1];
 
                 var point1 = $"({x1}, {y1})";
 
-                int x2 = InputInts[2];
-                int y2 = InputInts[3];
+                int x2 = this.InputInts[2];
+                int y2 = this.InputInts[3];
 
                 var point2 = $"({x2},{y2})";
 
@@ -62,10 +64,10 @@
                 var resultsType = ResultTypes.Distance;
                 var successResults = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = decimal.Round(distanceFormula, 2).ToString(), 
-                    OutputMsg = $"Given the points: {point1} and {point2}, the distance = {distanceFormula}", 
-                    OperationType = operationType.GetDescription(), 
+                    Input = this.InputString,
+                    NumericalResult = decimal.Round(distanceFormula, 2).ToString(),
+                    OutputMsg = $"Given the points: {point1} and {point2}, the distance = {distanceFormula}",
+                    OperationType = operationType.GetDescription(),
                     ResultType = resultsType.GetDescription()
                 };
 
@@ -80,17 +82,17 @@
                     }
                 };
 
-                await context.PostAsync(successReply); 
+                await context.PostAsync(successReply);
             }
             else
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = "0", 
-                    OutputMsg = "There needs to be exactly 4 elements to calculate the midpoint. Please try again later", 
-                    OperationType = operationType.GetDescription(), 
+                    Input = this.InputString,
+                    NumericalResult = "0",
+                    OutputMsg = "There needs to be exactly 4 elememts to calculate the midpoint. Please try again later",
+                    OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
 
@@ -108,7 +110,7 @@
             }
 
             // Returning back to the main root dialog stack
-            context.Done<object>(null); 
+            context.Done<object>(null);
         }
     }
 }
