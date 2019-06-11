@@ -37,11 +37,10 @@ namespace CalculatorChatBot.Dialogs
         /// A method that would run the greeting dialog
         /// </summary>
         /// <param name="context">The current context</param>
-        /// <param name="activity">The current activity</param>
         /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.GreetEveryoneDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunGreetDialog(IDialogContext context, IActivity activity)
+        public async Task RunGreetDialog(IDialogContext context)
         {
             var channelData = context.Activity.GetChannelData<TeamsChannelData>();
             if (channelData.Team != null)
@@ -206,6 +205,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new VarianceDialog(varianceActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that would fire off the Standard Deviation calculation
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.StandardDeviationDialogMatch1)]
         [ScorableGroup(1)]
         public async Task RunStandardDeviationDialog(IDialogContext context, IActivity activity)
@@ -214,6 +219,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new StandardDeviationDialog(standardDevActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that would fire off the calculation of the geometric mean
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.GeometricMeanDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunGeometricMeanDialog(IDialogContext context, IActivity activity)
@@ -222,6 +233,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new GeometricMeanDialog(geometricMeanActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the Root Mean Square calculations
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RmsDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunRmsDialog(IDialogContext context, IActivity activity)
@@ -230,6 +247,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new RmsDialog(rmsActivity), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the hypotenuse given 2 legs
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.PythagorasDialogMatch)]
         [RegexPattern(DialogMatches.PythagoreanDialogMatch)]
         [ScorableGroup(1)]
@@ -239,6 +262,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new PythagoreanDialog(pythagResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the discriminant
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.NumberOfRootsDialogMatch)]
         [RegexPattern(DialogMatches.DiscriminantDialogMatch)]
         [ScorableGroup(1)]
@@ -248,6 +277,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new DiscriminantDialog(discrimResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the roots of a quadratic equation
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.EquationRootsDialogMatch)]
         [RegexPattern(DialogMatches.QuadraticSolverDialogMatch)]
         [ScorableGroup(1)]
@@ -257,6 +292,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new QuadraticSolverDialog(quadSolverResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the midpoint
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.MidPointDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunMidpointDialog(IDialogContext context, IActivity activity)
@@ -265,14 +306,26 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new MidpointDialog(midPointResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the distance between 2 points
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.DistanceDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunDistanceDialog(IDialogContext context, IActivity activity)
         {
             var distanceResult = activity as Activity;
-            context.Call(new DistanceDialog(distanceResult), EndDialog); 
+            context.Call(new DistanceDialog(distanceResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will calculate the area of a triangle
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.TriangleAreaDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunTriangleAreaDialog(IDialogContext context, IActivity activity)
@@ -281,6 +334,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new TriangleAreaDialog(triangleAreaResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that fires off the calculation of the perimeter of a triangle
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.TrianglePerimDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunTrianglePerimDialog(IDialogContext context, IActivity activity)
@@ -289,6 +348,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new TrianglePerimDialog(trianglePerimResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that fires off the calculation of the perimeter of a quadrilateral
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.QuadrilateralPerimDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunQuadPerimDialog(IDialogContext context, IActivity activity)
@@ -297,6 +362,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new QuadrilateralPerimDialog(quadPerimResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the area of a rectangle
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RectangleAreaDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunRectangleAreaDialog(IDialogContext context, IActivity activity)
@@ -305,6 +376,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new RectangleAreaDialog(rectangleAreaResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the area of the circle
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.CircleAreaDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunCircleAreaDialog(IDialogContext context, IActivity activity)
@@ -313,6 +390,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new CircleAreaDialog(circleAreaResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the circumference of a circle
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.CicleCircumferenceDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunCircumferenceDialog(IDialogContext context, IActivity activity)
@@ -321,6 +404,12 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new CircumferenceDialog(circumferenceResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// Method that will fire off the calculation of the area of a trapezoid
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <param name="activity">The current activity</param>
+        /// <returns><A unit of execution/returns>
         [RegexPattern(DialogMatches.TrapezoidAreaDialogMatch)]
         [ScorableGroup(1)]
         public async Task RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
@@ -329,9 +418,14 @@ namespace CalculatorChatBot.Dialogs
             context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), this.EndDialog);
         }
 
+        /// <summary>
+        /// A default help method that exists as part of practice
+        /// </summary>
+        /// <param name="context">The current context</param>
+        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.HelpDialogMatch)]
         [ScorableGroup(1)]
-        public async Task GetHelp(IDialogContext context, IActivity activity)
+        public async Task GetHelp(IDialogContext context)
         {
             await context.PostAsync(MessageHelpers.CreateHelpMessage(string.Empty));
             context.Done<object>(null);
@@ -341,11 +435,10 @@ namespace CalculatorChatBot.Dialogs
         /// A default method that will be sent out as part of the I don't know
         /// </summary>
         /// <param name="context">The current context</param>
-        /// <param name="activity">The current activity</param>
         /// <returns>A unit of execution</returns>
         [MethodBind]
         [ScorableGroup(2)]
-        public async Task Default(IDialogContext context, IActivity activity)
+        public async Task Default(IDialogContext context)
         {
             // Send message
             await context.PostAsync("I'm sorry, but I didn't understand.");

@@ -25,10 +25,10 @@ namespace CalculatorChatBot.Operations
             int sum = inputInts[0];
             for (int i = 1; i < inputInts.Length; i++)
             {
-                sum += inputInts[i]; 
+                sum += inputInts[i];
             }
 
-            return sum; 
+            return sum;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace CalculatorChatBot.Operations
                 diff -= inputInts[i];
             }
 
-            return diff; 
+            return diff;
         }
 
         /// <summary>
@@ -63,10 +63,10 @@ namespace CalculatorChatBot.Operations
             int prod = inputInts[0];
             for (int i = 1; i < inputInts.Length; i++)
             {
-                prod *= inputInts[i]; 
+                prod *= inputInts[i];
             }
 
-            return prod; 
+            return prod;
         }
 
         /// <summary>
@@ -79,15 +79,15 @@ namespace CalculatorChatBot.Operations
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 
-            decimal quotient = 0; 
+            decimal quotient = 0;
             if (inputInts.Length == 2 && inputInts[1] != 0)
             {
                 quotient = Convert.ToDecimal(inputInts[0]) / inputInts[1];
-                return decimal.Round(quotient, 2); 
+                return decimal.Round(quotient, 2);
             }
             else
             {
-                return 0; 
+                return 0;
             }
         }
 
@@ -104,11 +104,11 @@ namespace CalculatorChatBot.Operations
             var modResult = 0;
             if (inputInts.Length == 2 && inputInts[1] != 0)
             {
-                modResult = inputInts[0] % inputInts[1]; 
+                modResult = inputInts[0] % inputInts[1];
             }
             else
             {
-                modResult = 0; 
+                modResult = 0;
             }
 
             return modResult;

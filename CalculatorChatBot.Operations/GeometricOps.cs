@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Operations
+﻿// <copyright file="GeometricOps.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Operations
 {
     using System;
 
@@ -9,7 +13,7 @@
     public class GeometricOps
     {
         /// <summary>
-        /// Calculates the discriminant given three integers, a value for A, a value for B, and 
+        /// Calculates the discriminant given three integers, a value for A, a value for B, and
         /// a value for C
         /// </summary>
         /// <param name="inputString">The three integers</param>
@@ -32,14 +36,14 @@
         /// Given the values of A, B, and C this function will then calculate the necessary
         /// roots of for the equation Ax^2+Bx+C = 0
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns></returns>
+        /// <param name="inputString">The values of a, b, and c</param>
+        /// <returns>A string that contains the roots</returns>
         public string CalculateQuadraticRoots(string inputString)
         {
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
-            var resultString = "";
+            var resultString = string.Empty;
 
             if (inputIntsArr.Length != 3)
             {
@@ -98,7 +102,7 @@
                 }
             }
 
-            return resultString; 
+            return resultString;
         }
 
         /// <summary>
@@ -112,14 +116,14 @@
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
-            var resultString = "";
+            var resultString = string.Empty;
 
             if (inputIntsArr.Length == 2)
             {
                 int a = inputIntsArr[0];
                 int b = inputIntsArr[1];
 
-                double c = CalculateHypotenuse(a, b);
+                double c = this.CalculateHypotenuse(a, b);
 
                 resultString = $"{a}, {b}, {decimal.Round(decimal.Parse(c.ToString()), 2)}";
             }
@@ -132,20 +136,6 @@
         }
 
         /// <summary>
-        /// Method to calculate the hypotenuse
-        /// </summary>
-        /// <param name="a">First leg of the right triangle</param>
-        /// <param name="b">Second leg of the right triangle</param>
-        /// <returns>A double value that represents the hypotenuse</returns>
-        private double CalculateHypotenuse(int a, int b)
-        {
-            var cSquared = Math.Pow(a, 2) + Math.Pow(b, 2);
-            double c = Math.Sqrt(cSquared);
-
-            return c;
-        }
-
-        /// <summary>
         /// Method that would calculate the midpoint of a line segment
         /// </summary>
         /// <param name="inputString">4 integers that would represent the 2 sets of coordinates</param>
@@ -155,7 +145,7 @@
             string[] inputStringArr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputStringArr, int.Parse);
 
-            var resultString = "";
+            var resultString = string.Empty;
             if (inputInts.Length == 4)
             {
                 int x1 = inputInts[0];
@@ -166,7 +156,7 @@
                 int midX = (x1 + x2) / 2;
                 int midY = (y1 + y2) / 2;
 
-                resultString = $"{midX}, {midY}"; 
+                resultString = $"{midX}, {midY}";
             }
             else
             {
@@ -176,6 +166,11 @@
             return resultString;
         }
 
+        /// <summary>
+        /// Having the method to calculate the distance between 2 points
+        /// </summary>
+        /// <param name="inputString">The two points in a geometric space</param>
+        /// <returns>The distance between 2 points</returns>
         public double CalculateDistance(string inputString)
         {
             string[] inputStringArr = inputString.Split(',');
@@ -199,10 +194,24 @@
             }
             else
             {
-                result = 0; 
+                result = 0;
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Method to calculate the hypotenuse
+        /// </summary>
+        /// <param name="a">First leg of the right triangle</param>
+        /// <param name="b">Second leg of the right triangle</param>
+        /// <returns>A double value that represents the hypotenuse</returns>
+        private double CalculateHypotenuse(int a, int b)
+        {
+            var cSquared = Math.Pow(a, 2) + Math.Pow(b, 2);
+            double c = Math.Sqrt(cSquared);
+
+            return c;
         }
     }
 }

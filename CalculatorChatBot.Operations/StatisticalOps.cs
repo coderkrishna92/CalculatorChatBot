@@ -1,4 +1,8 @@
-﻿namespace CalculatorChatBot.Operations
+﻿// <copyright file="StatisticalOps.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Operations
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +28,7 @@
             int sum = inputIntsArr[0];
             for (int i = 1; i < inputIntsArr.Length; i++)
             {
-                sum += inputIntsArr[i]; 
+                sum += inputIntsArr[i];
             }
 
             var average = Convert.ToDecimal(sum) / sizeOfArray;
@@ -51,7 +55,7 @@
 
             if (size % 2 == 0)
             {
-                median = Convert.ToDecimal(copyArr[size / 2 - 1] + copyArr[size / 2]) / 2;
+                median = Convert.ToDecimal(copyArr[(size / 2) - 1] + copyArr[size / 2]) / 2;
             }
             else
             {
@@ -62,7 +66,7 @@
         }
 
         /// <summary>
-        /// This function will now calculate the mode of the list of 
+        /// This function will now calculate the mode of the list of
         /// integers
         /// </summary>
         /// <param name="inputString">List of comma separated integers</param>
@@ -79,7 +83,7 @@
             // This is what will be returned - modes.ToArray();
             List<int> modes = new List<int>();
 
-            // The below code will have the data showing 
+            // The below code will have the data showing
             // each element and how many times each element appears in the list
             var query = from numbers in originalList
                         group numbers by numbers
@@ -95,11 +99,11 @@
             if (max == 1)
             {
                 int mode = 0;
-                modes.Add(mode); 
+                modes.Add(mode);
             }
             else
             {
-                modes = query.Where(x => x.Count == max).Select(x => x.Number).ToList(); 
+                modes = query.Where(x => x.Count == max).Select(x => x.Number).ToList();
             }
 
             return modes.ToArray();
@@ -127,7 +131,7 @@
             }
             else
             {
-                range = 0; 
+                range = 0;
             }
 
             return range;
@@ -144,16 +148,16 @@
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
-            var mean = Convert.ToDouble(CalculateAverage(inputString));
+            var mean = Convert.ToDouble(this.CalculateAverage(inputString));
             double squareDiffs = 0;
-            int N = inputIntsArr.Length;
+            int n = inputIntsArr.Length;
 
             for (int i = 0; i < inputIntsArr.Length; i++)
             {
                 squareDiffs += Math.Pow(Math.Abs(Convert.ToDouble(inputIntsArr[i]) - mean), 2);
             }
 
-            var decResult =  Convert.ToDecimal(squareDiffs / N);
+            var decResult = Convert.ToDecimal(squareDiffs / n);
 
             return Convert.ToDouble(decimal.Round(decResult, 2));
         }
@@ -165,7 +169,7 @@
         /// <returns>Standard deviation of the list of numbers</returns>
         public double CalculateStandardDeviation(string inputString)
         {
-            var calculatedVariance = CalculateVariance(inputString);
+            var calculatedVariance = this.CalculateVariance(inputString);
 
             decimal standardDev = decimal.Round(Convert.ToDecimal(Math.Sqrt(calculatedVariance)), 2);
 
@@ -211,7 +215,7 @@
 
             var calculatedResult = Math.Sqrt(sumOfSquares / inputInts.Length);
 
-            return calculatedResult; 
+            return calculatedResult;
         }
     }
 }
