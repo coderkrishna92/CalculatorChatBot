@@ -1,39 +1,39 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="TriangleAreaDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using CalculatorChatBot.Cards;
 
     [Serializable]
     public class TriangleAreaDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public TriangleAreaDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to 
-            // be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -43,14 +43,14 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length == 2 && (InputInts[0] == 0 || InputInts[1] == 0))
+            if (this.InputInts.Length == 2 && (this.InputInts[0] == 0 || this.InputInts[1] == 0))
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OutputMsg = $"The input list: {InputString} may not be valid. Please try again",
+                    OutputMsg = $"The input list: {this.InputString} may not be valid. Please try again",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
@@ -70,15 +70,15 @@
             }
             else
             {
-                var triangleAreaResult = Convert.ToDecimal(0.5 * InputInts[0] * InputInts[1]);
+                var triangleAreaResult = Convert.ToDecimal(0.5 * this.InputInts[0] * this.InputInts[1]);
 
                 var successResultType = ResultTypes.TriangleArea;
                 var successResults = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = decimal.Round(triangleAreaResult, 2).ToString(), 
-                    OutputMsg = $"Given the inputs: {InputString}, the output = {decimal.Round(triangleAreaResult, 2).ToString()}",
-                    OperationType = operationType.GetDescription(), 
+                    Input = this.InputString,
+                    NumericalResult = decimal.Round(triangleAreaResult, 2).ToString(),
+                    OutputMsg = $"Given the inputs: {this.InputString}, the output = {decimal.Round(triangleAreaResult, 2).ToString()}",
+                    OperationType = operationType.GetDescription(),
                     ResultType = successResultType.GetDescription()
                 };
 
@@ -95,6 +95,8 @@
 
                 await context.PostAsync(successReply);
             }
+
+            context.Done<object>(null);
         }
     }
 }

@@ -95,6 +95,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
 
                 await context.PostAsync(successReply);
             }
+
+            context.Done<object>(null);
         }
     }
 }

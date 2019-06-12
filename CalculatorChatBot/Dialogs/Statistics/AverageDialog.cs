@@ -1,37 +1,39 @@
-﻿namespace CalculatorChatBot.Dialogs.Statistics
+﻿// <copyright file="AverageDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Statistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class AverageDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string InputString { get; set; }
-        public string[] InputStringArray { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public AverageDialog(Activity incomingActivity)
         {
             // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary 
-            // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string InputString { get; set; }
+
+        public string[] InputStringArray { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -41,23 +43,22 @@
             }
 
             var operationType = CalculationTypes.Statistical;
-            if (InputInts.Length > 1)
+            if (this.InputInts.Length > 1)
             {
-                int sum = InputInts[0];
-                for (int i = 1; i < InputInts.Length; i++)
+                int sum = this.InputInts[0];
+                for (int i = 1; i < this.InputInts.Length; i++)
                 {
-                    sum += InputInts[i];
+                    sum += this.InputInts[i];
                 }
 
-                decimal mean = Convert.ToDecimal(sum) / InputInts.Length;
+                decimal mean = Convert.ToDecimal(sum) / this.InputInts.Length;
                 var successResType = ResultTypes.Average;
 
-                #region Building the results object and the card
                 var results = new OperationResults()
                 {
-                    Input = InputString,
-                    NumericalResult = decimal.Round(mean, 2).ToString(), 
-                    OutputMsg = $"Given the list: {InputString}; the average = {decimal.Round(mean, 2)}",
+                    Input = this.InputString,
+                    NumericalResult = decimal.Round(mean, 2).ToString(),
+                    OutputMsg = $"Given the list: {this.InputString}; the average = {decimal.Round(mean, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = successResType.GetDescription()
                 };
@@ -72,17 +73,14 @@
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(opsReply);
             }
             else
             {
-                #region Building the error object
                 var errorResType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
                     OutputMsg = "Your list may be too small to calculate an average. Please try again later.",
                     OperationType = operationType.GetDescription(),
@@ -99,8 +97,6 @@
                         Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard)
                     }
                 };
-                #endregion
-
                 await context.PostAsync(errorReply);
             }
 

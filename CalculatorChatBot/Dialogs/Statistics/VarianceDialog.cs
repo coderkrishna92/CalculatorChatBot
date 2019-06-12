@@ -1,34 +1,38 @@
-﻿namespace CalculatorChatBot.Dialogs.Statistics
+﻿// <copyright file="VarianceDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Statistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class VarianceDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string InputString { get; set; }
-        public string[] InputStringArray { get; set; }
-        public int[] InputInts { get; set; } 
-        #endregion
-
         public VarianceDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse); 
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string InputString { get; set; }
+
+        public string[] InputStringArray { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -38,24 +42,23 @@
             }
 
             var operationType = CalculationTypes.Statistical;
-            if (InputInts.Length > 1)
+            if (this.InputInts.Length > 1)
             {
-                int sum = InputInts[0];
-                foreach (int item in InputInts)
+                int sum = this.InputInts[0];
+                foreach (int item in this.InputInts)
                 {
                     sum += item;
                 }
 
-                double mean = Convert.ToDouble(sum) / InputInts.Length;
-                decimal variance = CalculateVariance(mean, InputInts);
+                double mean = Convert.ToDouble(sum) / this.InputInts.Length;
+                decimal variance = this.CalculateVariance(mean, this.InputInts);
                 var successResultType = ResultTypes.Variance;
 
-                #region Building the results 
                 var results = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = decimal.Round(variance, 2).ToString(),
-                    OutputMsg = $"Given the list: {InputString}; the variance = {decimal.Round(variance, 2)}",
+                    OutputMsg = $"Given the list: {this.InputString}; the variance = {decimal.Round(variance, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = successResultType.GetDescription()
                 };
@@ -69,8 +72,7 @@
                         ContentType = "application/vnd.microsoft.card.adaptive",
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                     }
-                };            
-                #endregion
+                };
 
                 await context.PostAsync(resultsReply);
             }
@@ -79,7 +81,7 @@
                 var errorResType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
                     OutputMsg = "Your list may be too small to calculate the variance. Please try again later.",
                     OperationType = operationType.GetDescription(),
@@ -99,7 +101,6 @@
                 await context.PostAsync(errorReply);
             }
 
-            // Popping back to the root dialog
             context.Done<object>(null);
         }
 

@@ -1,38 +1,40 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="QuadrilateralPerimDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
+    using CalculatorChatBot.Cards;
+    using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
-    using CalculatorChatBot.Models;
-    using CalculatorChatBot.Cards;
     using Newtonsoft.Json;
 
     [Serializable]
     public class QuadrilateralPerimDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-        public string InputString { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public QuadrilateralPerimDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to 
-            // be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -42,14 +44,14 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length != 4)
+            if (this.InputInts.Length != 4)
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResult = new OperationResults()
                 {
-                    Input = InputString, 
-                    NumericalResult = "0", 
-                    OutputMsg = $"Your input: {InputString} is not valid. Please try again later!",
+                    Input = this.InputString,
+                    NumericalResult = "0",
+                    OutputMsg = $"Your input: {this.InputString} is not valid. Please try again later!",
                     OperationType = operationType.GetDescription(),
                     ResultType = errorResultType.GetDescription()
                 };
@@ -60,7 +62,7 @@
                 {
                     new Attachment()
                     {
-                        ContentType = "application/vnd.microsoft.card.adaptive", 
+                        ContentType = "application/vnd.microsoft.card.adaptive",
                         Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
                     }
                 };
@@ -70,19 +72,19 @@
             else
             {
                 // Looking to see if all the values are the same
-                var isSquare = InputInts[0] == InputInts[1] && InputInts[1] == InputInts[2] && InputInts[2] == InputInts[3];
+                var isSquare = this.InputInts[0] == this.InputInts[1] && this.InputInts[1] == this.InputInts[2] && this.InputInts[2] == this.InputInts[3];
 
                 if (!isSquare)
                 {
-                    var totalPerimeter = InputInts.Sum();
+                    var totalPerimeter = this.InputInts.Sum();
                     var totalPerimResultType = ResultTypes.QuadPerimeter;
 
                     var totalPerimResult = new OperationResults()
                     {
-                        Input = InputString,
-                        NumericalResult = totalPerimeter.ToString(), 
-                        OperationType = operationType.GetDescription(), 
-                        OutputMsg = $"Given the input list: {InputString}, the perimeter = {totalPerimeter}",
+                        Input = this.InputString,
+                        NumericalResult = totalPerimeter.ToString(),
+                        OperationType = operationType.GetDescription(),
+                        OutputMsg = $"Given the input list: {this.InputString}, the perimeter = {totalPerimeter}",
                         ResultType = totalPerimResultType.GetDescription()
                     };
 
@@ -101,15 +103,15 @@
                 }
                 else
                 {
-                    var squarePerimeter = 4 * InputInts[0];
+                    var squarePerimeter = 4 * this.InputInts[0];
                     var totalPerimResultType = ResultTypes.QuadPerimeter;
 
                     var squarePerimResult = new OperationResults()
                     {
-                        Input = InputString,
+                        Input = this.InputString,
                         NumericalResult = squarePerimeter.ToString(),
                         OperationType = operationType.GetDescription(),
-                        OutputMsg = $"Given the input list: {InputString}, the perimeter = {squarePerimeter}",
+                        OutputMsg = $"Given the input list: {this.InputString}, the perimeter = {squarePerimeter}",
                         ResultType = totalPerimResultType.GetDescription()
                     };
 

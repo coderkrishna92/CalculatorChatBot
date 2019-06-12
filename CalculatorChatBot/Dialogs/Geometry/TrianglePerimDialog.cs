@@ -1,8 +1,12 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="TrianglePerimDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -13,26 +17,24 @@
     [Serializable]
     public class TrianglePerimDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-        public string InputString { get; set; }
-        public int[] InputInts { get; set; }
-        #endregion
-
         public TrianglePerimDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to 
-            // be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -42,15 +44,15 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length != 3)
+            if (this.InputInts.Length != 3)
             {
                 var errorResultType = ResultTypes.Error;
                 var errorResult = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
-                    OperationType = operationType.GetDescription(), 
-                    OutputMsg = $"Your input list: {InputString} is not valid, please check the input list and try again",
+                    OperationType = operationType.GetDescription(),
+                    OutputMsg = $"Your input list: {this.InputString} is not valid, please check the input list and try again",
                     ResultType = errorResultType.GetDescription()
                 };
 
@@ -69,19 +71,19 @@
             }
             else
             {
-                var isEquilateral = InputInts[0] == InputInts[1] && InputInts[1] == InputInts[2] && InputInts[0] == InputInts[2];
+                var isEquilateral = this.InputInts[0] == this.InputInts[1] && this.InputInts[1] == this.InputInts[2] && this.InputInts[0] == this.InputInts[2];
 
                 // Add all sides - for the scalene and isoceles cases
                 if (!isEquilateral)
                 {
-                    var perimeter = InputInts.Sum();
+                    var perimeter = this.InputInts.Sum();
                     var perimResultType = ResultTypes.TrianglePerimeter;
                     var perimResults = new OperationResults()
                     {
-                        Input = InputString, 
+                        Input = this.InputString,
                         NumericalResult = perimeter.ToString(),
                         OperationType = operationType.GetDescription(),
-                        OutputMsg = $"Given the inputs: {InputString}, the perimeter = {perimeter}",
+                        OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {perimeter}",
                         ResultType = perimResultType.GetDescription()
                     };
 
@@ -100,14 +102,14 @@
                 }
                 else
                 {
-                    var equiPerim = 3 * InputInts[0];
+                    var equiPerim = 3 * this.InputInts[0];
                     var perimResultType = ResultTypes.TrianglePerimeter;
                     var perimResults = new OperationResults()
                     {
-                        Input = InputString,
+                        Input = this.InputString,
                         NumericalResult = equiPerim.ToString(),
                         OperationType = operationType.GetDescription(),
-                        OutputMsg = $"Given the inputs: {InputString}, the perimeter = {equiPerim}",
+                        OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {equiPerim}",
                         ResultType = perimResultType.GetDescription()
                     };
 
@@ -124,6 +126,8 @@
 
                     await context.PostAsync(equiPerimSuccessReply);
                 }
+
+                context.Done<object>(null);
             }
         }
     }

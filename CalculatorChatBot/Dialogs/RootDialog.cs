@@ -1,4 +1,4 @@
-﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
+﻿// <copyright file="RootDialog.cs" company="XYZ Software LLC">
 // Copyright (c) XYZ Software LLC. All rights reserved.
 // </copyright>
 
@@ -23,11 +23,10 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.HelloDialogMatch)]
         [RegexPattern(DialogMatches.HiDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunHelloDialog(IDialogContext context, IActivity activity)
+        public void RunHelloDialog(IDialogContext context, IActivity activity)
         {
             var helloResult = activity as Activity;
             context.Call(new HelloDialog(helloResult), this.EndDialog);
@@ -59,12 +58,11 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.AddDialogMatch)]
         [RegexPattern(DialogMatches.AdditionDialogMatch)]
         [RegexPattern(DialogMatches.SumDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunAddDialog(IDialogContext context, IActivity activity)
+        public void RunAddDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
             context.Call(new AddDialog(result), this.EndDialog);
@@ -75,12 +73,11 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.SubtractDialogMatch)]
         [RegexPattern(DialogMatches.SubtractionDialogMatch)]
         [RegexPattern(DialogMatches.DifferenceDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunSubtractDialog(IDialogContext context, IActivity activity)
+        public void RunSubtractDialog(IDialogContext context, IActivity activity)
         {
             var result = activity as Activity;
             context.Call(new SubtractDialog(result), this.EndDialog);
@@ -91,12 +88,11 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.ProductDialogMatch)]
         [RegexPattern(DialogMatches.MultiplicationDialogMatch)]
         [RegexPattern(DialogMatches.MultiplyDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunMultiplyDialog(IDialogContext context, IActivity activity)
+        public void RunMultiplyDialog(IDialogContext context, IActivity activity)
         {
             var multiResult = activity as Activity;
             context.Call(new MultiplyDialog(multiResult), this.EndDialog);
@@ -107,12 +103,11 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.DivideDialogMatch)]
         [RegexPattern(DialogMatches.DivisionDialogMatch)]
         [RegexPattern(DialogMatches.QuotientDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunDivideDialog(IDialogContext context, IActivity activity)
+        public void RunDivideDialog(IDialogContext context, IActivity activity)
         {
             var divideResult = activity as Activity;
             context.Call(new DivideDialog(divideResult), this.EndDialog);
@@ -123,12 +118,11 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RemainderDialogMatch)]
         [RegexPattern(DialogMatches.ModuloDialogMatch)]
         [RegexPattern(DialogMatches.ModulusDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunModuloDialog(IDialogContext context, IActivity activity)
+        public void RunModuloDialog(IDialogContext context, IActivity activity)
         {
             var modResult = activity as Activity;
             context.Call(new ModuloDialog(modResult), this.EndDialog);
@@ -139,11 +133,10 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.AverageDialogMatch)]
         [RegexPattern(DialogMatches.MeanDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunAverageDialog(IDialogContext context, IActivity activity)
+        public void RunAverageDialog(IDialogContext context, IActivity activity)
         {
             var averageActivity = activity as Activity;
             context.Call(new AverageDialog(averageActivity), this.EndDialog);
@@ -154,10 +147,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.MedianDialogMatch1)]
         [ScorableGroup(1)]
-        public async Task RunMedianDialog(IDialogContext context, IActivity activity)
+        public void RunMedianDialog(IDialogContext context, IActivity activity)
         {
             var medianActivity = activity as Activity;
             context.Call(new MedianDialog(medianActivity), this.EndDialog);
@@ -168,10 +160,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.ModeDialogMatch1)]
         [ScorableGroup(1)]
-        public async Task RunModeDialog(IDialogContext context, IActivity activity)
+        public void RunModeDialog(IDialogContext context, IActivity activity)
         {
             var modeActivity = activity as Activity;
             context.Call(new ModeDialog(modeActivity), this.EndDialog);
@@ -182,10 +173,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RangeDialogMatch1)]
         [ScorableGroup(1)]
-        public async Task RunRangeDialog(IDialogContext context, IActivity activity)
+        public void RunRangeDialog(IDialogContext context, IActivity activity)
         {
             var rangeActivity = activity as Activity;
             context.Call(new RangeDialog(rangeActivity), this.EndDialog);
@@ -196,10 +186,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.VarianceDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunVarianceDialog(IDialogContext context, IActivity activity)
+        public void RunVarianceDialog(IDialogContext context, IActivity activity)
         {
             var varianceActivity = activity as Activity;
             context.Call(new VarianceDialog(varianceActivity), this.EndDialog);
@@ -210,10 +199,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.StandardDeviationDialogMatch1)]
         [ScorableGroup(1)]
-        public async Task RunStandardDeviationDialog(IDialogContext context, IActivity activity)
+        public void RunStandardDeviationDialog(IDialogContext context, IActivity activity)
         {
             var standardDevActivity = activity as Activity;
             context.Call(new StandardDeviationDialog(standardDevActivity), this.EndDialog);
@@ -224,10 +212,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.GeometricMeanDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunGeometricMeanDialog(IDialogContext context, IActivity activity)
+        public void RunGeometricMeanDialog(IDialogContext context, IActivity activity)
         {
             var geometricMeanActivity = activity as Activity;
             context.Call(new GeometricMeanDialog(geometricMeanActivity), this.EndDialog);
@@ -238,10 +225,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RmsDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunRmsDialog(IDialogContext context, IActivity activity)
+        public void RunRmsDialog(IDialogContext context, IActivity activity)
         {
             var rmsActivity = activity as Activity;
             context.Call(new RmsDialog(rmsActivity), this.EndDialog);
@@ -252,11 +238,10 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.PythagorasDialogMatch)]
         [RegexPattern(DialogMatches.PythagoreanDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunPythagoreanDialog(IDialogContext context, IActivity activity)
+        public void RunPythagoreanDialog(IDialogContext context, IActivity activity)
         {
             var pythagResult = activity as Activity;
             context.Call(new PythagoreanDialog(pythagResult), this.EndDialog);
@@ -267,11 +252,10 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.NumberOfRootsDialogMatch)]
         [RegexPattern(DialogMatches.DiscriminantDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunDiscriminantDialog(IDialogContext context, IActivity activity)
+        public void RunDiscriminantDialog(IDialogContext context, IActivity activity)
         {
             var discrimResult = activity as Activity;
             context.Call(new DiscriminantDialog(discrimResult), this.EndDialog);
@@ -282,11 +266,10 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.EquationRootsDialogMatch)]
         [RegexPattern(DialogMatches.QuadraticSolverDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunQuadraticSolverDialog(IDialogContext context, IActivity activity)
+        public void RunQuadraticSolverDialog(IDialogContext context, IActivity activity)
         {
             var quadSolverResult = activity as Activity;
             context.Call(new QuadraticSolverDialog(quadSolverResult), this.EndDialog);
@@ -297,10 +280,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.MidPointDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunMidpointDialog(IDialogContext context, IActivity activity)
+        public void RunMidpointDialog(IDialogContext context, IActivity activity)
         {
             var midPointResult = activity as Activity;
             context.Call(new MidpointDialog(midPointResult), this.EndDialog);
@@ -311,10 +293,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.DistanceDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunDistanceDialog(IDialogContext context, IActivity activity)
+        public void RunDistanceDialog(IDialogContext context, IActivity activity)
         {
             var distanceResult = activity as Activity;
             context.Call(new DistanceDialog(distanceResult), this.EndDialog);
@@ -325,10 +306,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.TriangleAreaDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunTriangleAreaDialog(IDialogContext context, IActivity activity)
+        public void RunTriangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var triangleAreaResult = activity as Activity;
             context.Call(new TriangleAreaDialog(triangleAreaResult), this.EndDialog);
@@ -339,10 +319,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.TrianglePerimDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunTrianglePerimDialog(IDialogContext context, IActivity activity)
+        public void RunTrianglePerimDialog(IDialogContext context, IActivity activity)
         {
             var trianglePerimResult = activity as Activity;
             context.Call(new TrianglePerimDialog(trianglePerimResult), this.EndDialog);
@@ -353,10 +332,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.QuadrilateralPerimDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunQuadPerimDialog(IDialogContext context, IActivity activity)
+        public void RunQuadPerimDialog(IDialogContext context, IActivity activity)
         {
             var quadPerimResult = activity as Activity;
             context.Call(new QuadrilateralPerimDialog(quadPerimResult), this.EndDialog);
@@ -367,10 +345,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.RectangleAreaDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunRectangleAreaDialog(IDialogContext context, IActivity activity)
+        public void RunRectangleAreaDialog(IDialogContext context, IActivity activity)
         {
             var rectangleAreaResult = activity as Activity;
             context.Call(new RectangleAreaDialog(rectangleAreaResult), this.EndDialog);
@@ -381,10 +358,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.CircleAreaDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunCircleAreaDialog(IDialogContext context, IActivity activity)
+        public void RunCircleAreaDialog(IDialogContext context, IActivity activity)
         {
             var circleAreaResult = activity as Activity;
             context.Call(new CircleAreaDialog(circleAreaResult), this.EndDialog);
@@ -395,10 +371,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns>A unit of execution</returns>
         [RegexPattern(DialogMatches.CicleCircumferenceDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunCircumferenceDialog(IDialogContext context, IActivity activity)
+        public void RunCircumferenceDialog(IDialogContext context, IActivity activity)
         {
             var circumferenceResult = activity as Activity;
             context.Call(new CircumferenceDialog(circumferenceResult), this.EndDialog);
@@ -409,10 +384,9 @@ namespace CalculatorChatBot.Dialogs
         /// </summary>
         /// <param name="context">The current context</param>
         /// <param name="activity">The current activity</param>
-        /// <returns><A unit of execution/returns>
         [RegexPattern(DialogMatches.TrapezoidAreaDialogMatch)]
         [ScorableGroup(1)]
-        public async Task RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
+        public void RunTrapezoidAreaDialog(IDialogContext context, IActivity activity)
         {
             var trapezoidAreaResult = activity as Activity;
             context.Call(new TrapezoidAreaDialog(trapezoidAreaResult), this.EndDialog);
@@ -454,6 +428,7 @@ namespace CalculatorChatBot.Dialogs
         /// <returns>A unit of execution</returns>
         public async Task EndDialog(IDialogContext context, IAwaitable<object> result)
         {
+            await context.PostAsync("What else do you want to do?");
             context.Done<object>(null);
         }
     }

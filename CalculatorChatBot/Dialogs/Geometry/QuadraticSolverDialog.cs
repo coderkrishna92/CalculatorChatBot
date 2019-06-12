@@ -1,36 +1,38 @@
-﻿namespace CalculatorChatBot.Dialogs.Geometry
+﻿// <copyright file="QuadraticSolverDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
+// </copyright>
+
+namespace CalculatorChatBot.Dialogs.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Serializable]
     public class QuadraticSolverDialog : IDialog<object>
     {
-        #region Dialog properties
-        public string[] InputStringArray { get; set; }
-
-        public string InputString { get; set; }
-
-        public int[] InputInts { get; set; }
-        #endregion
-
         public QuadraticSolverDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
-                InputString = incomingInfo[1];
-                InputStringArray = InputString.Split(',');
-                InputInts = Array.ConvertAll(InputStringArray, int.Parse);
+                this.InputString = incomingInfo[1];
+                this.InputStringArray = this.InputString.Split(',');
+                this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }
+
+        public string[] InputStringArray { get; set; }
+
+        public string InputString { get; set; }
+
+        public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -40,15 +42,15 @@
             }
 
             var operationType = CalculationTypes.Geometric;
-            if (InputInts.Length > 3)
+            if (this.InputInts.Length > 3)
             {
                 var errorResType = ResultTypes.Error;
                 var errorResults = new OperationResults()
                 {
-                    Input = InputString,
+                    Input = this.InputString,
                     NumericalResult = "0",
                     OutputMsg = "Your list may be too large to calculate the roots. Please try again later!",
-                    OperationType = operationType.GetDescription(), 
+                    OperationType = operationType.GetDescription(),
                     ResultType = errorResType.GetDescription()
                 };
 
@@ -66,9 +68,9 @@
             }
             else
             {
-                double a = Convert.ToDouble(InputInts[0]);
-                double b = Convert.ToDouble(InputInts[1]);
-                double c = Convert.ToDouble(InputInts[2]);
+                double a = Convert.ToDouble(this.InputInts[0]);
+                double b = Convert.ToDouble(this.InputInts[1]);
+                double c = Convert.ToDouble(this.InputInts[2]);
 
                 // The two roots of the quadratic equation
                 double r1, r2;
@@ -100,7 +102,7 @@
                         var opsErrorResultType = ResultTypes.Error;
                         var opsError = new OperationResults()
                         {
-                            Input = InputString,
+                            Input = this.InputString,
                             NumericalResult = "0",
                             OutputMsg = "The information provided may lead to a linear equation!",
                             OperationType = CalculationTypes.Geometric.ToString(),
@@ -126,9 +128,9 @@
                         var successResultType = ResultTypes.EquationRoots;
                         var successResults = new OperationResults()
                         {
-                            Input = InputString,
+                            Input = this.InputString,
                             NumericalResult = $"{r1}, {r2}",
-                            OutputMsg = $"The roots are Real and Distinct - Given the list of: {InputString}, the roots are [{r1}, {r2}]", 
+                            OutputMsg = $"The roots are Real and Distinct - Given the list of: {this.InputString}, the roots are [{r1}, {r2}]",
                             OperationType = operationType.GetDescription(),
                             ResultType = successResultType.GetDescription()
                         };
@@ -143,7 +145,7 @@
                                 Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
                             }
                         };
-                        
+
                         await context.PostAsync(opsSuccessReply);
                         break;
                     case 3:
@@ -152,9 +154,9 @@
                         var successOpsOneRootResultType = ResultTypes.EquationRoots;
                         var successOpsOneRoot = new OperationResults()
                         {
-                            Input = InputString,
+                            Input = this.InputString,
                             NumericalResult = $"{r1}, {r2}",
-                            OutputMsg = $"The roots are Real and Distinct - Given the list of: {InputString}, the roots are [{r1}, {r2}]",
+                            OutputMsg = $"The roots are Real and Distinct - Given the list of: {this.InputString}, the roots are [{r1}, {r2}]",
                             OperationType = operationType.GetDescription(),
                             ResultType = successOpsOneRootResultType.GetDescription()
                         };
@@ -169,6 +171,7 @@
                                 Content = JsonConvert.DeserializeObject(successOpsOneRootAdaptiveCard)
                             }
                         };
+
                         await context.PostAsync(opsSuccessOneRootReply);
                         break;
                     case 4:
@@ -185,10 +188,10 @@
                         var imaginaryRootsResult = ResultTypes.EquationRoots;
                         var opsSuccessImaginRootsResults = new OperationResults()
                         {
-                            Input = InputString,
+                            Input = this.InputString,
                             NumericalResult = $"{root1}, {root2}",
                             OutputMsg = rootsDesc + " " + root1Str + " " + root2Str,
-                            OperationType = operationType.GetDescription(), 
+                            OperationType = operationType.GetDescription(),
                             ResultType = imaginaryRootsResult.GetDescription()
                         };
 
