@@ -127,7 +127,6 @@ namespace CalculatorChatBot.BotMiddleware
                 var bot = new ChannelAccount { Id = CloudConfigurationManager.GetSetting("MicrosoftAppId") };
                 var response = connectorClient.Conversations.CreateOrGetDirectConversation(bot, user, tenantId);
 
-                // Construct the message that we would like to post
                 var activity = new Activity()
                 {
                     Type = ActivityTypes.Message,

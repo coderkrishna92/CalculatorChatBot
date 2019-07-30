@@ -7,6 +7,9 @@ namespace CalculatorChatBot.BotMiddleware
     using System;
     using Microsoft.Bot.Connector;
 
+    /// <summary>
+    /// This class is responsible for stripping the AtMentions.
+    /// </summary>
     public class StripBotAtMentions
     {
         /// <summary>
