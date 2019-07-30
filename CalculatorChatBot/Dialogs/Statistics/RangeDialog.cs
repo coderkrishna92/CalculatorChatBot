@@ -14,9 +14,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The code that will execute whenever the range is to be executed.
+    /// </summary>
     [Serializable]
     public class RangeDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RangeDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public RangeDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
@@ -30,10 +37,19 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the InputString.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the InputStringArray.
+        /// </summary>
         public string[] InputStringArray { get; set; }
 
+        /// <summary>
+        /// Gets or sets the InputInts array.
+        /// </summary>
         public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
