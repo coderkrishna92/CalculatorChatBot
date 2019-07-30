@@ -14,18 +14,16 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This class will produce the overall difference of a list of numbers. If the list is too short, the
-    /// bot will reply with an appropriate message.
+    /// This class will produce the overall difference of a list of numbers.
+    /// If the list is too short, the bot will reply with an appropriate message.
     /// </summary>
     [Serializable]
     public class SubtractDialog : IDialog<object>
     {
         public SubtractDialog(Activity incomingActivity)
         {
-            // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

@@ -18,10 +18,8 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     {
         public ModuloDialog(Activity result)
         {
-            // Extract the incoming text/message
             string[] incomingInfo = result.Text.Split(' ');
 
-            // What is the properties to be set for the necessary operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

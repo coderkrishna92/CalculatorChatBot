@@ -14,8 +14,8 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This class will produce the overall sum of a list of numbers. If the list is too short, the
-    /// bot will reply with an appropriate message.
+    /// This class will produce the overall sum of a list of numbers.
+    /// If the list is too short, the bot will reply with an appropriate message.
     /// </summary>
     [Serializable]
     public class AddDialog : IDialog<object>
