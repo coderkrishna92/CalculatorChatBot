@@ -13,6 +13,9 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class produces the product of a list of numbers.
+    /// </summary>
     [Serializable]
     public class MultiplyDialog : IDialog<object>
     {

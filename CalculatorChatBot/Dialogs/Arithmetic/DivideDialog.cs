@@ -13,6 +13,9 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class will produce the quotient of two numbers.
+    /// </summary>
     [Serializable]
     public class DivideDialog : IDialog<object>
     {

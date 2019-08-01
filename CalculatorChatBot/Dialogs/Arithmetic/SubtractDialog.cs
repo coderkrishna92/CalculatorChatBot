@@ -15,7 +15,6 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
 
     /// <summary>
     /// This class will produce the overall difference of a list of numbers.
-    /// If the list is too short, the bot will reply with an appropriate message.
     /// </summary>
     [Serializable]
     public class SubtractDialog : IDialog<object>

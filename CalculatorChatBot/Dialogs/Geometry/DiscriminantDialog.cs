@@ -13,15 +13,21 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class will calculate the discriminant value of a quadratic equation - give the values of
+    /// A, B, and C.
+    /// </summary>
     [Serializable]
     public class DiscriminantDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscriminantDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public DiscriminantDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming information
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
