@@ -1,5 +1,5 @@
-﻿// <copyright file="CircumferenceDialog.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="CircumferenceDialog.cs" company="XYZ Software LLC">
+// Copyright (c) XYZ Software LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
@@ -13,14 +13,19 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class calculates the circumference of a circle given the radius.
+    /// </summary>
     public class CircumferenceDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CircumferenceDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public CircumferenceDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

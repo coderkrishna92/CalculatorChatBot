@@ -13,9 +13,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will calculate the variance of the list.
+    /// </summary>
     [Serializable]
     public class VarianceDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VarianceDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public VarianceDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');

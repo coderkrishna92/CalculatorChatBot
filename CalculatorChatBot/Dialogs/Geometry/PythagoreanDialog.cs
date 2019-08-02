@@ -13,12 +13,19 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 2 integers that represents the legs of a right triangle, the hypotenuse
+    /// will be returned.
+    /// </summary>
     [Serializable]
     public class PythagoreanDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythagoreanDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public PythagoreanDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))

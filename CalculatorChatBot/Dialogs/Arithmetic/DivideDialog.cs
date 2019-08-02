@@ -13,16 +13,20 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class will produce the quotient of two numbers.
+    /// </summary>
     [Serializable]
     public class DivideDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DivideDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public DivideDialog(Activity incomingActivity)
         {
-            // Parsing through the necessary incoming text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary
-            // operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
@@ -98,7 +102,6 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                 await context.PostAsync(errorReply);
             }
 
-            // Return back to the root dialog - popping this child dialog from the dialog stack
             context.Done<object>(null);
         }
     }

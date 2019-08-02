@@ -16,12 +16,14 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     [Serializable]
     public class ModuloDialog : IDialog<object>
     {
-        public ModuloDialog(Activity result)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuloDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity</param>
+        public ModuloDialog(Activity incomingActivity)
         {
-            // Extract the incoming text/message
-            string[] incomingInfo = result.Text.Split(' ');
+            string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // What is the properties to be set for the necessary operation to be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

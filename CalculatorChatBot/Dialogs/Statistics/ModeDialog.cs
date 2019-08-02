@@ -14,9 +14,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will calculate the mode of the list. Mode = most often.
+    /// </summary>
     [Serializable]
     public class ModeDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModeDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public ModeDialog(Activity incomingActivity)
         {
             // Extract the incoming text/message
@@ -25,9 +32,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
-
                 this.InputStringArray = this.InputString.Split(',');
-
                 this.InputInts = Array.ConvertAll(this.InputStringArray, int.Parse);
             }
         }

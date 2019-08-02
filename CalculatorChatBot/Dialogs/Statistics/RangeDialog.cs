@@ -14,14 +14,20 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will calculate the range of the list.
+    /// </summary>
     [Serializable]
     public class RangeDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RangeDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public RangeDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting the properties accordingly
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
@@ -30,10 +36,19 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the InputString.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the InputStringArray.
+        /// </summary>
         public string[] InputStringArray { get; set; }
 
+        /// <summary>
+        /// Gets or sets the InputInts array.
+        /// </summary>
         public int[] InputInts { get; set; }
 
         public async Task StartAsync(IDialogContext context)
@@ -103,7 +118,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 await context.PostAsync(errorReply);
             }
 
-            // Popping back to the root dialog
             context.Done<object>(null);
         }
     }

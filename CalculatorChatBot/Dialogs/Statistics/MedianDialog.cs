@@ -13,12 +13,18 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will calculate the median (or the middle) of the list.
+    /// </summary>
     [Serializable]
     public class MedianDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedianDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public MedianDialog(Activity incomingActivity)
         {
-            // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))

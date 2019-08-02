@@ -14,15 +14,18 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This class will produce the overall sum of a list of numbers. If the list is too short, the
-    /// bot will reply with an appropriate message.
+    /// This class will produce the overall sum of a list of numbers.
     /// </summary>
     [Serializable]
     public class AddDialog : IDialog<object>
     {
-        public AddDialog(Activity result)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
+        public AddDialog(Activity incomingActivity)
         {
-            string[] incomingInfo = result.Text.Split(' ');
+            string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
@@ -103,7 +106,6 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                 await context.PostAsync(errorReply);
             }
 
-            // Return back to the RootDialog - popping this child dialog off the stack
             context.Done<object>(null);
         }
     }

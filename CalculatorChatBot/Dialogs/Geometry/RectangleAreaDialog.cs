@@ -13,8 +13,17 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 2 integers that represent the length and width, this dialog calculates the area
+    /// of a rectangle or square.
+    /// </summary>
+    [Serializable]
     public class RectangleAreaDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RectangleAreaDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public RectangleAreaDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text

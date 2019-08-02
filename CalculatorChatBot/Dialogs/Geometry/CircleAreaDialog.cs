@@ -13,15 +13,19 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Having the ability to calculate the area of a circle, given a radius.
+    /// </summary>
     public class CircleAreaDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CircleAreaDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public CircleAreaDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Which properties are being set for the operations to
-            // be performed
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

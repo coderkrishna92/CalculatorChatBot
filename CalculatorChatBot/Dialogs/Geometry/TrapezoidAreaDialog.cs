@@ -13,15 +13,20 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 3 integers, this dialog returns the area of a trapezoid.
+    /// </summary>
     [Serializable]
     public class TrapezoidAreaDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TrapezoidAreaDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public TrapezoidAreaDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming information
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

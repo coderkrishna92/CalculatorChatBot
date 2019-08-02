@@ -10,6 +10,9 @@ namespace CalculatorChatBot.BotHelpers
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams.Models;
 
+    /// <summary>
+    /// This class contains various helper methods.
+    /// </summary>
     public static class MessageHelpers
     {
         public static async Task SendMessage(IDialogContext context, string message)
@@ -33,13 +36,8 @@ namespace CalculatorChatBot.BotHelpers
             ChannelAccount userAccount,
             string tenantId)
         {
-            // Construct the message here
             string welcomeMessage = CreateHelpMessage($"The team {channelData.Team.Name} has added the Calculator Chat Bot - helping with some basic math stuff.");
-
-            // Create or get existing chat conversation with the user
             var response = connector.Conversations.CreateOrGetDirectConversation(botAccount, userAccount, tenantId);
-
-            // Construct the message to post to the conversation
             Activity newActivity = new Activity
             {
                 Text = welcomeMessage,
@@ -50,7 +48,6 @@ namespace CalculatorChatBot.BotHelpers
                 }
             };
 
-            // Finally post the message
             await connector.Conversations.SendToConversationAsync(newActivity);
         }
     }
