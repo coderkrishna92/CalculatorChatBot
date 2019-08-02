@@ -13,12 +13,19 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 2 integers representing the base and height, this dialog calculates the
+    /// area of a triangle.
+    /// </summary>
     [Serializable]
     public class TriangleAreaDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TriangleAreaDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public TriangleAreaDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))

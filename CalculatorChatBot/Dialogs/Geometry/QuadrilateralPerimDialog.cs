@@ -14,9 +14,16 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 4 integers, this dialog will calculate the perimeter of a quadrilateral.
+    /// </summary>
     [Serializable]
     public class QuadrilateralPerimDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuadrilateralPerimDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public QuadrilateralPerimDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text

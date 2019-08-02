@@ -13,15 +13,20 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 4 integers, the distance will be returned.
+    /// </summary>
     [Serializable]
     public class DistanceDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DistanceDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public DistanceDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming information
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
@@ -109,7 +114,6 @@ namespace CalculatorChatBot.Dialogs.Geometry
                 await context.PostAsync(errorReply);
             }
 
-            // Returning back to the main root dialog stack
             context.Done<object>(null);
         }
     }

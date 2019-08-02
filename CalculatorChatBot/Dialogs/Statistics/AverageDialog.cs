@@ -18,7 +18,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
     {
         public AverageDialog(Activity incomingActivity)
         {
-            // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -100,7 +99,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 await context.PostAsync(errorReply);
             }
 
-            // Return back to the RootDialog
             context.Done<object>(null);
         }
     }

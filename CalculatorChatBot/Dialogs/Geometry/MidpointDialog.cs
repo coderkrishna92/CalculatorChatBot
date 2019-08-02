@@ -13,15 +13,20 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 4 integers, the midpoint is returned.
+    /// </summary>
     [Serializable]
     public class MidpointDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidpointDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public MidpointDialog(Activity incomingActivity)
         {
-            // Parsing through the incoming information
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting all of the properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

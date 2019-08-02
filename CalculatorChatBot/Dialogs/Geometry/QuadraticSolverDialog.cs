@@ -13,9 +13,16 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of 3 integers which represent A, B, and C; this dialog returns the roots.
+    /// </summary>
     [Serializable]
     public class QuadraticSolverDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuadraticSolverDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public QuadraticSolverDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
