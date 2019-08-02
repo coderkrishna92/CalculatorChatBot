@@ -13,9 +13,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will calculate the Root Mean Square of the list.
+    /// </summary>
     [Serializable]
     public class RmsDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RmsDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public RmsDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');

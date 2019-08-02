@@ -13,15 +13,20 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog calculates the geometric mean of the list.
+    /// </summary>
     [Serializable]
     public class GeometricMeanDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeometricMeanDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public GeometricMeanDialog(Activity incomingActivity)
         {
-            // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting all of the dialog properties
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];

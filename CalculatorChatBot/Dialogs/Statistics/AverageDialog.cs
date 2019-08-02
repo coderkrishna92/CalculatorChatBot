@@ -13,9 +13,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog will return the average or mean.
+    /// </summary>
     [Serializable]
     public class AverageDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AverageDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public AverageDialog(Activity incomingActivity)
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');

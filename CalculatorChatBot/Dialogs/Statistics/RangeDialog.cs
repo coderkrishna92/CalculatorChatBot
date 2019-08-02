@@ -15,7 +15,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The code that will execute whenever the range is to be executed.
+    /// Given a list of integers, this dialog will calculate the range of the list.
     /// </summary>
     [Serializable]
     public class RangeDialog : IDialog<object>
@@ -28,7 +28,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
         {
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
-            // Setting the properties accordingly
             if (!string.IsNullOrEmpty(incomingInfo[1]))
             {
                 this.InputString = incomingInfo[1];
@@ -119,7 +118,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 await context.PostAsync(errorReply);
             }
 
-            // Popping back to the root dialog
             context.Done<object>(null);
         }
     }

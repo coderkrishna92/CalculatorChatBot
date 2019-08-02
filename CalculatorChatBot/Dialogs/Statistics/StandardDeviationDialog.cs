@@ -13,9 +13,16 @@ namespace CalculatorChatBot.Dialogs.Statistics
     using Microsoft.Bot.Connector;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Given a list of integers, this dialog calculates the standard deviation of the list.
+    /// </summary>
     [Serializable]
     public class StandardDeviationDialog : IDialog<object>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StandardDeviationDialog"/> class.
+        /// </summary>
+        /// <param name="incomingActivity">The incoming activity.</param>
         public StandardDeviationDialog(Activity incomingActivity)
         {
             // Parsing through the incoming message text
@@ -65,7 +72,6 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     ResultType = successResultType.GetDescription()
                 };
 
-                // Sending out the reply
                 IMessageActivity successReply = context.MakeMessage();
                 var resultsAdaptiveCard = OperationResultsAdaptiveCard.GetCard(results);
                 successReply.Attachments = new List<Attachment>()
