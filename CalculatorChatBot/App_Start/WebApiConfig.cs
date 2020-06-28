@@ -8,8 +8,15 @@ namespace CalculatorChatBot
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
+    /// <summary>
+    /// This is the Web API config class.
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// This is the method to register all dependencies.
+        /// </summary>
+        /// <param name="config">All required HTTP configurations.</param>
         public static void Register(HttpConfiguration config)
         {
             // Json settings
