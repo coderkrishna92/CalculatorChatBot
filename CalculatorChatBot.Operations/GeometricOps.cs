@@ -5,21 +5,27 @@
 namespace CalculatorChatBot.Operations
 {
     using System;
+    using System.Globalization;
 
     /// <summary>
     /// This class represents all of the possible operations that this bot could do
-    /// that belong to the Geometric category
+    /// that belong to the Geometric category.
     /// </summary>
-    public class GeometricOps
+    public static class GeometricOps
     {
         /// <summary>
         /// Calculates the discriminant given three integers, a value for A, a value for B, and
-        /// a value for C
+        /// a value for C.
         /// </summary>
-        /// <param name="inputString">The three integers</param>
-        /// <returns>An integer</returns>
-        public int CalculateDiscriminant(string inputString)
+        /// <param name="inputString">The three integers.</param>
+        /// <returns>An integer.</returns>
+        public static int CalculateDiscriminant(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -34,12 +40,17 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Given the values of A, B, and C this function will then calculate the necessary
-        /// roots of for the equation Ax^2+Bx+C = 0
+        /// roots of for the equation Ax^2+Bx+C = 0.
         /// </summary>
-        /// <param name="inputString">The values of a, b, and c</param>
-        /// <returns>A string that contains the roots</returns>
-        public string CalculateQuadraticRoots(string inputString)
+        /// <param name="inputString">The values of a, b, and c.</param>
+        /// <returns>A string that contains the roots.</returns>
+        public static string CalculateQuadraticRoots(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -85,16 +96,16 @@ namespace CalculatorChatBot.Operations
                     case 2:
                         r1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
                         r2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
-                        resultString = $"{r1.ToString()}, {r2.ToString()}";
+                        resultString = $"{r1}, {r2}";
                         break;
                     case 3:
                         r1 = r2 = (-b) / (2 * a);
-                        resultString = r1.ToString();
+                        resultString = r1.ToString(CultureInfo.InvariantCulture);
                         break;
                     case 4:
                         r1 = (-b) / (2 * a);
                         r2 = Math.Sqrt(-discriminant) / (2 * a);
-                        resultString = string.Format("{0:#.##} + i {1:#.##}", r1, r2) + "," + string.Format("{0:#.##} - i {1:#.##}", r1, r2);
+                        resultString = string.Format(CultureInfo.InvariantCulture, "{0:#.##} + i {1:#.##}", r1, r2) + "," + string.Format(CultureInfo.InvariantCulture, "{0:#.##} - i {1:#.##}", r1, r2);
                         break;
                     default:
                         resultString = "ERROR";
@@ -107,12 +118,17 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Given the values of two legs in a right triangle, this function will actually
-        /// calculate the value of the hypotenuse
+        /// calculate the value of the hypotenuse.
         /// </summary>
-        /// <param name="inputString">The values of the two legs</param>
-        /// <returns>A string that would list out the Pythagorean Triple</returns>
-        public string CalculatePythagoreanTriple(string inputString)
+        /// <param name="inputString">The values of the two legs.</param>
+        /// <returns>A string that would list out the Pythagorean Triple.</returns>
+        public static string CalculatePythagoreanTriple(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -123,9 +139,9 @@ namespace CalculatorChatBot.Operations
                 int a = inputIntsArr[0];
                 int b = inputIntsArr[1];
 
-                double c = this.CalculateHypotenuse(a, b);
+                double c = CalculateHypotenuse(a, b);
 
-                resultString = $"{a}, {b}, {decimal.Round(decimal.Parse(c.ToString()), 2)}";
+                resultString = $"{a}, {b}, {decimal.Round(decimal.Parse(c.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture), 2)}";
             }
             else
             {
@@ -136,12 +152,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Method that would calculate the midpoint of a line segment
+        /// Method that would calculate the midpoint of a line segment.
         /// </summary>
-        /// <param name="inputString">4 integers that would represent the 2 sets of coordinates</param>
-        /// <returns>The midpoint as a string</returns>
-        public string CalculateMidpoint(string inputString)
+        /// <param name="inputString">4 integers that would represent the 2 sets of coordinates.</param>
+        /// <returns>The midpoint as a string.</returns>
+        public static string CalculateMidpoint(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -167,12 +188,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Having the method to calculate the distance between 2 points
+        /// Having the method to calculate the distance between 2 points.
         /// </summary>
-        /// <param name="inputString">The two points in a geometric space</param>
-        /// <returns>The distance between 2 points</returns>
-        public double CalculateDistance(string inputString)
+        /// <param name="inputString">The two points in a geometric space.</param>
+        /// <returns>The distance between 2 points.</returns>
+        public static double CalculateDistance(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -201,12 +227,12 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Method to calculate the hypotenuse
+        /// Method to calculate the hypotenuse.
         /// </summary>
-        /// <param name="a">First leg of the right triangle</param>
-        /// <param name="b">Second leg of the right triangle</param>
-        /// <returns>A double value that represents the hypotenuse</returns>
-        private double CalculateHypotenuse(int a, int b)
+        /// <param name="a">First leg of the right triangle.</param>
+        /// <param name="b">Second leg of the right triangle.</param>
+        /// <returns>A double value that represents the hypotenuse.</returns>
+        private static double CalculateHypotenuse(int a, int b)
         {
             var cSquared = Math.Pow(a, 2) + Math.Pow(b, 2);
             double c = Math.Sqrt(cSquared);

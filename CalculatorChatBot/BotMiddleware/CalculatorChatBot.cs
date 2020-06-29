@@ -1,5 +1,5 @@
-﻿// <copyright file="CalculatorChatBot.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="CalculatorChatBot.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.BotMiddleware
@@ -8,22 +8,25 @@ namespace CalculatorChatBot.BotMiddleware
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading.Tasks;
-    using Cards;
     using Microsoft.Azure;
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams;
     using Newtonsoft.Json;
+    using LocalCards = Cards;
 
-    public class CalculatorChatBot
+    /// <summary>
+    /// This is the calculator chat bot class.
+    /// </summary>
+    public static class CalculatorChatBot
     {
         /// <summary>
-        /// Method to welcome the team - sending the message in the general channel
+        /// Method to welcome the team - sending the message in the general channel.
         /// </summary>
-        /// <param name="connectorClient">The connectorClient</param>
-        /// <param name="activity">Incoming activity</param>
-        /// <param name="tenantId">The tenantId</param>
-        /// <param name="teamId">The teamId</param>
-        /// <returns>A unit of execution</returns>
+        /// <param name="connectorClient">The connectorClient.</param>
+        /// <param name="activity">Incoming activity.</param>
+        /// <param name="tenantId">The tenantId.</param>
+        /// <param name="teamId">The teamId.</param>
+        /// <returns>A unit of execution.</returns>
         public static async Task WelcomeTeam(ConnectorClient connectorClient, Activity activity, string tenantId, string teamId)
         {
             var botDisplayName = CloudConfigurationManager.GetSetting("BotDisplayName");
@@ -33,17 +36,17 @@ namespace CalculatorChatBot.BotMiddleware
         }
 
         /// <summary>
-        /// Method that welcomes the user
+        /// Method that welcomes the user.
         /// </summary>
-        /// <param name="connectorClient">The connector client</param>
-        /// <param name="memberAddedId">The ID of the newly added member</param>
-        /// <param name="tenantId">The tenantID</param>
-        /// <param name="teamId">The teamID</param>
-        /// <param name="botDisplayName">The bot display name</param>
-        /// <returns>A unit of execution</returns>
+        /// <param name="connectorClient">The connector client.</param>
+        /// <param name="memberAddedId">The ID of the newly added member.</param>
+        /// <param name="tenantId">The tenantID.</param>
+        /// <param name="teamId">The teamID.</param>
+        /// <param name="botDisplayName">The bot display name.</param>
+        /// <returns>A unit of execution.</returns>
         public static async Task WelcomeUser(ConnectorClient connectorClient, string memberAddedId, string tenantId, string teamId, string botDisplayName)
         {
-            var teamName = await GetTeamNameAsync(connectorClient, teamId);
+            var teamName = await GetTeamNameAsync(connectorClient, teamId).ConfigureAwait(false);
             var allMembers = await connectorClient.Conversations.GetConversationMembersAsync(teamId);
 
             ChannelAccount userThatJustJoined = null;

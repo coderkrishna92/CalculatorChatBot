@@ -10,15 +10,15 @@ namespace CalculatorChatBot.Operations
 
     /// <summary>
     /// This class represents all of the operations that are classified under the statistical
-    /// category
+    /// category.
     /// </summary>
     public class StatisticalOps
     {
         /// <summary>
-        /// Calculates the mean of the list of numbers
+        /// Calculates the mean of the list of numbers.
         /// </summary>
-        /// <param name="inputString">Comma separated list of numbers</param>
-        /// <returns>The mean (or average) of the list</returns>
+        /// <param name="inputString">Comma separated list of numbers.</param>
+        /// <returns>The mean (or average) of the list.</returns>
         public decimal CalculateAverage(string inputString)
         {
             string[] inputStringArr = inputString.Split(',');
@@ -38,10 +38,10 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Method to find the middle of the list of integers, also known as
-        /// the median
+        /// the median.
         /// </summary>
-        /// <param name="inputString">The list of integers that are separated by a comma</param>
-        /// <returns>The median value</returns>
+        /// <param name="inputString">The list of integers that are separated by a comma.</param>
+        /// <returns>The median value.</returns>
         public decimal CalculateMedian(string inputString)
         {
             string[] inputStringArr = inputString.Split(',');
@@ -66,11 +66,10 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// This function will now calculate the mode of the list of
-        /// integers
+        /// This function will now calculate the mode of the list of integers.
         /// </summary>
-        /// <param name="inputString">List of comma separated integers</param>
-        /// <returns>The mode - either 0, one single value, or multiple integer values</returns>
+        /// <param name="inputString">List of comma separated integers.</param>
+        /// <returns>The mode - either 0, one single value, or multiple integer values.</returns>
         public int[] CalculateMode(string inputString)
         {
             // From string to int array
@@ -91,7 +90,7 @@ namespace CalculatorChatBot.Operations
                         select new
                         {
                             Number = groupedNumbers.Key,
-                            Count = groupedNumbers.Count()
+                            Count = groupedNumbers.Count(),
                         };
 
             int max = query.Max(g => g.Count);

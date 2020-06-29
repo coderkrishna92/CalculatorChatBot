@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CalculatorChatBot.Operations</name>
+    </assembly>
+    <members>
+        <member name="T:CalculatorChatBot.Operations.ArithmeticOps">
+            <summary>
+            This class represents all of the arithmetic operations.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.ArithmeticOps.OverallSum(System.String)">
+            <summary>
+            Calculates the overall sum of the incoming list of numbers.
+            </summary>
+            <param name="inputString">List of numbers that are comma separated.</param>
+            <returns>An integer representing the sum.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.ArithmeticOps.OverallDifference(System.String)">
+            <summary>
+            Calculates the overall difference in the list of numbers.
+            </summary>
+            <param name="inputString">List of numbers that are coming in, which are also comma separated.</param>
+            <returns>Integer that represents the overall difference between the numbers in the array.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.ArithmeticOps.OverallProduct(System.String)">
+            <summary>
+            Calculates the overall product - multiplying all of the elements in the list together.
+            </summary>
+            <param name="inputString">The list of numbers.</param>
+            <returns>A number representing the product.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.ArithmeticOps.OverallDivision(System.String)">
+            <summary>
+            This calculates the quotient between two numbers.
+            </summary>
+            <param name="inputString">The list of comma separated integers.</param>
+            <returns>The result when you divide the two numbers in the array.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.ArithmeticOps.OverallModulo(System.String)">
+            <summary>
+            Making sure to have the modulo operation coded for the project.
+            </summary>
+            <param name="inputString">The list of integers.</param>
+            <returns>The result of the modulo operation.</returns>
+        </member>
+        <member name="T:CalculatorChatBot.Operations.GeometricOps">
+            <summary>
+            This class represents all of the possible operations that this bot could do
+            that belong to the Geometric category.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateDiscriminant(System.String)">
+            <summary>
+            Calculates the discriminant given three integers, a value for A, a value for B, and
+            a value for C.
+            </summary>
+            <param name="inputString">The three integers.</param>
+            <returns>An integer.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateQuadraticRoots(System.String)">
+            <summary>
+            Given the values of A, B, and C this function will then calculate the necessary
+            roots of for the equation Ax^2+Bx+C = 0.
+            </summary>
+            <param name="inputString">The values of a, b, and c.</param>
+            <returns>A string that contains the roots.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculatePythagoreanTriple(System.String)">
+            <summary>
+            Given the values of two legs in a right triangle, this function will actually
+            calculate the value of the hypotenuse.
+            </summary>
+            <param name="inputString">The values of the two legs.</param>
+            <returns>A string that would list out the Pythagorean Triple.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateMidpoint(System.String)">
+            <summary>
+            Method that would calculate the midpoint of a line segment.
+            </summary>
+            <param name="inputString">4 integers that would represent the 2 sets of coordinates.</param>
+            <returns>The midpoint as a string.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateDistance(System.String)">
+            <summary>
+            Having the method to calculate the distance between 2 points.
+            </summary>
+            <param name="inputString">The two points in a geometric space.</param>
+            <returns>The distance between 2 points.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateHypotenuse(System.Int32,System.Int32)">
+            <summary>
+            Method to calculate the hypotenuse.
+            </summary>
+            <param name="a">First leg of the right triangle.</param>
+            <param name="b">Second leg of the right triangle.</param>
+            <returns>A double value that represents the hypotenuse.</returns>
+        </member>
+        <member name="T:CalculatorChatBot.Operations.StatisticalOps">
+            <summary>
+            This class represents all of the operations that are classified under the statistical
+            category.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateAverage(System.String)">
+            <summary>
+            Calculates the mean of the list of numbers.
+            </summary>
+            <param name="inputString">Comma separated list of numbers.</param>
+            <returns>The mean (or average) of the list.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateMedian(System.String)">
+            <summary>
+            Method to find the middle of the list of integers, also known as
+            the median.
+            </summary>
+            <param name="inputString">The list of integers that are separated by a comma.</param>
+            <returns>The median value.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateMode(System.String)">
+            <summary>
+            This function will now calculate the mode of the list of integers.
+            </summary>
+            <param name="inputString">List of comma separated integers.</param>
+            <returns>The mode - either 0, one single value, or multiple integer values.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateRange(System.String)">
+            <summary>
+            This method will be calculate the range in the list of numbers that is provided
+            by the user
+            </summary>
+            <param name="inputString">The list of integers that the user provides</param>
+            <returns>The difference between the largest and smallest elements in the list of integers</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateVariance(System.String)">
+            <summary>
+            Method that would calculate the variance of a list of numbers that are provided
+            to the library
+            </summary>
+            <param name="inputString">The list of integers</param>
+            <returns>The variance</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateStandardDeviation(System.String)">
+            <summary>
+            Method that calculates the standard deviation
+            </summary>
+            <param name="inputString">The list of integers</param>
+            <returns>Standard deviation of the list of numbers</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateGeometricMean(System.String)">
+            <summary>
+            Method that calculates the Geometric Mean
+            </summary>
+            <param name="inputString">The list of numbers</param>
+            <returns>The geometric mean of the list</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.StatisticalOps.CalculateRootMeanSquare(System.String)">
+            <summary>
+            Function to calculate the root mean square among a set of numbers
+            </summary>
+            <param name="inputString">The list of numbers that are being provided to the bot</param>
+            <returns>The root mean square of the list</returns>
+        </member>
+    </members>
+</doc>
