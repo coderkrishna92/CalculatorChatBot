@@ -1,5 +1,5 @@
-﻿// <copyright file="MessagesController.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="MessagesController.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot
@@ -17,28 +17,36 @@ namespace CalculatorChatBot
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams.Models;
 
+    /// <summary>
+    /// This is the messages controller class.
+    /// </summary>
     [BotAuthentication]
     public class MessagesController : ApiController
     {
         /// <summary>
         /// POST: api/Messages
-        /// Receive a message from a user and reply to it
+        /// Receive a message from a user and reply to it.
         /// </summary>
-        /// <returns> A unit of execution </returns>
-        /// <param name="activity">The incoming activity</param>
+        /// <returns> A unit of execution.</returns>
+        /// <param name="activity">The incoming activity.</param>
         [HttpPost]
         [Route("api/messages")]
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
+            if (activity is null)
+            {
+                throw new ArgumentNullException(nameof(activity));
+            }
+
             using (var connectorClient = new ConnectorClient(new Uri(activity.ServiceUrl)))
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    await this.HandleTextMessageAsync(connectorClient, activity);
+                    await this.HandleTextMessageAsync(connectorClient, activity).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.HandleSystemMessageAsync(connectorClient, activity);
+                    await this.HandleSystemMessageAsync(connectorClient, activity).ConfigureAwait(false);
                 }
             }
 
@@ -46,11 +54,11 @@ namespace CalculatorChatBot
         }
 
         /// <summary>
-        /// This is called each time there is a text message being sent to the bot
+        /// This is called each time there is a text message being sent to the bot.
         /// </summary>
-        /// <param name="client">The connectorClient</param>
-        /// <param name="activity">The incoming activity</param>
-        /// <returns>A unit of execution</returns>
+        /// <param name="client">The connectorClient.</param>
+        /// <param name="activity">The incoming activity.</param>
+        /// <returns>A unit of execution.</returns>
         private async Task HandleTextMessageAsync(ConnectorClient client, Activity activity)
         {
             // This is used for removing the '@botName' from the incoming message so it
@@ -60,7 +68,7 @@ namespace CalculatorChatBot
             try
             {
                 // This sends all messages to the RootDialog for processing.
-                await Conversation.SendAsync(messageActivity, () => new RootDialog());
+                await Conversation.SendAsync(messageActivity, () => new RootDialog()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -69,11 +77,11 @@ namespace CalculatorChatBot
         }
 
         /// <summary>
-        /// This method handles system activity
+        /// This method handles system activity.
         /// </summary>
-        /// <param name="connectorClient">The connectorClient</param>
-        /// <param name="message">The message that is coming in</param>
-        /// <returns>A unit of execution</returns>
+        /// <param name="connectorClient">The connectorClient.</param>
+        /// <param name="message">The message that is coming in.</param>
+        /// <returns>A unit of execution.</returns>
         private async Task HandleSystemMessageAsync(ConnectorClient connectorClient, Activity message)
         {
             try
@@ -100,11 +108,11 @@ namespace CalculatorChatBot
                         {
                             if (member.Id == myBotId)
                             {
-                                await CalculatorChatBot.WelcomeTeam(connectorClient, message, tenantId, teamId);
+                                await CalcChatBot.WelcomeTeam(connectorClient, message, tenantId, teamId).ConfigureAwait(false);
                             }
                             else
                             {
-                                await CalculatorChatBot.WelcomeUser(connectorClient, member.Id, tenantId, teamId, botDisplayName);
+                                await CalcChatBot.WelcomeUser(connectorClient, member.Id, tenantId, teamId, botDisplayName).ConfigureAwait(false);
                             }
                         }
                     }
@@ -112,7 +120,7 @@ namespace CalculatorChatBot
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"Exception has been hit: {ex.InnerException.ToString()}");
+                Trace.TraceError($"Exception has been hit: {ex.InnerException}");
             }
         }
     }

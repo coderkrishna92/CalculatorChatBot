@@ -1,5 +1,5 @@
-﻿// <copyright file="OperationErrorAdaptiveCard.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="OperationErrorAdaptiveCard.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Cards
@@ -10,10 +10,16 @@ namespace CalculatorChatBot.Cards
     using CalculatorChatBot.Models;
     using CalculatorChatBot.Properties;
 
-    public class OperationErrorAdaptiveCard
+    /// <summary>
+    /// This is the operation error adaptive card class.
+    /// </summary>
+    public static class OperationErrorAdaptiveCard
     {
         private static readonly string CardTemplate;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="OperationErrorAdaptiveCard"/> class.
+        /// </summary>
         static OperationErrorAdaptiveCard()
         {
             var cardJsonFilePath = HostingEnvironment.MapPath("~/Cards/OperationErrorAdaptiveCard.json");
@@ -32,7 +38,7 @@ namespace CalculatorChatBot.Cards
                 { "errorCardTitleText", errorCardTitleText },
                 { "operationTypeText", operationTypeText },
                 { "inputLineText", inputLineText },
-                { "outputResultText", outputResultText }
+                { "outputResultText", outputResultText },
             };
 
             var cardBody = CardTemplate;

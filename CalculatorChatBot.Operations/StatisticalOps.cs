@@ -138,10 +138,10 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Method that would calculate the variance of a list of numbers that are provided
-        /// to the library
+        /// to the library.
         /// </summary>
-        /// <param name="inputString">The list of integers</param>
-        /// <returns>The variance</returns>
+        /// <param name="inputString">The list of integers.</param>
+        /// <returns>The variance.</returns>
         public double CalculateVariance(string inputString)
         {
             string[] inputStringArr = inputString.Split(',');
@@ -162,10 +162,10 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Method that calculates the standard deviation
+        /// Method that calculates the standard deviation.
         /// </summary>
-        /// <param name="inputString">The list of integers</param>
-        /// <returns>Standard deviation of the list of numbers</returns>
+        /// <param name="inputString">The list of integers.</param>
+        /// <returns>Standard deviation of the list of numbers.</returns>
         public double CalculateStandardDeviation(string inputString)
         {
             var calculatedVariance = this.CalculateVariance(inputString);
@@ -176,10 +176,10 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Method that calculates the Geometric Mean
+        /// Method that calculates the Geometric Mean.
         /// </summary>
-        /// <param name="inputString">The list of numbers</param>
-        /// <returns>The geometric mean of the list</returns>
+        /// <param name="inputString">The list of numbers.</param>
+        /// <returns>The geometric mean of the list.</returns>
         public double CalculateGeometricMean(string inputString)
         {
             string[] inputStrArray = inputString.Split(',');
@@ -197,10 +197,10 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Function to calculate the root mean square among a set of numbers
+        /// Function to calculate the root mean square among a set of numbers.
         /// </summary>
-        /// <param name="inputString">The list of numbers that are being provided to the bot</param>
-        /// <returns>The root mean square of the list</returns>
+        /// <param name="inputString">The list of numbers that are being provided to the bot.</param>
+        /// <returns>The root mean square of the list.</returns>
         public double CalculateRootMeanSquare(string inputString)
         {
             string[] inputStrArray = inputString.Split(',');

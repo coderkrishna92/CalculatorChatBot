@@ -1,9 +1,10 @@
-﻿// <copyright file="WebApiConfig.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="WebApiConfig.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot
 {
+    using System;
     using System.Web.Http;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
@@ -19,6 +20,11 @@ namespace CalculatorChatBot
         /// <param name="config">All required HTTP configurations.</param>
         public static void Register(HttpConfiguration config)
         {
+            if (config is null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
             // Json settings
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

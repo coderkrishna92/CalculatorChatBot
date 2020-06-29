@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# IDE0065: Misplaced using directive
+csharp_using_directive_placement = outside_namespace:none
+
+# CA1308: Normalize strings to uppercase
+dotnet_diagnostic.CA1308.severity = none
+
+# CA1810: Initialize reference type static fields inline
+dotnet_diagnostic.CA1810.severity = none
