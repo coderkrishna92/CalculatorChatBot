@@ -6,12 +6,16 @@ namespace CalculatorChatBot.Cards
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Web.Hosting;
     using CalculatorChatBot.Properties;
     using Microsoft.Azure;
 
-    public class WelcomeUserAdaptiveCard
+    /// <summary>
+    /// This class is the adaptive card for welcoming the user.
+    /// </summary>
+    public static class WelcomeUserAdaptiveCard
     {
         private static readonly string CardTemplate;
 
@@ -21,10 +25,17 @@ namespace CalculatorChatBot.Cards
             CardTemplate = File.ReadAllText(cardJsonFilePath);
         }
 
+        /// <summary>
+        /// This method will construct the card JSON string.
+        /// </summary>
+        /// <param name="teamName">The name of the team.</param>
+        /// <param name="nameOfUserThatJustJoined">The name of the user to welcome.</param>
+        /// <param name="botDisplayName">The bot display name.</param>
+        /// <returns>The JSON string of the adaptive card.</returns>
         public static string GetCard(string teamName, string nameOfUserThatJustJoined, string botDisplayName)
         {
             var welcomeUserCardTitleText = Resources.WelcomeUserCardTitleText;
-            var welcomeUserCardIntroPart1 = Resources.WelcomeUserCardIntroPart1;
+            var welcomeUserCardIntroPart1 = string.Format(CultureInfo.InvariantCulture, Resources.WelcomeUserCardIntroPart1, nameOfUserThatJustJoined, teamName, botDisplayName);
             var welcomeUserCardIntroPart2 = Resources.WelcomeUserCardIntroPart2;
             var tourButtonText = Resources.TourButtonText;
             var welcomeTourTitle = Resources.WelcomeTourTitle;

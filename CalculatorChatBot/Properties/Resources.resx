@@ -158,8 +158,8 @@
     <comment>The title of the welcome tour</comment>
   </data>
   <data name="WelcomeUserCardIntroPart1" xml:space="preserve">
-    <value>I am a bot that can *possibly* do your math homework! Well, not all of it - not all the hard calculus problems, or the hard trigonometry problems either...</value>
-    <comment>Part 1 of the 2 part welcome message</comment>
+    <value>{0}, you might be reading this because I am installed here: {1} - I am {2} that can *possibly* do your math homework! Well, not all of it - not all the hard calculus problems, or the hard trigonometry problems either...</value>
+    <comment>Part 1 of the 2 part welcome message, where {0} is the placeholder for the user being welcomed, and {1} is for the team name, and {2} is the placeholder for the bot display name</comment>
   </data>
   <data name="WelcomeUserCardIntroPart2" xml:space="preserve">
     <value>Here are the categories of operations I can do: arithmetic, some geometric, and a few statistic operations. You ask me anything about calculus - my 🧠 will not work!</value>

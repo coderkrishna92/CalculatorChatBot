@@ -19,7 +19,7 @@ namespace CalculatorChatBot.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -151,7 +151,7 @@ namespace CalculatorChatBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I am a bot that can *possibly* do your math homework! Well, not all of it - not all the hard calculus problems, or the hard trigonometry problems either....
+        ///   Looks up a localized string similar to {0}, you might be reading this because I am installed here: {1} - I am {2} that can *possibly* do your math homework! Well, not all of it - not all the hard calculus problems, or the hard trigonometry problems either....
         /// </summary>
         internal static string WelcomeUserCardIntroPart1 {
             get {
