@@ -6,6 +6,7 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -85,7 +86,7 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                 var results = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = sum.ToString(),
+                    NumericalResult = sum.ToString(CultureInfo.InvariantCulture),
                     OutputMsg = $"Given the list of {this.InputString}; the sum = {sum}",
                     OperationType = calculationType.GetDescription(),
                     ResultType = resType.GetDescription(),

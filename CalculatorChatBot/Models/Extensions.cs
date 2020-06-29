@@ -1,5 +1,5 @@
-﻿// <copyright file="Extensions.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="Extensions.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Models
@@ -9,8 +9,17 @@ namespace CalculatorChatBot.Models
     using System.Globalization;
     using System.Linq;
 
+    /// <summary>
+    /// This is the extensions class.
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// This method to get the description.
+        /// </summary>
+        /// <typeparam name="T">A generic type.</typeparam>
+        /// <param name="e">The enumeration.</param>
+        /// <returns>A string value of the description.</returns>
         public static string GetDescription<T>(this T e)
             where T : IConvertible
         {
