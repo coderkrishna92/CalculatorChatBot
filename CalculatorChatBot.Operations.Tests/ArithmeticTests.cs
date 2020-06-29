@@ -1,5 +1,5 @@
-﻿// <copyright file="ArithmeticTests.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="ArithmeticTests.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Operations.Tests
@@ -8,7 +8,7 @@ namespace CalculatorChatBot.Operations.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// This class contains the unit tests of the ArithmeticOps.cs class
+    /// This class contains the unit tests of the ArithmeticOps.cs class.
     /// </summary>
     [TestClass]
     public class ArithmeticTests
