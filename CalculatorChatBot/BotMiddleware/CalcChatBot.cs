@@ -12,7 +12,6 @@ namespace CalculatorChatBot.BotMiddleware
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Teams;
     using Newtonsoft.Json;
-    using LocalCards = CalculatorChatBot.Cards;
 
     /// <summary>
     /// This is the calculator chat bot class.
@@ -42,7 +41,7 @@ namespace CalculatorChatBot.BotMiddleware
             Trace.TraceInformation($"TenantId: {tenantId}, ActivityId: {activity.Id}");
             var botDisplayName = CloudConfigurationManager.GetSetting("BotDisplayName");
             var teamName = await GetTeamNameAsync(connectorClient, teamId).ConfigureAwait(false);
-            var welcomeTeamMessageCard = LocalCards.WelcomeTeamAdaptiveCard.GetCard(teamName, botDisplayName);
+            var welcomeTeamMessageCard = Cards.WelcomeTeamAdaptiveCard.GetCard(teamName, botDisplayName);
             await NotifyTeam(connectorClient, welcomeTeamMessageCard, teamId).ConfigureAwait(false);
         }
 
@@ -77,7 +76,7 @@ namespace CalculatorChatBot.BotMiddleware
 
             if (userThatJustJoined != null)
             {
-                var welcomeUserMessageCard = LocalCards.WelcomeUserAdaptiveCard.GetCard(teamName, userThatJustJoined.Name, botDisplayName);
+                var welcomeUserMessageCard = Cards.WelcomeUserAdaptiveCard.GetCard(teamName, userThatJustJoined.Name, botDisplayName);
                 await NotifyUser(connectorClient, welcomeUserMessageCard, userThatJustJoined, tenantId).ConfigureAwait(false);
             }
         }

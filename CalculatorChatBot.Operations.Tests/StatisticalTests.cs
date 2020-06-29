@@ -32,11 +32,10 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void MedianTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "2,4,5,7,9";
             decimal testMedian = 5;
 
-            var expectedMedian = stats.CalculateMedian(inputStr);
+            var expectedMedian = StatisticalOps.CalculateMedian(inputStr);
             Assert.AreEqual(testMedian, expectedMedian);
 
             if (testMedian == expectedMedian)
@@ -49,9 +48,8 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void ModeTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "1,1,2,3,5,5,7";
-            int[] testModes = stats.CalculateMode(inputStr);
+            int[] testModes = StatisticalOps.CalculateMode(inputStr);
 
             int[] expectedModes = new int[] { 1, 5 };
 
@@ -69,9 +67,8 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void RangeTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "-3, 4, 2, 1";
-            int testRange = stats.CalculateRange(inputStr);
+            int testRange = StatisticalOps.CalculateRange(inputStr);
 
             int expectedRange = 7;
             Assert.AreEqual(testRange, expectedRange);
@@ -85,11 +82,10 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void StandardDeviationTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "-3, 4, 2, 1";
             double expectedStandardDev = 2.55;
 
-            double testStandardDev = stats.CalculateStandardDeviation(inputStr);
+            double testStandardDev = StatisticalOps.CalculateStandardDeviation(inputStr);
             Assert.AreEqual(testStandardDev, expectedStandardDev);
 
             if (testStandardDev == expectedStandardDev)
@@ -101,11 +97,10 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void VarianceTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "-3, 4, 2, 1";
             double expectedVariance = 8.67;
 
-            double testVariance = stats.CalculateVariance(inputStr);
+            double testVariance = StatisticalOps.CalculateVariance(inputStr);
             Assert.AreEqual(expectedVariance, testVariance);
 
             if (testVariance == expectedVariance)

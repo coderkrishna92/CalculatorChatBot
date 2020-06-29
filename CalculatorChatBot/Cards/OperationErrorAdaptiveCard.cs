@@ -4,7 +4,9 @@
 
 namespace CalculatorChatBot.Cards
 {
+    using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Web.Hosting;
     using CalculatorChatBot.Models;
@@ -26,12 +28,22 @@ namespace CalculatorChatBot.Cards
             CardTemplate = File.ReadAllText(cardJsonFilePath);
         }
 
+        /// <summary>
+        /// This method builds the necessary JSON string for the card.
+        /// </summary>
+        /// <param name="errorResults">The operation results that are an error.</param>
+        /// <returns>the JSON string of the adaptive card.</returns>
         public static string GetCard(OperationResults errorResults)
         {
+            if (errorResults is null)
+            {
+                throw new ArgumentNullException(nameof(errorResults));
+            }
+
             var errorCardTitleText = Resources.ErrorCardTitleText;
-            var operationTypeText = string.Format(Resources.OperationTypeText, errorResults.OperationType);
-            var inputLineText = string.Format(Resources.InputLineText, errorResults.Input);
-            var outputResultText = string.Format(Resources.OutputResultTypeText, errorResults.ResultType, errorResults.NumericalResult);
+            var operationTypeText = string.Format(CultureInfo.InvariantCulture, Resources.OperationTypeText, errorResults.OperationType);
+            var inputLineText = string.Format(CultureInfo.InvariantCulture, Resources.InputLineText, errorResults.Input);
+            var outputResultText = string.Format(CultureInfo.InvariantCulture, Resources.OutputResultTypeText, errorResults.ResultType, errorResults.NumericalResult);
 
             var variablesToValues = new Dictionary<string, string>()
             {
