@@ -16,11 +16,10 @@ namespace CalculatorChatBot.Operations.Tests
         [TestMethod]
         public void AverageTest()
         {
-            var stats = new StatisticalOps();
             string inputStr = "1,2,3";
             decimal testMean = 2;
 
-            var expectedMean = stats.CalculateAverage(inputStr);
+            var expectedMean = StatisticalOps.CalculateAverage(inputStr);
             Assert.AreEqual(testMean, expectedMean);
 
             if (testMean == expectedMean)

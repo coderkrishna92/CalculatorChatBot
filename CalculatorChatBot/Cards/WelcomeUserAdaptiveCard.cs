@@ -40,7 +40,7 @@ namespace CalculatorChatBot.Cards
                 { "welcomeUserCardIntroPart1", welcomeUserCardIntroPart1 },
                 { "welcomeUserCardIntroPart2", welcomeUserCardIntroPart2 },
                 { "tourButtonText", tourButtonText },
-                { "tourUrl", tourUrl }
+                { "tourUrl", tourUrl },
             };
 
             var cardBody = CardTemplate;
