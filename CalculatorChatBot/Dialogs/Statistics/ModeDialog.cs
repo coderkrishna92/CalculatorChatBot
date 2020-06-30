@@ -1,11 +1,12 @@
-﻿// <copyright file="ModeDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="ModeDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Statistics
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
@@ -26,6 +27,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
         /// <param name="incomingActivity">The incoming activity.</param>
         public ModeDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             // Extract the incoming text/message
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
@@ -64,7 +70,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                             select new
                             {
                                 Number = groupedNumbers.Key,
-                                Count = groupedNumbers.Count()
+                                Count = groupedNumbers.Count(),
                             };
 
                 int max = query.Max(g => g.Count);
@@ -85,10 +91,10 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 var successResult = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = outputArray.Length > 1 ? string.Join(",", outputArray) : outputArray[0].ToString(),
-                    OutputMsg = $"Given the list: {this.InputString}; the mode = {(outputArray.Length > 1 ? string.Join(",", outputArray) : outputArray[0].ToString())}",
+                    NumericalResult = outputArray.Length > 1 ? string.Join(",", outputArray) : outputArray[0].ToString(CultureInfo.InvariantCulture),
+                    OutputMsg = $"Given the list: {this.InputString}; the mode = {(outputArray.Length > 1 ? string.Join(",", outputArray) : outputArray[0].ToString(CultureInfo.InvariantCulture))}",
                     OperationType = operationType.GetDescription(),
-                    ResultType = successResType.GetDescription()
+                    ResultType = successResType.GetDescription(),
                 };
 
                 IMessageActivity successReply = context.MakeMessage();
@@ -98,10 +104,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(successReply);
+
+                await context.PostAsync(successReply).ConfigureAwait(false);
             }
             else
             {
@@ -112,7 +119,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     NumericalResult = "0",
                     OutputMsg = $"Please check your input list: {this.InputString} and try again later",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorResType.GetDescription()
+                    ResultType = errorResType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -122,10 +129,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(errorReply);
+
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
 
             context.Done<object>(null);

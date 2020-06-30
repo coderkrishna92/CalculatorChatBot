@@ -6,6 +6,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -25,6 +26,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
         /// <param name="incomingActivity">The incoming activity.</param>
         public MedianDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -35,12 +41,30 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method executes whenever this current dialog is being executed.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -72,7 +96,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 var opsResult = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = decimal.Round(median, 2).ToString(),
+                    NumericalResult = decimal.Round(median, 2).ToString(CultureInfo.InvariantCulture),
                     OutputMsg = $"Given the list: {this.InputString}; the median = {decimal.Round(median, 2)}",
                     OperationType = operationType.GetDescription(),
                     ResultType = opsResultType.GetDescription(),
@@ -88,7 +112,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                         Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
                     },
                 };
-                await context.PostAsync(opsReply);
+                await context.PostAsync(opsReply).ConfigureAwait(false);
             }
             else
             {
@@ -113,7 +137,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     },
                 };
 
-                await context.PostAsync(errorReply);
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
 
             context.Done<object>(null);
