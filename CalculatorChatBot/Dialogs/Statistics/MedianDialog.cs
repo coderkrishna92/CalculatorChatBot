@@ -1,5 +1,5 @@
-﻿// <copyright file="MedianDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="MedianDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Statistics
@@ -75,7 +75,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     NumericalResult = decimal.Round(median, 2).ToString(),
                     OutputMsg = $"Given the list: {this.InputString}; the median = {decimal.Round(median, 2)}",
                     OperationType = operationType.GetDescription(),
-                    ResultType = opsResultType.GetDescription()
+                    ResultType = opsResultType.GetDescription(),
                 };
 
                 IMessageActivity opsReply = context.MakeMessage();
@@ -85,8 +85,8 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                    },
                 };
                 await context.PostAsync(opsReply);
             }
@@ -99,7 +99,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     NumericalResult = "0",
                     OutputMsg = $"Please double check the input: {this.InputString} and try again",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorResType.GetDescription()
+                    ResultType = errorResType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -109,8 +109,8 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard),
+                    },
                 };
 
                 await context.PostAsync(errorReply);
