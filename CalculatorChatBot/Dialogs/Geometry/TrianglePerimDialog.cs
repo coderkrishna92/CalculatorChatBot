@@ -1,5 +1,5 @@
-﻿// <copyright file="TrianglePerimDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="TrianglePerimDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
@@ -60,7 +60,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "0",
                     OperationType = operationType.GetDescription(),
                     OutputMsg = $"Your input list: {this.InputString} is not valid, please check the input list and try again",
-                    ResultType = errorResultType.GetDescription()
+                    ResultType = errorResultType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -70,8 +70,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard),
+                    },
                 };
 
                 await context.PostAsync(errorReply);
@@ -91,7 +91,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         NumericalResult = perimeter.ToString(),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {perimeter}",
-                        ResultType = perimResultType.GetDescription()
+                        ResultType = perimResultType.GetDescription(),
                     };
 
                     IMessageActivity perimSuccessReply = context.MakeMessage();
@@ -101,8 +101,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard),
+                        },
                     };
 
                     await context.PostAsync(perimSuccessReply);
@@ -117,7 +117,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         NumericalResult = equiPerim.ToString(),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {equiPerim}",
-                        ResultType = perimResultType.GetDescription()
+                        ResultType = perimResultType.GetDescription(),
                     };
 
                     IMessageActivity equiPerimSuccessReply = context.MakeMessage();
@@ -127,8 +127,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard),
+                        },
                     };
 
                     await context.PostAsync(equiPerimSuccessReply);

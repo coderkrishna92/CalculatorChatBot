@@ -1,11 +1,12 @@
-﻿// <copyright file="QuadraticSolverDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="QuadraticSolverDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -25,6 +26,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
         /// <param name="incomingActivity">The incoming activity.</param>
         public QuadraticSolverDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -35,12 +41,30 @@ namespace CalculatorChatBot.Dialogs.Geometry
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method will run whenever this dialog is executing.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -58,7 +82,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "0",
                     OutputMsg = "Your list may be too large to calculate the roots. Please try again later!",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorResType.GetDescription()
+                    ResultType = errorResType.GetDescription(),
                 };
 
                 IMessageActivity errorListReply = context.MakeMessage();
@@ -68,10 +92,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorListAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorListAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(errorListReply);
+                await context.PostAsync(errorListReply).ConfigureAwait(false);
             }
             else
             {
@@ -113,7 +137,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             NumericalResult = "0",
                             OutputMsg = "The information provided may lead to a linear equation!",
                             OperationType = CalculationTypes.Geometric.ToString(),
-                            ResultType = opsErrorResultType.GetDescription()
+                            ResultType = opsErrorResultType.GetDescription(),
                         };
 
                         IMessageActivity opsErrorReply = context.MakeMessage();
@@ -123,10 +147,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             new Attachment()
                             {
                                 ContentType = "application/vnd.microsoft.card.adaptive",
-                                Content = JsonConvert.DeserializeObject(opsErrorAdaptiveCard)
-                            }
+                                Content = JsonConvert.DeserializeObject(opsErrorAdaptiveCard),
+                            },
                         };
-                        await context.PostAsync(opsErrorReply);
+                        await context.PostAsync(opsErrorReply).ConfigureAwait(false);
                         break;
                     case 2:
                         r1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
@@ -139,7 +163,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             NumericalResult = $"{r1}, {r2}",
                             OutputMsg = $"The roots are Real and Distinct - Given the list of: {this.InputString}, the roots are [{r1}, {r2}]",
                             OperationType = operationType.GetDescription(),
-                            ResultType = successResultType.GetDescription()
+                            ResultType = successResultType.GetDescription(),
                         };
 
                         IMessageActivity opsSuccessReply = context.MakeMessage();
@@ -149,11 +173,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             new Attachment()
                             {
                                 ContentType = "application/vnd.microsoft.card.adaptive",
-                                Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                            }
+                                Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                            },
                         };
 
-                        await context.PostAsync(opsSuccessReply);
+                        await context.PostAsync(opsSuccessReply).ConfigureAwait(false);
                         break;
                     case 3:
                         r1 = r2 = (-b) / (2 * a);
@@ -165,7 +189,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             NumericalResult = $"{r1}, {r2}",
                             OutputMsg = $"The roots are Real and Distinct - Given the list of: {this.InputString}, the roots are [{r1}, {r2}]",
                             OperationType = operationType.GetDescription(),
-                            ResultType = successOpsOneRootResultType.GetDescription()
+                            ResultType = successOpsOneRootResultType.GetDescription(),
                         };
 
                         IMessageActivity opsSuccessOneRootReply = context.MakeMessage();
@@ -175,22 +199,22 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             new Attachment()
                             {
                                 ContentType = "application/vnd.microsoft.card.adaptive",
-                                Content = JsonConvert.DeserializeObject(successOpsOneRootAdaptiveCard)
-                            }
+                                Content = JsonConvert.DeserializeObject(successOpsOneRootAdaptiveCard),
+                            },
                         };
 
-                        await context.PostAsync(opsSuccessOneRootReply);
+                        await context.PostAsync(opsSuccessOneRootReply).ConfigureAwait(false);
                         break;
                     case 4:
                         var rootsDesc = "Roots are imaginary";
                         r1 = (-b) / (2 * a);
                         r2 = Math.Sqrt(-discriminant) / (2 * a);
 
-                        var root1Str = string.Format("First root is {0:#.##} + {1:#.##}i", r1, r2);
-                        var root2Str = string.Format("Second root is {0:#.##} - {1:#.##}i", r1, r2);
+                        var root1Str = string.Format(CultureInfo.InvariantCulture, "First root is {0:#.##} + {1:#.##}i", r1, r2);
+                        var root2Str = string.Format(CultureInfo.InvariantCulture, "Second root is {0:#.##} - {1:#.##}i", r1, r2);
 
-                        var root1 = string.Format("{0:#.##} + {1:#.##}i", r1, r2);
-                        var root2 = string.Format("{0:#.##} - {1:#.##}i", r1, r2);
+                        var root1 = string.Format(CultureInfo.InvariantCulture, "{0:#.##} + {1:#.##}i", r1, r2);
+                        var root2 = string.Format(CultureInfo.InvariantCulture, "{0:#.##} - {1:#.##}i", r1, r2);
 
                         var imaginaryRootsResult = ResultTypes.EquationRoots;
                         var opsSuccessImaginRootsResults = new OperationResults()
@@ -199,7 +223,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             NumericalResult = $"{root1}, {root2}",
                             OutputMsg = rootsDesc + " " + root1Str + " " + root2Str,
                             OperationType = operationType.GetDescription(),
-                            ResultType = imaginaryRootsResult.GetDescription()
+                            ResultType = imaginaryRootsResult.GetDescription(),
                         };
 
                         IMessageActivity opsSuccessImagReply = context.MakeMessage();
@@ -209,14 +233,14 @@ namespace CalculatorChatBot.Dialogs.Geometry
                             new Attachment()
                             {
                                 ContentType = "application/vnd.microsoft.card.adaptive",
-                                Content = JsonConvert.DeserializeObject(opsSuccessImaginRootCard)
-                            }
+                                Content = JsonConvert.DeserializeObject(opsSuccessImaginRootCard),
+                            },
                         };
 
-                        await context.PostAsync(opsSuccessImagReply);
+                        await context.PostAsync(opsSuccessImagReply).ConfigureAwait(false);
                         break;
                     default:
-                        await context.PostAsync("Sorry I'm not sure what is going on here");
+                        await context.PostAsync("Sorry I'm not sure what is going on here").ConfigureAwait(false);
                         break;
                 }
             }

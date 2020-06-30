@@ -1,9 +1,8 @@
-﻿using System.Resources;
-// <copyright file="AssemblyInfo.cs" company="XYZ Software Company LLC">
+﻿// <copyright file="AssemblyInfo.cs" company="XYZ Software Company LLC">
 // Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
-
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
