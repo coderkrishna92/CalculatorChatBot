@@ -1,11 +1,12 @@
-﻿// <copyright file="RmsDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="RmsDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Statistics
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -25,6 +26,11 @@ namespace CalculatorChatBot.Dialogs.Statistics
         /// <param name="incomingActivity">The incoming activity.</param>
         public RmsDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -35,12 +41,30 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method will execute whenever this dialog executes.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -63,10 +87,10 @@ namespace CalculatorChatBot.Dialogs.Statistics
                 var success = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = calculatedResult.ToString(),
+                    NumericalResult = calculatedResult.ToString(CultureInfo.InvariantCulture),
                     OutputMsg = $"Given the list: {this.InputString}, the RMS = {calculatedResult}",
                     OperationType = operationType.GetDescription(),
-                    ResultType = successResType.GetDescription()
+                    ResultType = successResType.GetDescription(),
                 };
 
                 IMessageActivity successReply = context.MakeMessage();
@@ -80,7 +104,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     },
                 };
 
-                await context.PostAsync(successReply);
+                await context.PostAsync(successReply).ConfigureAwait(false);
             }
             else
             {
@@ -105,7 +129,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     },
                 };
 
-                await context.PostAsync(errorReply);
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
 
             context.Done<object>(null);
