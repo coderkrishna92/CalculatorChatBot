@@ -43,12 +43,30 @@ namespace CalculatorChatBot.Dialogs.Statistics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method will execute when this dialog is running.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)

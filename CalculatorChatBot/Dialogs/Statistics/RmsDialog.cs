@@ -76,9 +76,10 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                    },
                 };
+
                 await context.PostAsync(successReply);
             }
             else
@@ -90,7 +91,7 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     NumericalResult = "0",
                     OutputMsg = "Your list may be too small to calculate the root mean square. Please try again later",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorResType.GetDescription()
+                    ResultType = errorResType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -100,9 +101,10 @@ namespace CalculatorChatBot.Dialogs.Statistics
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorReplyAdaptiveCard),
+                    },
                 };
+
                 await context.PostAsync(errorReply);
             }
 
