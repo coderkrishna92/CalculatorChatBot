@@ -1,5 +1,5 @@
-﻿// <copyright file="ArithmeticOps.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="ArithmeticOps.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Operations
@@ -7,18 +7,22 @@ namespace CalculatorChatBot.Operations
     using System;
 
     /// <summary>
-    /// This class represents all of the operations that are classified under the category
-    /// of arithmetic. In essence, these are the arithmetic operations that the bot could conduct
+    /// This class represents all of the arithmetic operations.
     /// </summary>
-    public class ArithmeticOps
+    public static class ArithmeticOps
     {
         /// <summary>
-        /// Calculates the overall sum of the incoming list of numbers
+        /// Calculates the overall sum of the incoming list of numbers.
         /// </summary>
-        /// <param name="inputString">List of numbers that are comma separated</param>
-        /// <returns>An integer representing the sum</returns>
-        public int OverallSum(string inputString)
+        /// <param name="inputString">List of numbers that are comma separated.</param>
+        /// <returns>An integer representing the sum.</returns>
+        public static int OverallSum(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 
@@ -32,12 +36,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Calculates the overall difference in the list of numbers
+        /// Calculates the overall difference in the list of numbers.
         /// </summary>
-        /// <param name="inputString">List of numbers that are coming in, which are also comma separated</param>
-        /// <returns>Integer that represents the overall difference between the numbers in the array</returns>
-        public int OverallDifference(string inputString)
+        /// <param name="inputString">List of numbers that are coming in, which are also comma separated.</param>
+        /// <returns>Integer that represents the overall difference between the numbers in the array.</returns>
+        public static int OverallDifference(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 
@@ -51,12 +60,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Calculates the overall product - multiplying all of the elements in the list together
+        /// Calculates the overall product - multiplying all of the elements in the list together.
         /// </summary>
-        /// <param name="inputString">The list of numbers</param>
-        /// <returns>A number representing the product</returns>
-        public int OverallProduct(string inputString)
+        /// <param name="inputString">The list of numbers.</param>
+        /// <returns>A number representing the product.</returns>
+        public static int OverallProduct(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 
@@ -70,12 +84,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// This calculates the quotient between two numbers
+        /// This calculates the quotient between two numbers.
         /// </summary>
-        /// <param name="inputString">The list of comma separated integers</param>
-        /// <returns>The result when you divide the two numbers in the array</returns>
-        public decimal OverallDivision(string inputString)
+        /// <param name="inputString">The list of comma separated integers.</param>
+        /// <returns>The result when you divide the two numbers in the array.</returns>
+        public static decimal OverallDivision(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 
@@ -92,12 +111,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Making sure to have the modulo operation coded for the project
+        /// Making sure to have the modulo operation coded for the project.
         /// </summary>
-        /// <param name="inputString">The list of integers</param>
-        /// <returns>The result of the modulo operation</returns>
-        public int OverallModulo(string inputString)
+        /// <param name="inputString">The list of integers.</param>
+        /// <returns>The result of the modulo operation.</returns>
+        public static int OverallModulo(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputArrayStr = inputString.Split(',');
             int[] inputInts = Array.ConvertAll(inputArrayStr, int.Parse);
 

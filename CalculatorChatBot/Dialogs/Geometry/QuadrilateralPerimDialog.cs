@@ -1,11 +1,12 @@
-﻿// <copyright file="QuadrilateralPerimDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="QuadrilateralPerimDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
@@ -26,6 +27,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
         /// <param name="incomingActivity">The incoming activity.</param>
         public QuadrilateralPerimDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
@@ -37,12 +43,30 @@ namespace CalculatorChatBot.Dialogs.Geometry
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method executes whenever this dialog is running at runtime.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -60,7 +84,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "0",
                     OutputMsg = $"Your input: {this.InputString} is not valid. Please try again later!",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorResultType.GetDescription()
+                    ResultType = errorResultType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -70,11 +94,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard),
+                    },
                 };
 
-                await context.PostAsync(errorReply);
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
             else
             {
@@ -89,10 +113,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     var totalPerimResult = new OperationResults()
                     {
                         Input = this.InputString,
-                        NumericalResult = totalPerimeter.ToString(),
+                        NumericalResult = totalPerimeter.ToString(CultureInfo.InvariantCulture),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the input list: {this.InputString}, the perimeter = {totalPerimeter}",
-                        ResultType = totalPerimResultType.GetDescription()
+                        ResultType = totalPerimResultType.GetDescription(),
                     };
 
                     IMessageActivity perimeterReply = context.MakeMessage();
@@ -102,11 +126,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(totalPerimAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(totalPerimAdaptiveCard),
+                        },
                     };
 
-                    await context.PostAsync(perimeterReply);
+                    await context.PostAsync(perimeterReply).ConfigureAwait(false);
                 }
                 else
                 {
@@ -116,10 +140,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     var squarePerimResult = new OperationResults()
                     {
                         Input = this.InputString,
-                        NumericalResult = squarePerimeter.ToString(),
+                        NumericalResult = squarePerimeter.ToString(CultureInfo.InvariantCulture),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the input list: {this.InputString}, the perimeter = {squarePerimeter}",
-                        ResultType = totalPerimResultType.GetDescription()
+                        ResultType = totalPerimResultType.GetDescription(),
                     };
 
                     IMessageActivity squarePerimReply = context.MakeMessage();
@@ -129,11 +153,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(squarePerimAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(squarePerimAdaptiveCard),
+                        },
                     };
 
-                    await context.PostAsync(squarePerimReply);
+                    await context.PostAsync(squarePerimReply).ConfigureAwait(false);
                 }
             }
         }

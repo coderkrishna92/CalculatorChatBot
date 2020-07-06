@@ -1,5 +1,5 @@
-﻿// <copyright file="ArithmeticTests.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="ArithmeticTests.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Operations.Tests
@@ -8,18 +8,20 @@ namespace CalculatorChatBot.Operations.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// This class contains the unit tests of the ArithmeticOps.cs class
+    /// This class contains the unit tests of the ArithmeticOps.cs class.
     /// </summary>
     [TestClass]
     public class ArithmeticTests
     {
+        /// <summary>
+        /// This is the test method for testing the overall summation.
+        /// </summary>
         [TestMethod]
         public void OverallSummationTest()
         {
-            var arith = new ArithmeticOps();
             var inputString = "1,3,4";
 
-            var expSum = arith.OverallSum(inputString);
+            var expSum = ArithmeticOps.OverallSum(inputString);
             int testSum = 8;
 
             Assert.AreEqual(expSum, testSum);
@@ -31,13 +33,15 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method is testing the overall difference.
+        /// </summary>
         [TestMethod]
         public void OverallDifferenceTest()
         {
-            var arith = new ArithmeticOps();
             var inputString = "-1,0,-3";
 
-            var expOverallDiff = arith.OverallDifference(inputString);
+            var expOverallDiff = ArithmeticOps.OverallDifference(inputString);
             int testOverallDiff = 2;
 
             Assert.AreEqual(expOverallDiff, testOverallDiff);
@@ -49,13 +53,15 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method is a test for finding the overall product.
+        /// </summary>
         [TestMethod]
         public void OverallProductTest()
         {
-            var arith = new ArithmeticOps();
             var inputString = "1,0,4";
 
-            var expOverallProd1 = arith.OverallProduct(inputString);
+            var expOverallProd1 = ArithmeticOps.OverallProduct(inputString);
             int testOverallProd1 = 0;
 
             Assert.AreEqual(expOverallProd1, testOverallProd1);
@@ -68,12 +74,14 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method also tests for the overall product.
+        /// </summary>
         [TestMethod]
         public void OverallProductTest2()
         {
-            var arith = new ArithmeticOps();
             var inputString2 = "1,3,-2";
-            var expOverallProd2 = arith.OverallProduct(inputString2);
+            var expOverallProd2 = ArithmeticOps.OverallProduct(inputString2);
             int testOverallProd2 = -6;
 
             Assert.AreEqual(expOverallProd2, testOverallProd2);
@@ -85,14 +93,15 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the functionality to calculate the quotient.
+        /// </summary>
         [TestMethod]
         public void OverallDivisionTest()
         {
-            var arith = new ArithmeticOps();
-
             var inputString = "2,10";
 
-            var expectedQuotient = arith.OverallDivision(inputString);
+            var expectedQuotient = ArithmeticOps.OverallDivision(inputString);
             decimal testQuotient = 0.2m;
 
             Assert.AreEqual(expectedQuotient, testQuotient);
@@ -104,12 +113,14 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the calculation of the remainder.
+        /// </summary>
         [TestMethod]
         public void OverallModuloTest()
         {
-            var arith = new ArithmeticOps();
             var inputString = "2,10";
-            var expectedResult = arith.OverallModulo(inputString);
+            var expectedResult = ArithmeticOps.OverallModulo(inputString);
             var testResult = 2;
 
             Assert.AreEqual(expectedResult, testResult);

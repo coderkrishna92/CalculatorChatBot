@@ -1,22 +1,23 @@
-﻿// <copyright file="StripBotAtMentions.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="StripBotAtMentions.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.BotMiddleware
 {
     using System;
+    using System.Globalization;
     using Microsoft.Bot.Connector;
 
     /// <summary>
     /// This class is responsible for stripping the AtMentions.
     /// </summary>
-    public class StripBotAtMentions
+    public static class StripBotAtMentions
     {
         /// <summary>
-        /// Removes the @mention of the bot to be able to correctly parse the incoming message
+        /// Removes the @mention of the bot to be able to correctly parse the incoming message.
         /// </summary>
-        /// <param name="activity">Incoming activity</param>
-        /// <returns>The activity which includes the actual message</returns>
+        /// <param name="activity">Incoming activity.</param>
+        /// <returns>The activity which includes the actual message.</returns>
         public static IMessageActivity StripAtMentionText(IMessageActivity activity)
         {
             if (activity == null)
@@ -44,7 +45,7 @@ namespace CalculatorChatBot.BotMiddleware
             // Convert the input command in lower case for 1To1 and Channel users
             if (activity.Text != null)
             {
-                activity.Text = activity.Text.ToLower();
+                activity.Text = activity.Text.ToLower(CultureInfo.InvariantCulture);
             }
 
             return activity;

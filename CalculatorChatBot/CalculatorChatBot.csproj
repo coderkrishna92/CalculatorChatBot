@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\CalculatorChatBot.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -174,7 +175,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BotHelpers\MessageHelpers.cs" />
-    <Compile Include="BotMiddleware\CalculatorChatBot.cs" />
+    <Compile Include="BotMiddleware\CalcChatBot.cs" />
     <Compile Include="BotMiddleware\StripBotAtMentions.cs" />
     <Compile Include="Cards\OperationErrorAdaptiveCard.cs" />
     <Compile Include="Cards\OperationResultsAdaptiveCard.cs" />
@@ -235,6 +236,9 @@
     <Content Include="lib\jquery\jquery.min.map" />
     <Content Include="lib\microsoft-teams\dist\MicrosoftTeams.js.map" />
     <AdditionalFiles Include="stylecop.json" />
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

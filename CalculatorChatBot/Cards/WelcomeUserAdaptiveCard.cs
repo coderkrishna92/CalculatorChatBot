@@ -1,17 +1,21 @@
-﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="WelcomeUserAdaptiveCard.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Cards
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Web.Hosting;
     using CalculatorChatBot.Properties;
     using Microsoft.Azure;
 
-    public class WelcomeUserAdaptiveCard
+    /// <summary>
+    /// This class is the adaptive card for welcoming the user.
+    /// </summary>
+    public static class WelcomeUserAdaptiveCard
     {
         private static readonly string CardTemplate;
 
@@ -21,10 +25,17 @@ namespace CalculatorChatBot.Cards
             CardTemplate = File.ReadAllText(cardJsonFilePath);
         }
 
+        /// <summary>
+        /// This method will construct the card JSON string.
+        /// </summary>
+        /// <param name="teamName">The name of the team.</param>
+        /// <param name="nameOfUserThatJustJoined">The name of the user to welcome.</param>
+        /// <param name="botDisplayName">The bot display name.</param>
+        /// <returns>The JSON string of the adaptive card.</returns>
         public static string GetCard(string teamName, string nameOfUserThatJustJoined, string botDisplayName)
         {
             var welcomeUserCardTitleText = Resources.WelcomeUserCardTitleText;
-            var welcomeUserCardIntroPart1 = Resources.WelcomeUserCardIntroPart1;
+            var welcomeUserCardIntroPart1 = string.Format(CultureInfo.InvariantCulture, Resources.WelcomeUserCardIntroPart1, nameOfUserThatJustJoined, teamName, botDisplayName);
             var welcomeUserCardIntroPart2 = Resources.WelcomeUserCardIntroPart2;
             var tourButtonText = Resources.TourButtonText;
             var welcomeTourTitle = Resources.WelcomeTourTitle;
@@ -40,7 +51,7 @@ namespace CalculatorChatBot.Cards
                 { "welcomeUserCardIntroPart1", welcomeUserCardIntroPart1 },
                 { "welcomeUserCardIntroPart2", welcomeUserCardIntroPart2 },
                 { "tourButtonText", tourButtonText },
-                { "tourUrl", tourUrl }
+                { "tourUrl", tourUrl },
             };
 
             var cardBody = CardTemplate;

@@ -1,5 +1,5 @@
-﻿// <copyright file="StatisticalOps.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="StatisticalOps.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Operations
@@ -10,17 +10,74 @@ namespace CalculatorChatBot.Operations
 
     /// <summary>
     /// This class represents all of the operations that are classified under the statistical
-    /// category
+    /// category.
     /// </summary>
-    public class StatisticalOps
+    public static class StatisticalOps
     {
         /// <summary>
-        /// Calculates the mean of the list of numbers
+        /// Method that calculates the Geometric Mean.
         /// </summary>
-        /// <param name="inputString">Comma separated list of numbers</param>
-        /// <returns>The mean (or average) of the list</returns>
-        public decimal CalculateAverage(string inputString)
+        /// <param name="inputString">The list of numbers.</param>
+        /// <returns>The geometric mean of the list.</returns>
+        public static double CalculateGeometricMean(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
+            string[] inputStrArray = inputString.Split(',');
+            int[] inputInts = Array.ConvertAll(inputStrArray, int.Parse);
+
+            int numberOfElements = inputInts.Length;
+            int finalProduct = inputInts[0];
+            for (int i = 1; i < inputInts.Length; i++)
+            {
+                finalProduct *= inputInts[i];
+            }
+
+            var geoMean = Math.Pow(finalProduct, 1 / numberOfElements);
+            return geoMean;
+        }
+
+        /// <summary>
+        /// Function to calculate the root mean square among a set of numbers.
+        /// </summary>
+        /// <param name="inputString">The list of numbers that are being provided to the bot.</param>
+        /// <returns>The root mean square of the list.</returns>
+        public static double CalculateRootMeanSquare(string inputString)
+        {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
+            string[] inputStrArray = inputString.Split(',');
+            int[] inputInts = Array.ConvertAll(inputStrArray, int.Parse);
+
+            var sumOfSquares = inputInts[0];
+            for (int i = 1; i < inputInts.Length; i++)
+            {
+                sumOfSquares += (int)Math.Pow(inputInts[i], 2);
+            }
+
+            var calculatedResult = Math.Sqrt(sumOfSquares / inputInts.Length);
+
+            return calculatedResult;
+        }
+
+        /// <summary>
+        /// Calculates the mean of the list of numbers.
+        /// </summary>
+        /// <param name="inputString">Comma separated list of numbers.</param>
+        /// <returns>The mean (or average) of the list.</returns>
+        public static decimal CalculateAverage(string inputString)
+        {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
             int sizeOfArray = inputIntsArr.Length;
@@ -38,12 +95,17 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Method to find the middle of the list of integers, also known as
-        /// the median
+        /// the median.
         /// </summary>
-        /// <param name="inputString">The list of integers that are separated by a comma</param>
-        /// <returns>The median value</returns>
-        public decimal CalculateMedian(string inputString)
+        /// <param name="inputString">The list of integers that are separated by a comma.</param>
+        /// <returns>The median value.</returns>
+        public static decimal CalculateMedian(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -66,13 +128,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// This function will now calculate the mode of the list of
-        /// integers
+        /// This function will now calculate the mode of the list of integers.
         /// </summary>
-        /// <param name="inputString">List of comma separated integers</param>
-        /// <returns>The mode - either 0, one single value, or multiple integer values</returns>
-        public int[] CalculateMode(string inputString)
+        /// <param name="inputString">List of comma separated integers.</param>
+        /// <returns>The mode - either 0, one single value, or multiple integer values.</returns>
+        public static int[] CalculateMode(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             // From string to int array
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntArr = Array.ConvertAll(inputStringArr, int.Parse);
@@ -91,7 +157,7 @@ namespace CalculatorChatBot.Operations
                         select new
                         {
                             Number = groupedNumbers.Key,
-                            Count = groupedNumbers.Count()
+                            Count = groupedNumbers.Count(),
                         };
 
             int max = query.Max(g => g.Count);
@@ -111,12 +177,17 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// This method will be calculate the range in the list of numbers that is provided
-        /// by the user
+        /// by the user.
         /// </summary>
-        /// <param name="inputString">The list of integers that the user provides</param>
-        /// <returns>The difference between the largest and smallest elements in the list of integers</returns>
-        public int CalculateRange(string inputString)
+        /// <param name="inputString">The list of integers that the user provides.</param>
+        /// <returns>The difference between the largest and smallest elements in the list of integers.</returns>
+        public static int CalculateRange(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
@@ -139,16 +210,21 @@ namespace CalculatorChatBot.Operations
 
         /// <summary>
         /// Method that would calculate the variance of a list of numbers that are provided
-        /// to the library
+        /// to the library.
         /// </summary>
-        /// <param name="inputString">The list of integers</param>
-        /// <returns>The variance</returns>
-        public double CalculateVariance(string inputString)
+        /// <param name="inputString">The list of integers.</param>
+        /// <returns>The variance.</returns>
+        public static double CalculateVariance(string inputString)
         {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
             string[] inputStringArr = inputString.Split(',');
             int[] inputIntsArr = Array.ConvertAll(inputStringArr, int.Parse);
 
-            var mean = Convert.ToDouble(this.CalculateAverage(inputString));
+            var mean = Convert.ToDouble(CalculateAverage(inputString));
             double squareDiffs = 0;
             int n = inputIntsArr.Length;
 
@@ -163,59 +239,17 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
-        /// Method that calculates the standard deviation
+        /// Method that calculates the standard deviation.
         /// </summary>
-        /// <param name="inputString">The list of integers</param>
-        /// <returns>Standard deviation of the list of numbers</returns>
-        public double CalculateStandardDeviation(string inputString)
+        /// <param name="inputString">The list of integers.</param>
+        /// <returns>Standard deviation of the list of numbers.</returns>
+        public static double CalculateStandardDeviation(string inputString)
         {
-            var calculatedVariance = this.CalculateVariance(inputString);
+            var calculatedVariance = CalculateVariance(inputString);
 
             decimal standardDev = decimal.Round(Convert.ToDecimal(Math.Sqrt(calculatedVariance)), 2);
 
             return Convert.ToDouble(standardDev);
-        }
-
-        /// <summary>
-        /// Method that calculates the Geometric Mean
-        /// </summary>
-        /// <param name="inputString">The list of numbers</param>
-        /// <returns>The geometric mean of the list</returns>
-        public double CalculateGeometricMean(string inputString)
-        {
-            string[] inputStrArray = inputString.Split(',');
-            int[] inputInts = Array.ConvertAll(inputStrArray, int.Parse);
-
-            int numberOfElements = inputInts.Length;
-            int finalProduct = inputInts[0];
-            for (int i = 1; i < inputInts.Length; i++)
-            {
-                finalProduct *= inputInts[i];
-            }
-
-            var geoMean = Math.Pow(finalProduct, 1 / numberOfElements);
-            return geoMean;
-        }
-
-        /// <summary>
-        /// Function to calculate the root mean square among a set of numbers
-        /// </summary>
-        /// <param name="inputString">The list of numbers that are being provided to the bot</param>
-        /// <returns>The root mean square of the list</returns>
-        public double CalculateRootMeanSquare(string inputString)
-        {
-            string[] inputStrArray = inputString.Split(',');
-            int[] inputInts = Array.ConvertAll(inputStrArray, int.Parse);
-
-            var sumOfSquares = inputInts[0];
-            for (int i = 1; i < inputInts.Length; i++)
-            {
-                sumOfSquares += (int)Math.Pow(inputInts[i], 2);
-            }
-
-            var calculatedResult = Math.Sqrt(sumOfSquares / inputInts.Length);
-
-            return calculatedResult;
         }
     }
 }

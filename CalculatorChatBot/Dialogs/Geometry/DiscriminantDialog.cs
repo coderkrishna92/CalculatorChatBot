@@ -1,11 +1,12 @@
-﻿// <copyright file="DiscriminantDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="DiscriminantDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -14,8 +15,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This class will calculate the discriminant value of a quadratic equation - give the values of
-    /// A, B, and C.
+    /// This class will calculate the discriminant value of a quadratic equation - give the values of A, B, and C.
     /// </summary>
     [Serializable]
     public class DiscriminantDialog : IDialog<object>
@@ -26,6 +26,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
         /// <param name="incomingActivity">The incoming activity.</param>
         public DiscriminantDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -36,12 +41,30 @@ namespace CalculatorChatBot.Dialogs.Geometry
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method will run whenever this dialog is being executed at runtime.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -59,7 +82,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "DNE",
                     OutputMsg = $"The input list: {this.InputString} could be too long - there needs to be 3 numbers exactly",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorListTooLongResType.GetDescription()
+                    ResultType = errorListTooLongResType.GetDescription(),
                 };
 
                 IMessageActivity errorListTooLongReply = context.MakeMessage();
@@ -69,10 +92,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorListTooLongAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorListTooLongAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(errorListTooLongReply);
+                await context.PostAsync(errorListTooLongReply).ConfigureAwait(false);
             }
             else if (this.InputInts.Length < 3)
             {
@@ -83,7 +106,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "DNE",
                     OutputMsg = $"The input list: {this.InputString} could be too short - there needs to be 3 numbers exactly",
                     OperationType = operationType.GetDescription(),
-                    ResultType = errorListTooShortResType.GetDescription()
+                    ResultType = errorListTooShortResType.GetDescription(),
                 };
 
                 IMessageActivity errorListTooShortReply = context.MakeMessage();
@@ -93,10 +116,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorListTooShortAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorListTooShortAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(errorListTooShortReply);
+                await context.PostAsync(errorListTooShortReply).ConfigureAwait(false);
             }
             else
             {
@@ -126,8 +149,8 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     Input = this.InputString,
                     OperationType = operationType.GetDescription(),
                     OutputMsg = resultMsg,
-                    NumericalResult = discriminantValue.ToString(),
-                    ResultType = resultsType.GetDescription()
+                    NumericalResult = discriminantValue.ToString(CultureInfo.InvariantCulture),
+                    ResultType = resultsType.GetDescription(),
                 };
 
                 IMessageActivity discrimReply = context.MakeMessage();
@@ -137,11 +160,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                    },
                 };
 
-                await context.PostAsync(discrimReply);
+                await context.PostAsync(discrimReply).ConfigureAwait(false);
             }
 
             context.Done<object>(null);

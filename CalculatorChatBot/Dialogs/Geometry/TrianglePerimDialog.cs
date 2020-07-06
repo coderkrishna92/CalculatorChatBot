@@ -1,11 +1,12 @@
-﻿// <copyright file="TrianglePerimDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="TrianglePerimDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Geometry
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
@@ -26,6 +27,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
         /// <param name="incomingActivity">The incoming activity.</param>
         public TrianglePerimDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             // Parsing through the incoming message text
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
@@ -37,12 +43,30 @@ namespace CalculatorChatBot.Dialogs.Geometry
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input string array.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method will executed when this dialog is being executed at runtime.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             if (context == null)
@@ -60,7 +84,7 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     NumericalResult = "0",
                     OperationType = operationType.GetDescription(),
                     OutputMsg = $"Your input list: {this.InputString} is not valid, please check the input list and try again",
-                    ResultType = errorResultType.GetDescription()
+                    ResultType = errorResultType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -70,11 +94,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard),
+                    },
                 };
 
-                await context.PostAsync(errorReply);
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
             else
             {
@@ -88,10 +112,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     var perimResults = new OperationResults()
                     {
                         Input = this.InputString,
-                        NumericalResult = perimeter.ToString(),
+                        NumericalResult = perimeter.ToString(CultureInfo.InvariantCulture),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {perimeter}",
-                        ResultType = perimResultType.GetDescription()
+                        ResultType = perimResultType.GetDescription(),
                     };
 
                     IMessageActivity perimSuccessReply = context.MakeMessage();
@@ -101,11 +125,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard),
+                        },
                     };
 
-                    await context.PostAsync(perimSuccessReply);
+                    await context.PostAsync(perimSuccessReply).ConfigureAwait(false);
                 }
                 else
                 {
@@ -114,10 +138,10 @@ namespace CalculatorChatBot.Dialogs.Geometry
                     var perimResults = new OperationResults()
                     {
                         Input = this.InputString,
-                        NumericalResult = equiPerim.ToString(),
+                        NumericalResult = equiPerim.ToString(CultureInfo.InvariantCulture),
                         OperationType = operationType.GetDescription(),
                         OutputMsg = $"Given the inputs: {this.InputString}, the perimeter = {equiPerim}",
-                        ResultType = perimResultType.GetDescription()
+                        ResultType = perimResultType.GetDescription(),
                     };
 
                     IMessageActivity equiPerimSuccessReply = context.MakeMessage();
@@ -127,11 +151,11 @@ namespace CalculatorChatBot.Dialogs.Geometry
                         new Attachment()
                         {
                             ContentType = "application/vnd.microsoft.card.adaptive",
-                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard)
-                        }
+                            Content = JsonConvert.DeserializeObject(perimSuccessAdaptiveCard),
+                        },
                     };
 
-                    await context.PostAsync(equiPerimSuccessReply);
+                    await context.PostAsync(equiPerimSuccessReply).ConfigureAwait(false);
                 }
 
                 context.Done<object>(null);

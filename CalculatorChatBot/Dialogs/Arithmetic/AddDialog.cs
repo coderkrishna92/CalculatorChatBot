@@ -1,11 +1,12 @@
-﻿// <copyright file="AddDialog.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="AddDialog.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Dialogs.Arithmetic
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
     using CalculatorChatBot.Cards;
     using CalculatorChatBot.Models;
@@ -25,6 +26,11 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
         /// <param name="incomingActivity">The incoming activity.</param>
         public AddDialog(Activity incomingActivity)
         {
+            if (incomingActivity is null)
+            {
+                throw new ArgumentNullException(nameof(incomingActivity));
+            }
+
             string[] incomingInfo = incomingActivity.Text.Split(' ');
 
             if (!string.IsNullOrEmpty(incomingInfo[1]))
@@ -35,12 +41,30 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
             }
         }
 
+        /// <summary>
+        /// Gets or sets the input array string.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public string[] InputStringArray { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// Gets or sets the input string.
+        /// </summary>
         public string InputString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the input integers.
+        /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         public int[] InputInts { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
+        /// <summary>
+        /// This method executes to start the execution of the dialog.
+        /// </summary>
+        /// <param name="context">The current dialog context.</param>
+        /// <returns>A unit of execution.</returns>
         public async Task StartAsync(IDialogContext context)
         {
             var calculationType = CalculationTypes.Arithmetic;
@@ -62,10 +86,10 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                 var results = new OperationResults()
                 {
                     Input = this.InputString,
-                    NumericalResult = sum.ToString(),
+                    NumericalResult = sum.ToString(CultureInfo.InvariantCulture),
                     OutputMsg = $"Given the list of {this.InputString}; the sum = {sum}",
                     OperationType = calculationType.GetDescription(),
-                    ResultType = resType.GetDescription()
+                    ResultType = resType.GetDescription(),
                 };
 
                 IMessageActivity reply = context.MakeMessage();
@@ -75,10 +99,10 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(resultsAdaptiveCard),
+                    },
                 };
-                await context.PostAsync(reply);
+                await context.PostAsync(reply).ConfigureAwait(false);
             }
             else
             {
@@ -89,7 +113,7 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                     NumericalResult = "0",
                     OutputMsg = $"The input list: {this.InputString} is too short - please provide more numbers",
                     OperationType = calculationType.GetDescription(),
-                    ResultType = errorResType.GetDescription()
+                    ResultType = errorResType.GetDescription(),
                 };
 
                 IMessageActivity errorReply = context.MakeMessage();
@@ -99,11 +123,11 @@ namespace CalculatorChatBot.Dialogs.Arithmetic
                     new Attachment()
                     {
                         ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard)
-                    }
+                        Content = JsonConvert.DeserializeObject(errorAdaptiveCard),
+                    },
                 };
 
-                await context.PostAsync(errorReply);
+                await context.PostAsync(errorReply).ConfigureAwait(false);
             }
 
             context.Done<object>(null);
