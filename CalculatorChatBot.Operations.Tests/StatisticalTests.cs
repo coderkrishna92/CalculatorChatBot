@@ -1,5 +1,5 @@
-﻿// <copyright file="StatisticalTests.cs" company="XYZ Software LLC">
-// Copyright (c) XYZ Software LLC. All rights reserved.
+﻿// <copyright file="StatisticalTests.cs" company="XYZ Software Company LLC">
+// Copyright (c) XYZ Software Company LLC. All rights reserved.
 // </copyright>
 
 namespace CalculatorChatBot.Operations.Tests
@@ -8,11 +8,14 @@ namespace CalculatorChatBot.Operations.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// This class contains the various unit tests for the StatisticalOps.cs class
+    /// This class contains the various unit tests for the <see cref="StatisticalOps"/> class.
     /// </summary>
     [TestClass]
     public class StatisticalTests
     {
+        /// <summary>
+        /// This method tests the functionality of calculating the mean.
+        /// </summary>
         [TestMethod]
         public void AverageTest()
         {
@@ -29,6 +32,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method will be testing the functionality of calculating the average.
+        /// </summary>
         [TestMethod]
         public void MedianTest()
         {
@@ -45,6 +51,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This test method will test the functionality of calculating the mode.
+        /// </summary>
         [TestMethod]
         public void ModeTest()
         {
@@ -64,6 +73,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method will test the range calculation.
+        /// </summary>
         [TestMethod]
         public void RangeTest()
         {
@@ -79,6 +91,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the standard deviation functionality.
+        /// </summary>
         [TestMethod]
         public void StandardDeviationTest()
         {
@@ -94,6 +109,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the calculation of the variance.
+        /// </summary>
         [TestMethod]
         public void VarianceTest()
         {

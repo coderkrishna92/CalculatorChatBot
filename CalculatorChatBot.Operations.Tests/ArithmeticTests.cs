@@ -13,6 +13,9 @@ namespace CalculatorChatBot.Operations.Tests
     [TestClass]
     public class ArithmeticTests
     {
+        /// <summary>
+        /// This is the test method for testing the overall summation.
+        /// </summary>
         [TestMethod]
         public void OverallSummationTest()
         {
@@ -30,6 +33,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method is testing the overall difference.
+        /// </summary>
         [TestMethod]
         public void OverallDifferenceTest()
         {
@@ -47,6 +53,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method is a test for finding the overall product.
+        /// </summary>
         [TestMethod]
         public void OverallProductTest()
         {
@@ -65,6 +74,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method also tests for the overall product.
+        /// </summary>
         [TestMethod]
         public void OverallProductTest2()
         {
@@ -81,6 +93,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the functionality to calculate the quotient.
+        /// </summary>
         [TestMethod]
         public void OverallDivisionTest()
         {
@@ -98,6 +113,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method tests the calculation of the remainder.
+        /// </summary>
         [TestMethod]
         public void OverallModuloTest()
         {
