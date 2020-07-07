@@ -42,11 +42,11 @@ namespace CalculatorChatBot
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    await this.HandleTextMessageAsync(connectorClient, activity).ConfigureAwait(false);
+                    await HandleTextMessageAsync(connectorClient, activity).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.HandleSystemMessageAsync(connectorClient, activity).ConfigureAwait(false);
+                    await HandleSystemMessageAsync(connectorClient, activity).ConfigureAwait(false);
                 }
             }
 
@@ -59,7 +59,7 @@ namespace CalculatorChatBot
         /// <param name="client">The connectorClient.</param>
         /// <param name="activity">The incoming activity.</param>
         /// <returns>A unit of execution.</returns>
-        private async Task HandleTextMessageAsync(ConnectorClient client, Activity activity)
+        private static async Task HandleTextMessageAsync(ConnectorClient client, Activity activity)
         {
             // This is used for removing the '@botName' from the incoming message so it
             // can be parsed correctly
@@ -73,6 +73,7 @@ namespace CalculatorChatBot
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
+                throw;
             }
         }
 
@@ -82,7 +83,7 @@ namespace CalculatorChatBot
         /// <param name="connectorClient">The connectorClient.</param>
         /// <param name="message">The message that is coming in.</param>
         /// <returns>A unit of execution.</returns>
-        private async Task HandleSystemMessageAsync(ConnectorClient connectorClient, Activity message)
+        private static async Task HandleSystemMessageAsync(ConnectorClient connectorClient, Activity message)
         {
             try
             {
@@ -121,6 +122,7 @@ namespace CalculatorChatBot
             catch (Exception ex)
             {
                 Trace.TraceError($"Exception has been hit: {ex.InnerException}");
+                throw;
             }
         }
     }
