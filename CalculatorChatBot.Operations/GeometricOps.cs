@@ -14,8 +14,7 @@ namespace CalculatorChatBot.Operations
     public static class GeometricOps
     {
         /// <summary>
-        /// Calculates the discriminant given three integers, a value for A, a value for B, and
-        /// a value for C.
+        /// Calculates the discriminant given three integers, a value for A, a value for B, and a value for C.
         /// </summary>
         /// <param name="inputString">The three integers.</param>
         /// <returns>An integer.</returns>
