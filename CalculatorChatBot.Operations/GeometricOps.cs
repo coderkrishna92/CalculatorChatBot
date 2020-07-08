@@ -252,6 +252,31 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
+        /// This method will calculate the area of a trapezoid.
+        /// </summary>
+        /// <param name="inputString">The list of integers that contains the first base length, the second base length, and the height.</param>
+        /// <returns>The area of a trapezoid.</returns>
+        public static double CalculateTrapezoidArea(string inputString)
+        {
+            if (inputString is null)
+            {
+                throw new ArgumentNullException(nameof(inputString));
+            }
+
+            string[] inputStringArr = inputString.Split(',');
+            int[] inputInts = Array.ConvertAll(inputStringArr, int.Parse);
+
+            var base1 = inputInts[0];
+            var base2 = inputInts[1];
+            var height = inputInts[2];
+
+            var sumOfBases = base1 + base2;
+            var area = 0.5 * sumOfBases * height;
+
+            return area;
+        }
+
+        /// <summary>
         /// Method to calculate the hypotenuse.
         /// </summary>
         /// <param name="a">First leg of the right triangle.</param>
