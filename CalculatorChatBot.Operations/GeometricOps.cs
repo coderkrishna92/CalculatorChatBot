@@ -226,6 +226,32 @@ namespace CalculatorChatBot.Operations
         }
 
         /// <summary>
+        /// This method calculates the area of a circle.
+        /// </summary>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns>The area of the circle given the radius.</returns>
+        public static decimal CalculateCircleArea(int radius)
+        {
+            var area = Math.PI * Math.Pow(radius, 2);
+            var result = Convert.ToDecimal(area);
+
+            return decimal.Round(result, 2);
+        }
+
+        /// <summary>
+        /// This method will calculate the circumference of a circle.
+        /// </summary>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns>The circumference of the circle.</returns>
+        public static decimal CalculateCircleCircumference(int radius)
+        {
+            var circumference = Math.PI * 2 * radius;
+            var result = Convert.ToDecimal(circumference);
+
+            return decimal.Round(result, 2);
+        }
+
+        /// <summary>
         /// Method to calculate the hypotenuse.
         /// </summary>
         /// <param name="a">First leg of the right triangle.</param>
