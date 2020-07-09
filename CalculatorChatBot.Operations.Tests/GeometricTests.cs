@@ -55,10 +55,21 @@ namespace CalculatorChatBot.Operations.Tests
             var actualDiscriminant = 1;
 
             var expectedDiscriminant = GeometricOps.CalculateDiscriminant(inputString);
+            Assert.AreEqual(expectedDiscriminant, actualDiscriminant);
             if (actualDiscriminant == expectedDiscriminant && expectedDiscriminant > 0)
             {
                 Console.WriteLine("This test passes, and there are 2 real roots");
             }
+        }
+
+        [TestMethod]
+        public void TrapezoidAreaTest()
+        {
+            var inputString = "1, 5, 6";
+            var actualArea = 18;
+
+            var expectedArea = GeometricOps.CalculateTrapezoidArea(inputString);
+            Assert.AreEqual(expectedArea, actualArea);
         }
     }
 }

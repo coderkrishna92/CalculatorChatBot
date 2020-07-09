@@ -87,6 +87,27 @@
             <param name="inputString">The two points in a geometric space.</param>
             <returns>The distance between 2 points.</returns>
         </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateCircleArea(System.Int32)">
+            <summary>
+            This method calculates the area of a circle.
+            </summary>
+            <param name="radius">The radius of the circle.</param>
+            <returns>The area of the circle given the radius.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateCircleCircumference(System.Int32)">
+            <summary>
+            This method will calculate the circumference of a circle.
+            </summary>
+            <param name="radius">The radius of the circle.</param>
+            <returns>The circumference of the circle.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateTrapezoidArea(System.String)">
+            <summary>
+            This method will calculate the area of a trapezoid.
+            </summary>
+            <param name="inputString">The list of integers that contains the first base length, the second base length, and the height.</param>
+            <returns>The area of a trapezoid.</returns>
+        </member>
         <member name="M:CalculatorChatBot.Operations.GeometricOps.CalculateHypotenuse(System.Int32,System.Int32)">
             <summary>
             Method to calculate the hypotenuse.

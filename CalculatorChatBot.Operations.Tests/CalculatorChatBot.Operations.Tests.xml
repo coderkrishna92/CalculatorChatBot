@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CalculatorChatBot.Operations.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:CalculatorChatBot.Operations.Tests.ArithmeticTests">
+            <summary>
+            This class contains the unit tests of the ArithmeticOps.cs class.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallSummationTest">
+            <summary>
+            This is the test method for testing the overall summation.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallDifferenceTest">
+            <summary>
+            This method is testing the overall difference.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallProductTest">
+            <summary>
+            This method is a test for finding the overall product.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallProductTest2">
+            <summary>
+            This method also tests for the overall product.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallDivisionTest">
+            <summary>
+            This method tests the functionality to calculate the quotient.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.ArithmeticTests.OverallModuloTest">
+            <summary>
+            This method tests the calculation of the remainder.
+            </summary>
+        </member>
+        <member name="T:CalculatorChatBot.Operations.Tests.GeometricTests">
+            <summary>
+            This class represents all the testing to be done for the <see cref="T:CalculatorChatBot.Operations.GeometricOps"/> class.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.GeometricTests.ImaginaryRootsDiscriminantTest">
+            <summary>
+            This method will test a condition for the discriminant where there are 2 imaginary roots.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.GeometricTests.OneRootDiscriminantTest">
+            <summary>
+            This method will test the condition for the discriminant where there is one root.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.GeometricTests.TwoRootsDiscriminantGreaterThanZero">
+            <summary>
+            This method will test the condition for the discriminant where there are 2 real roots.
+            </summary>
+        </member>
+        <member name="T:CalculatorChatBot.Operations.Tests.StatisticalTests">
+            <summary>
+            This class contains the various unit tests for the <see cref="T:CalculatorChatBot.Operations.StatisticalOps"/> class.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.AverageTest">
+            <summary>
+            This method tests the functionality of calculating the mean.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.MedianTest">
+            <summary>
+            This method will be testing the functionality of calculating the average.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.ModeTest">
+            <summary>
+            This test method will test the functionality of calculating the mode.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.RangeTest">
+            <summary>
+            This method will test the range calculation.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.StandardDeviationTest">
+            <summary>
+            This method tests the standard deviation functionality.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.Tests.StatisticalTests.VarianceTest">
+            <summary>
+            This method tests the calculation of the variance.
+            </summary>
+        </member>
+    </members>
+</doc>
