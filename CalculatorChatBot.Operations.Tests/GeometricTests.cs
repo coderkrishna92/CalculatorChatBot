@@ -73,6 +73,11 @@ namespace CalculatorChatBot.Operations.Tests
 
             var expectedArea = GeometricOps.CalculateTrapezoidArea(inputString);
             Assert.AreEqual(expectedArea, actualArea);
+
+            if (expectedArea == actualArea)
+            {
+                Console.WriteLine("The TrapezoidArea test passes.");
+            }
         }
     }
 }
