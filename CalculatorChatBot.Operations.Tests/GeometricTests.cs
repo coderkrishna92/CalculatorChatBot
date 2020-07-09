@@ -62,6 +62,9 @@ namespace CalculatorChatBot.Operations.Tests
             }
         }
 
+        /// <summary>
+        /// This method will test the calcuation of the trapezoid area.
+        /// </summary>
         [TestMethod]
         public void TrapezoidAreaTest()
         {
