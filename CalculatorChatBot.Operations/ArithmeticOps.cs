@@ -9,14 +9,14 @@ namespace CalculatorChatBot.Operations
     /// <summary>
     /// This class represents all of the arithmetic operations.
     /// </summary>
-    public static class ArithmeticOps
+    public class ArithmeticOps : IArithmeticOps
     {
         /// <summary>
         /// Calculates the overall sum of the incoming list of numbers.
         /// </summary>
         /// <param name="inputString">List of numbers that are comma separated.</param>
         /// <returns>An integer representing the sum.</returns>
-        public static int OverallSum(string inputString)
+        public int OverallSum(string inputString)
         {
             if (inputString is null)
             {
@@ -40,7 +40,7 @@ namespace CalculatorChatBot.Operations
         /// </summary>
         /// <param name="inputString">List of numbers that are coming in, which are also comma separated.</param>
         /// <returns>Integer that represents the overall difference between the numbers in the array.</returns>
-        public static int OverallDifference(string inputString)
+        public int OverallDifference(string inputString)
         {
             if (inputString is null)
             {
@@ -64,7 +64,7 @@ namespace CalculatorChatBot.Operations
         /// </summary>
         /// <param name="inputString">The list of numbers.</param>
         /// <returns>A number representing the product.</returns>
-        public static int OverallProduct(string inputString)
+        public int OverallProduct(string inputString)
         {
             if (inputString is null)
             {
@@ -88,7 +88,7 @@ namespace CalculatorChatBot.Operations
         /// </summary>
         /// <param name="inputString">The list of comma separated integers.</param>
         /// <returns>The result when you divide the two numbers in the array.</returns>
-        public static decimal OverallDivision(string inputString)
+        public decimal OverallDivision(string inputString)
         {
             if (inputString is null)
             {
@@ -115,7 +115,7 @@ namespace CalculatorChatBot.Operations
         /// </summary>
         /// <param name="inputString">The list of integers.</param>
         /// <returns>The result of the modulo operation.</returns>
-        public static int OverallModulo(string inputString)
+        public int OverallModulo(string inputString)
         {
             if (inputString is null)
             {

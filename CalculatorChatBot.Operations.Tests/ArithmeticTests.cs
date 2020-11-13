@@ -6,6 +6,7 @@ namespace CalculatorChatBot.Operations.Tests
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     /// <summary>
     /// This class contains the unit tests of the ArithmeticOps.cs class.
@@ -13,6 +14,8 @@ namespace CalculatorChatBot.Operations.Tests
     [TestClass]
     public class ArithmeticTests
     {
+        private readonly Mock<IArithmeticOps> mockOps = new Mock<IArithmeticOps>();
+
         /// <summary>
         /// This is the test method for testing the overall summation.
         /// </summary>
@@ -21,7 +24,7 @@ namespace CalculatorChatBot.Operations.Tests
         {
             var inputString = "1,3,4";
 
-            var expSum = ArithmeticOps.OverallSum(inputString);
+            var expSum = this.mockOps.Object.OverallSum(inputString);
             int testSum = 8;
 
             Assert.AreEqual(expSum, testSum);
@@ -41,7 +44,7 @@ namespace CalculatorChatBot.Operations.Tests
         {
             var inputString = "-1,0,-3";
 
-            var expOverallDiff = ArithmeticOps.OverallDifference(inputString);
+            var expOverallDiff = this.mockOps.Object.OverallDifference(inputString);
             int testOverallDiff = 2;
 
             Assert.AreEqual(expOverallDiff, testOverallDiff);
@@ -61,7 +64,7 @@ namespace CalculatorChatBot.Operations.Tests
         {
             var inputString = "1,0,4";
 
-            var expOverallProd1 = ArithmeticOps.OverallProduct(inputString);
+            var expOverallProd1 = this.mockOps.Object.OverallProduct(inputString);
             int testOverallProd1 = 0;
 
             Assert.AreEqual(expOverallProd1, testOverallProd1);
@@ -81,7 +84,7 @@ namespace CalculatorChatBot.Operations.Tests
         public void OverallProductTest2()
         {
             var inputString2 = "1,3,-2";
-            var expOverallProd2 = ArithmeticOps.OverallProduct(inputString2);
+            var expOverallProd2 = this.mockOps.Object.OverallProduct(inputString2);
             int testOverallProd2 = -6;
 
             Assert.AreEqual(expOverallProd2, testOverallProd2);
@@ -101,7 +104,7 @@ namespace CalculatorChatBot.Operations.Tests
         {
             var inputString = "2,10";
 
-            var expectedQuotient = ArithmeticOps.OverallDivision(inputString);
+            var expectedQuotient = this.mockOps.Object.OverallDivision(inputString);
             decimal testQuotient = 0.2m;
 
             Assert.AreEqual(expectedQuotient, testQuotient);
@@ -120,7 +123,7 @@ namespace CalculatorChatBot.Operations.Tests
         public void OverallModuloTest()
         {
             var inputString = "2,10";
-            var expectedResult = ArithmeticOps.OverallModulo(inputString);
+            var expectedResult = this.mockOps.Object.OverallModulo(inputString);
             var testResult = 2;
 
             Assert.AreEqual(expectedResult, testResult);

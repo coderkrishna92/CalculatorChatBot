@@ -116,6 +116,46 @@
             <param name="b">Second leg of the right triangle.</param>
             <returns>A double value that represents the hypotenuse.</returns>
         </member>
+        <member name="T:CalculatorChatBot.Operations.IArithmeticOps">
+            <summary>
+            This method will implement all of the arithmetic functions.
+            </summary>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.IArithmeticOps.OverallSum(System.String)">
+            <summary>
+            This method definition returns the overall sum.
+            </summary>
+            <param name="inputList">The list of integers.</param>
+            <returns>The sum.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.IArithmeticOps.OverallDifference(System.String)">
+            <summary>
+            This method definition returns the overall difference.
+            </summary>
+            <param name="inputList">The list of integers.</param>
+            <returns>The difference.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.IArithmeticOps.OverallProduct(System.String)">
+            <summary>
+            This method definition returns the overall product.
+            </summary>
+            <param name="inputList">The list of integers.</param>
+            <returns>The product of the list of integers.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.IArithmeticOps.OverallModulo(System.String)">
+            <summary>
+            This method definition returns the overall modulo result.
+            </summary>
+            <param name="inputList">The list of integers.</param>
+            <returns>The overall remainder.</returns>
+        </member>
+        <member name="M:CalculatorChatBot.Operations.IArithmeticOps.OverallDivision(System.String)">
+            <summary>
+            This method definition returns the overall quotient.
+            </summary>
+            <param name="inputList">The list of integers.</param>
+            <returns>The overall quotient.</returns>
+        </member>
         <member name="T:CalculatorChatBot.Operations.StatisticalOps">
             <summary>
             This class represents all of the operations that are classified under the statistical
